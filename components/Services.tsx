@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Monitor, Server, FileText } from "lucide-react"
+import { Monitor, Server, FileText, MessageCircle } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { AnimatedSection, AnimatedItem, fadeUp, staggerContainer } from "./animations"
 import SectionLabel from "./SectionLabel"
@@ -94,6 +94,39 @@ const Services = () => (
             </motion.article>
           )
         })}
+      </AnimatedSection>
+
+      <AnimatedSection className="mt-10" variants={fadeUp}>
+        <article
+          aria-labelledby="tranquillite-heading"
+          className="grid gap-6 rounded-2xl border border-brand/30 bg-brand/[0.06] p-6 md:grid-cols-[auto,1fr] md:gap-8 md:p-10"
+        >
+          <div
+            aria-hidden
+            className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand/15 md:h-16 md:w-16"
+          >
+            <MessageCircle
+              className="h-7 w-7 md:h-8 md:w-8"
+              style={{ color: "#AB19F5" }}
+              aria-hidden
+            />
+          </div>
+          <div>
+            <h3
+              id="tranquillite-heading"
+              className="font-display text-2xl font-bold tracking-tight md:text-3xl"
+            >
+              Vous ne gérez rien. Jamais.
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-fg-muted md:text-lg">
+              Pas d&apos;admin compliqué à apprendre, pas de plugin à mettre à
+              jour, pas de panne à 3h du matin. Vous voulez changer une photo ?
+              Ajouter un service ? Mettre à jour vos horaires ? Vous m&apos;envoyez
+              un WhatsApp. C&apos;est en ligne dans la journée. Vous restez
+              concentré sur votre métier — moi, je m&apos;occupe du vôtre.
+            </p>
+          </div>
+        </article>
       </AnimatedSection>
     </div>
   </section>
