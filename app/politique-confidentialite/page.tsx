@@ -246,8 +246,19 @@ const PolitiqueConfidentialitePage = () => (
               </p>
               <ul className="ml-6 list-disc space-y-2">
                 <li>
+                  <span className="font-semibold text-fg">OVH SAS</span>
+                  {" "}(2 rue Kellermann, 59100 Roubaix, France), gestion du
+                  nom de domaine et des boîtes mail.
+                </li>
+                <li>
                   <span className="font-semibold text-fg">Vercel Inc.</span>
-                  , hébergeur du site (USA / Europe).
+                  , hébergement du site sur infrastructure Union Européenne
+                  (région Francfort, Allemagne).
+                </li>
+                <li>
+                  <span className="font-semibold text-fg">Resend Inc.</span>
+                  , envoi des emails de notification du formulaire de
+                  contact via une infrastructure Union Européenne.
                 </li>
                 <li>
                   <span className="font-semibold text-fg">
@@ -257,6 +268,10 @@ const PolitiqueConfidentialitePage = () => (
                   en Union européenne.
                 </li>
               </ul>
+              <p>
+                Aucune donnée n&apos;est transférée vers des pays hors
+                Union Européenne.
+              </p>
             </div>
           </section>
 
