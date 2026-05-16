@@ -17,7 +17,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Proposez-vous l'hébergement et la maintenance du site ?",
     answer:
-      "Oui. Je propose trois formules d'abonnement mensuel : Présence à 29€/mois, Visibilité à 69€/mois avec 1 article SEO inclus, et Croissance à 179€/mois avec 4 articles et gestion de contenu via WhatsApp.",
+      "Oui. Je propose trois formules d'abonnement mensuel : Présence à 20€/mois, Visibilité à 80€/mois avec 1 article SEO inclus, et Croissance à 150€/mois avec 4 articles et gestion de contenu via WhatsApp.",
   },
   {
     question: "Les adresses email sont-elles incluses dans l'abonnement ?",

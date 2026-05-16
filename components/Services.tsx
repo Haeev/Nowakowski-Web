@@ -26,7 +26,7 @@ const SERVICES: Service[] = [
     title: "Hébergement & maintenance",
     description:
       "Je m'occupe de tout. Votre site reste en ligne, à jour et sécurisé. Un problème ? Je suis joignable.",
-    detail: "Dès 29€/mois",
+    detail: "Dès 20€/mois",
   },
   {
     icon: FileText,
