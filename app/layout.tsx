@@ -29,15 +29,14 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://nowakowski-web.vercel.app"
-  ),
+  metadataBase: new URL("https://nowakowski-web.fr"),
   title: {
-    default: "Nowakowski Web : création de sites web à Forbach, Moselle",
+    default: "Nowakowski Web — Sites web pour artisans à Forbach",
     template: "%s | Nowakowski Web",
   },
   description:
-    "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 200€, livré en 5 à 7 jours. Hébergement inclus.",
+    "Création de sites web professionnels pour artisans et PME en Moselle. Conformes RGPD et RGAA. À partir de 1 200€. Livrés en 5 à 7 jours.",
+  manifest: "/manifest.json",
   keywords: [
     "création site web Forbach",
     "création site web Moselle",
@@ -80,7 +79,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Nowakowski Web : création de sites web Forbach Moselle",
+        alt: "Nowakowski Web — Création de sites web Forbach Moselle",
       },
     ],
   },
@@ -98,7 +97,9 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION,
+    google:
+      process.env.GOOGLE_SITE_VERIFICATION ??
+      "TODO_GOOGLE_SEARCH_CONSOLE_CODE",
   },
   category: "business",
 }
