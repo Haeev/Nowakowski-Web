@@ -1,0 +1,17 @@
+{
+  "name": "Nowakowski Web",
+  "short_name": "Nowakowski Web",
+  "description": "Création de sites web pour artisans en Moselle",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0D0D",
+  "theme_color": "#AB19F5",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
