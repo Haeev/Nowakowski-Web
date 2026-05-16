@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
 import Services from "@/components/Services"
+import WhyNowakowski from "@/components/WhyNowakowski"
 import Tarifs from "@/components/Tarifs"
 import ALaCarte from "@/components/ALaCarte"
 import PourquoiMoi from "@/components/PourquoiMoi"
@@ -18,6 +19,7 @@ const HomePage = () => (
     <main id="main-content">
       <Hero />
       <Services />
+      <WhyNowakowski />
       <Tarifs />
       <ALaCarte />
       <PourquoiMoi />
