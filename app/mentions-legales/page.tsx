@@ -105,16 +105,20 @@ const MentionsLegalesPage = () => (
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
               2. Hébergement
             </h2>
-            <div className="mt-4 space-y-2">
-              <p>Le site nowakowski-web.fr est hébergé par :</p>
+            <div className="mt-4 space-y-4">
+              <p>Site hébergé par :</p>
               <p>
                 <span className="font-semibold text-fg">Vercel Inc.</span>
                 <br />
-                340 S Lemon Ave #4133
+                440 N Barranca Ave #4133
                 <br />
-                Walnut, CA 91789
+                Covina, CA 91723
                 <br />
                 États-Unis
+              </p>
+              <p>
+                Infrastructure utilisée : région européenne (Francfort,
+                Allemagne).
               </p>
               <p>
                 Site web :{" "}
@@ -127,6 +131,25 @@ const MentionsLegalesPage = () => (
                   vercel.com
                 </a>
                 .
+              </p>
+
+              <p className="pt-2">
+                Domaine et boîtes mail gérés par :
+              </p>
+              <p>
+                <span className="font-semibold text-fg">OVH SAS</span>
+                <br />
+                2 rue Kellermann
+                <br />
+                59100 Roubaix, France
+                <br />
+                RCS Lille Métropole 424 761 419
+              </p>
+
+              <p className="pt-2">Service d&apos;envoi d&apos;emails :</p>
+              <p>
+                <span className="font-semibold text-fg">Resend Inc.</span>
+                {" "}— infrastructure Union Européenne.
               </p>
             </div>
           </section>
