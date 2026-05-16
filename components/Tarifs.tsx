@@ -22,7 +22,7 @@ type Plan = {
 const PLANS: Plan[] = [
   {
     name: "Présence",
-    priceValue: 29,
+    priceValue: 20,
     period: "/mois",
     features: [
       "Hébergement & domaine inclus",
@@ -33,7 +33,7 @@ const PLANS: Plan[] = [
   },
   {
     name: "Visibilité",
-    priceValue: 69,
+    priceValue: 80,
     period: "/mois",
     features: [
       "Tout Présence inclus",
@@ -45,7 +45,7 @@ const PLANS: Plan[] = [
   },
   {
     name: "Croissance",
-    priceValue: 179,
+    priceValue: 150,
     period: "/mois",
     features: [
       "Tout Visibilité inclus",
