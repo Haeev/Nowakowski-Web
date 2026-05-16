@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <!-- Monogramme NW -->
+  <g>
+    <!-- N -->
+    <path d="M12 12 L12 48 L18 48 L30 24 L30 48 L36 48 L36 12 L30 12 L18 36 L18 12 Z" fill="#F5F0FF"/>
+    <!-- W -->
+    <path d="M44 12 L50 38 L58 18 L66 38 L72 12 L78 12 L70 48 L64 48 L58 28 L52 48 L46 48 L38 12 Z" fill="#F5F0FF"/>
+  </g>
+  <!-- Texte -->
+  <text x="92" y="28" font-family="Inter, Poppins, sans-serif" font-weight="700" font-size="14" fill="#F5F0FF" letter-spacing="1">NOWAKOWSKI</text>
+  <text x="92" y="44" font-family="Inter, Poppins, sans-serif" font-weight="400" font-size="10" fill="#C4B5FD" letter-spacing="3">WEB</text>
+</svg>

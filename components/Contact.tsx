@@ -1,0 +1,151 @@
+"use client"
+
+import { type FormEvent, useState } from "react"
+import { motion } from "framer-motion"
+import { Mail, Phone, MapPin, ArrowRight, CheckCircle2 } from "lucide-react"
+import { AnimatedSection, AnimatedItem, fadeUp } from "./animations"
+import ObfuscatedEmail from "./ObfuscatedEmail"
+
+const Contact = () => {
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    /* TODO: connecter à Resend ou Formspree pour l'envoi réel */
+    setSubmitted(true)
+  }
+
+  return (
+    <section
+      id="contact"
+      className="grain-overlay py-16 md:py-20 bg-white dark:bg-[#0D0D0D]"
+    >
+      <div className="container">
+        <AnimatedSection className="mx-auto max-w-3xl text-center">
+          <AnimatedItem variants={fadeUp}>
+            <h2 className="font-display text-5xl font-extrabold tracking-tight md:text-6xl lg:text-7xl text-balance">
+              On travaille
+              <br />
+              ensemble ?
+            </h2>
+          </AnimatedItem>
+          <AnimatedItem variants={fadeUp}>
+            <p className="mx-auto mt-6 max-w-xl text-lg text-fg-muted">
+              Décrivez votre projet. Je reviens vers vous sous 24h.
+            </p>
+          </AnimatedItem>
+        </AnimatedSection>
+
+        <AnimatedSection
+          className="mx-auto mt-10 max-w-2xl"
+          variants={fadeUp}
+        >
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-5 rounded-2xl border border-border bg-surface p-6 md:p-8"
+          >
+            <div>
+              <label
+                htmlFor="contact-name"
+                className="mb-2 block text-sm font-semibold"
+              >
+                Prénom & Nom
+              </label>
+              <input
+                id="contact-name"
+                name="name"
+                type="text"
+                required
+                autoComplete="name"
+                placeholder="Loïc Nowakowski"
+                className="w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="contact-contact"
+                className="mb-2 block text-sm font-semibold"
+              >
+                Téléphone ou email
+              </label>
+              <input
+                id="contact-contact"
+                name="contact"
+                type="text"
+                required
+                autoComplete="email"
+                placeholder="06 12 34 56 78 ou vous@exemple.fr"
+                className="w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="contact-message"
+                className="mb-2 block text-sm font-semibold"
+              >
+                Votre message
+              </label>
+              <textarea
+                id="contact-message"
+                name="message"
+                required
+                rows={4}
+                placeholder="Parlez-moi de votre activité et de ce que vous voulez faire en ligne…"
+                className="w-full resize-y rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none"
+              />
+            </div>
+            <motion.button
+              whileHover={{ scale: submitted ? 1 : 1.02 }}
+              whileTap={{ scale: submitted ? 1 : 0.97 }}
+              type="submit"
+              disabled={submitted}
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-shadow duration-200 hover:shadow-brand-glow disabled:cursor-not-allowed disabled:opacity-80"
+            >
+              {submitted ? (
+                <>
+                  <CheckCircle2 className="h-4 w-4" aria-hidden />
+                  Merci, je reviens vers vous sous 24h
+                </>
+              ) : (
+                <>
+                  Envoyer
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    aria-hidden
+                  />
+                </>
+              )}
+            </motion.button>
+          </form>
+        </AnimatedSection>
+
+        <AnimatedSection className="mx-auto mt-10 max-w-3xl" variants={fadeUp}>
+          <ul className="flex flex-col flex-wrap items-center justify-center gap-x-8 gap-y-4 sm:flex-row">
+            <li>
+              <span className="inline-flex items-center gap-2 text-sm text-fg-muted transition-colors hover:text-brand">
+                <Mail className="h-4 w-4 text-brand" aria-hidden />
+                <ObfuscatedEmail className="text-fg-muted transition-colors hover:text-brand" />
+              </span>
+            </li>
+            <li>
+              <a href="tel:+33652769372" className="inline-flex">
+                <span className="inline-flex items-center gap-2 text-sm text-fg-muted transition-colors hover:text-brand">
+                  <Phone className="h-4 w-4 text-brand" aria-hidden />
+                  06 52 76 93 72
+                </span>
+              </a>
+            </li>
+            <li>
+              <span className="inline-flex items-center gap-2 text-sm text-fg-muted">
+                <MapPin className="h-4 w-4 text-brand" aria-hidden />
+                Stiring-Wendel, Moselle (57)
+              </span>
+            </li>
+          </ul>
+        </AnimatedSection>
+      </div>
+    </section>
+  )
+}
+
+export default Contact
