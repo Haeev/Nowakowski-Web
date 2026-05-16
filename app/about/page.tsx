@@ -74,7 +74,7 @@ const VALUES: Value[] = [
 const AboutPage = () => (
   <>
     <Nav />
-    <main>
+    <main id="main-content">
       <section className="relative overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16">
         <div
           aria-hidden

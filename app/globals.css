@@ -49,7 +49,20 @@
   }
 
   *:focus-visible {
-    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-bg rounded-sm;
+    outline: 2px solid #AB19F5;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* RGAA contrast: violet #AB19F5 on light bg is borderline (≈3.5:1).
+     Switch text color to the darker brand-700 (#7A0FAD) in light mode
+     to meet WCAG AA for normal text. Backgrounds/borders keep #AB19F5. */
+  html:not(.dark) .text-brand {
+    color: #7A0FAD;
   }
 }
 
