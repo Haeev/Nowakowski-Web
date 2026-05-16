@@ -62,4 +62,24 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer:
       "Je reparts toujours de zéro. Si votre site actuel ne vous convient plus, je crée un nouveau site complet plutôt que de modifier l'existant. C'est plus propre, plus rapide, et ça évite de traîner les problèmes techniques d'un ancien site.",
   },
+  {
+    question: "Mon site sera-t-il conforme RGPD et RGAA ?",
+    answer:
+      "Oui. Tous les sites Nowakowski Web sont livrés avec mentions légales, politique de confidentialité et CGV conformes RGPD. L'accessibilité (RGAA) est intégrée par défaut : structure sémantique, contrastes vérifiés, navigation au clavier, compatibilité lecteurs d'écran.",
+  },
+  {
+    question: "Où est hébergé mon site ?",
+    answer:
+      "Votre nom de domaine et vos emails sont gérés en France via OVH. Le site est servi depuis une infrastructure européenne haute performance (région Francfort) avec un CDN mondial pour un chargement ultra-rapide. Vos données restent en Europe.",
+  },
+  {
+    question: "Puis-je modifier moi-même mon site ?",
+    answer:
+      "Pas besoin. Vous m'envoyez un WhatsApp ou un email avec ce que vous voulez changer, et c'est mis à jour dans la journée. C'est inclus dans votre abonnement mensuel. Vous restez concentré sur votre métier.",
+  },
+  {
+    question: "Que se passe-t-il si j'arrête mon abonnement ?",
+    answer:
+      "Vous repartez avec tout : nom de domaine, code source, contenus, accès. Aucun verrouillage. C'est votre site, vous en restez propriétaire à 100%. Préavis simple de 30 jours par email.",
+  },
 ]
