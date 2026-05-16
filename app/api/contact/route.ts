@@ -4,8 +4,6 @@ import { Resend } from "resend"
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const escapeHtml = (value: string) =>
   value
     .replace(/&/g, "&amp;")
@@ -43,16 +41,21 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    const apiKey = process.env.RESEND_API_KEY
     const fromAddress = process.env.CONTACT_EMAIL_FROM
     const toAddress = process.env.CONTACT_EMAIL_TO
 
-    if (!fromAddress || !toAddress) {
-      console.error("Contact API: missing CONTACT_EMAIL_FROM or CONTACT_EMAIL_TO")
+    if (!apiKey || !fromAddress || !toAddress) {
+      console.error(
+        "Contact API: missing RESEND_API_KEY, CONTACT_EMAIL_FROM or CONTACT_EMAIL_TO",
+      )
       return NextResponse.json(
         { error: "Configuration serveur incomplète." },
         { status: 500 },
       )
     }
+
+    const resend = new Resend(apiKey)
 
     const safeName = escapeHtml(name)
     const safeContact = escapeHtml(contact)
