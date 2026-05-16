@@ -6,13 +6,49 @@ import { Mail, Phone, MapPin, ArrowRight, CheckCircle2 } from "lucide-react"
 import { AnimatedSection, AnimatedItem, fadeUp } from "./animations"
 import ObfuscatedEmail from "./ObfuscatedEmail"
 
-const Contact = () => {
-  const [submitted, setSubmitted] = useState(false)
+type SubmitStatus = "idle" | "loading" | "success" | "error"
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+const Contact = () => {
+  const [name, setName] = useState("")
+  const [contact, setContact] = useState("")
+  const [message, setMessage] = useState("")
+  const [status, setStatus] = useState<SubmitStatus>("idle")
+  const [errorMsg, setErrorMsg] = useState("")
+
+  const isLoading = status === "loading"
+  const isSuccess = status === "success"
+  const isError = status === "error"
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    /* TODO: connecter à Resend ou Formspree pour l'envoi réel */
-    setSubmitted(true)
+    if (isLoading) return
+
+    setStatus("loading")
+    setErrorMsg("")
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, contact, message }),
+      })
+
+      const data = (await res.json().catch(() => ({}))) as {
+        error?: string
+      }
+
+      if (!res.ok) {
+        throw new Error(data?.error || "Erreur lors de l'envoi.")
+      }
+
+      setStatus("success")
+      setName("")
+      setContact("")
+      setMessage("")
+    } catch (err) {
+      setStatus("error")
+      setErrorMsg(err instanceof Error ? err.message : "Erreur inconnue.")
+    }
   }
 
   return (
@@ -42,7 +78,9 @@ const Contact = () => {
         >
           <form
             onSubmit={handleSubmit}
+            aria-label="Formulaire de contact"
             className="space-y-5 rounded-2xl border border-border bg-surface p-6 md:p-8"
+            noValidate
           >
             <div>
               <label
@@ -56,9 +94,14 @@ const Contact = () => {
                 name="name"
                 type="text"
                 required
+                aria-required="true"
                 autoComplete="name"
+                maxLength={200}
+                value={name}
+                onChange={(event) => setName(event.target.value)}
                 placeholder="Loïc Nowakowski"
-                className="w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none"
+                disabled={isLoading}
+                className="w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none disabled:opacity-60"
               />
             </div>
             <div>
@@ -73,9 +116,14 @@ const Contact = () => {
                 name="contact"
                 type="text"
                 required
+                aria-required="true"
                 autoComplete="email"
+                maxLength={200}
+                value={contact}
+                onChange={(event) => setContact(event.target.value)}
                 placeholder="06 12 34 56 78 ou vous@exemple.fr"
-                className="w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none"
+                disabled={isLoading}
+                className="w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none disabled:opacity-60"
               />
             </div>
             <div>
@@ -89,23 +137,34 @@ const Contact = () => {
                 id="contact-message"
                 name="message"
                 required
+                aria-required="true"
+                aria-invalid={isError ? "true" : undefined}
+                aria-describedby={isError ? "contact-error" : undefined}
                 rows={4}
+                maxLength={5000}
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
                 placeholder="Parlez-moi de votre activité et de ce que vous voulez faire en ligne…"
-                className="w-full resize-y rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none"
+                disabled={isLoading}
+                className="w-full resize-y rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none disabled:opacity-60"
               />
             </div>
+
             <motion.button
-              whileHover={{ scale: submitted ? 1 : 1.02 }}
-              whileTap={{ scale: submitted ? 1 : 0.97 }}
+              whileHover={{ scale: isLoading || isSuccess ? 1 : 1.02 }}
+              whileTap={{ scale: isLoading || isSuccess ? 1 : 0.97 }}
               type="submit"
-              disabled={submitted}
+              disabled={isLoading || isSuccess}
+              aria-busy={isLoading}
               className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-shadow duration-200 hover:shadow-brand-glow disabled:cursor-not-allowed disabled:opacity-80"
             >
-              {submitted ? (
+              {isSuccess ? (
                 <>
                   <CheckCircle2 className="h-4 w-4" aria-hidden />
                   Merci, je reviens vers vous sous 24h
                 </>
+              ) : isLoading ? (
+                <>Envoi…</>
               ) : (
                 <>
                   Envoyer
@@ -116,6 +175,26 @@ const Contact = () => {
                 </>
               )}
             </motion.button>
+
+            <div
+              role="status"
+              aria-live="polite"
+              className="min-h-[1.25rem] text-sm"
+            >
+              {isSuccess && (
+                <p className="text-center text-fg-muted">
+                  Merci, je reviens vers vous sous 24h.
+                </p>
+              )}
+              {isError && (
+                <p
+                  id="contact-error"
+                  className="text-center font-medium text-[#F51934]"
+                >
+                  {errorMsg}
+                </p>
+              )}
+            </div>
           </form>
         </AnimatedSection>
 
