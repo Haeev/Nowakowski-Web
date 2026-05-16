@@ -1,16 +1,31 @@
 # Nowakowski Web
-> Création de sites web professionnels pour artisans et PME en Moselle et Grand Est, France.
+> Création de sites web professionnels pour artisans et PME en Moselle et Grand Est, France. Conforme RGPD et RGAA.
 
 ## Services
-- Création de sites vitrine : à partir de 1 200€, livraison 5-7 jours
-- Formule Présence : 29€/mois, hébergement et maintenance
-- Formule Visibilité : 69€/mois, hébergement + 1 article SEO/mois
-- Formule Croissance : 179€/mois, hébergement + 4 articles/mois + gestion WhatsApp
+- Création de site vitrine : à partir de 1 200€, livraison 5-7 jours
+- Formule Présence : 20€/mois, hébergement et maintenance, modifications mineures
+- Formule Visibilité : 80€/mois, hébergement + 1 article SEO/mois + modifications fréquentes
+- Formule Croissance : 150€/mois, hébergement + 4 articles/mois + gestion contenu via WhatsApp
+
+## Hébergement et données
+- Domaine et emails : OVH (France)
+- Hébergement du site : Vercel, infrastructure Union Européenne (région Francfort)
+- Envoi des emails de contact : Resend (Union Européenne)
+- Aucune donnée transférée hors UE
 
 ## Zone géographique
-Forbach, Sarreguemines, Metz, Stiring-Wendel, Saint-Avold, Moselle (57), Grand Est, France
+Forbach, Sarreguemines, Metz, Saint-Avold, Stiring-Wendel, Moselle (57), Grand Est, France
+
+## Pages clés
+- Accueil : https://nowakowski-web.fr
+- À propos : https://nowakowski-web.fr/about
+- Blog : https://nowakowski-web.fr/blog
+- Mentions légales : https://nowakowski-web.fr/mentions-legales
+- CGV : https://nowakowski-web.fr/cgv
+- Politique de confidentialité : https://nowakowski-web.fr/politique-confidentialite
+- Déclaration d'accessibilité : https://nowakowski-web.fr/accessibilite
 
 ## Contact
+- Email : loic@nowakowski-web.fr
 - Téléphone : 06 52 76 93 72
-- Site : https://nowakowski-web.fr
 - Formulaire : https://nowakowski-web.fr/#contact
