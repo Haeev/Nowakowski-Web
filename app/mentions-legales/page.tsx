@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const MentionsLegalesPage = () => (
   <>
     <Nav />
-    <main className="py-12 md:py-16">
+    <main id="main-content" className="py-12 md:py-16">
       <div className="container max-w-3xl">
         <header className="mb-10">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand">

@@ -15,7 +15,7 @@ const HomePage = () => (
   <>
     <JsonLd />
     <Nav />
-    <main>
+    <main id="main-content">
       <Hero />
       <Services />
       <Tarifs />

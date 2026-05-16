@@ -131,7 +131,7 @@ const ArticlePage = async ({ params }: PageProps) => {
   return (
     <>
       <Nav />
-      <main>
+      <main id="main-content">
         <article>
           <header className="relative overflow-hidden pt-12 pb-10 md:pt-16 md:pb-12">
             <div
