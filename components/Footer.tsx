@@ -1,18 +1,19 @@
 import Link from "next/link"
 import ObfuscatedEmail from "./ObfuscatedEmail"
 
-const FOOTER_LINKS = [
+const PRIMARY_LINKS = [
   { label: "Services", href: "/#services" },
   { label: "Tarifs", href: "/#tarifs" },
   { label: "Réalisations", href: "/#realisations" },
+  { label: "Blog", href: "/blog" },
   { label: "À propos", href: "/about" },
   { label: "Contact", href: "/#contact" },
-  { label: "Blog", href: "/blog" },
 ]
 
 const LEGAL_LINKS = [
   { label: "Mentions légales", href: "/mentions-legales" },
   { label: "CGV", href: "/cgv" },
+  { label: "Accessibilité", href: "/accessibilite" },
   { label: "Politique de confidentialité", href: "/politique-confidentialite" },
 ]
 
@@ -23,16 +24,19 @@ const Footer = () => (
       <div className="grid gap-10 md:grid-cols-3 md:gap-8">
         <div>
           <p className="font-display text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
-            Nowakowski<span className="text-brand">.</span>
+            Nowakowski Web<span className="text-brand">.</span>
           </p>
           <p className="mt-2 text-sm text-fg-muted">
-            © 2026 · Stiring-Wendel, Moselle
+            © 2026 · Stiring-Wendel, Moselle (57)
           </p>
         </div>
 
-        <nav aria-label="Navigation pied de page" className="md:justify-self-center">
+        <nav
+          aria-label="Navigation pied de page"
+          className="md:justify-self-center"
+        >
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-            {FOOTER_LINKS.map((link) => (
+            {PRIMARY_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -79,6 +83,10 @@ const Footer = () => (
           ))}
         </nav>
         <p className="mt-6 text-center text-xs text-fg-subtle">
+          <span aria-hidden>🇫🇷</span> Domaine et emails en France ·
+          Infrastructure européenne · Conforme RGPD &amp; RGAA
+        </p>
+        <p className="mt-3 text-center text-xs text-fg-subtle">
           Création de sites web pour artisans et PME · Forbach · Sarreguemines ·
           Metz · Moselle · Grand Est
         </p>
