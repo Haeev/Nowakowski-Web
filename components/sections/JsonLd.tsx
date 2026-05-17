@@ -21,7 +21,6 @@ const buildJsonLd = () => ({
       founder: { "@id": `${SITE_URL}/#loic` },
       address: {
         "@type": "PostalAddress",
-        streetAddress: siteConfig.address.street,
         addressLocality: siteConfig.address.locality,
         addressRegion: siteConfig.address.region,
         postalCode: siteConfig.address.postalCode,
@@ -100,13 +99,12 @@ const buildJsonLd = () => ({
           "@type": "Offer",
           name: "Création de site vitrine",
           description:
-            "Site vitrine professionnel pour artisans et PME, livré en 5 à 7 jours.",
+            "Site vitrine professionnel pour artisans et PME en Moselle et Grand Est, livré en 2 semaines en moyenne.",
           priceSpecification: {
             "@type": "PriceSpecification",
             price: "1200",
             priceCurrency: "EUR",
             minPrice: "1200",
-            maxPrice: "2000",
           },
         },
       ],
@@ -158,7 +156,8 @@ const buildJsonLd = () => ({
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
       name: siteConfig.name,
-      description: "Création de sites web pour artisans et PME en Moselle",
+      description:
+        "Création de sites web pour artisans et PME en Moselle et Grand Est",
       publisher: { "@id": `${SITE_URL}/#business` },
       inLanguage: "fr-FR",
     },

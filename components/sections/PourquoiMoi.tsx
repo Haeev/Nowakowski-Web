@@ -41,10 +41,11 @@ const PourquoiMoi = () => (
           </AnimatedItem>
           <AnimatedItem variants={fadeUp}>
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg-muted">
-              Je ne suis pas une agence avec 15 intermédiaires. Je suis{" "}
+              Je ne suis pas une agence : je suis une personne. Vous n&apos;êtes
+              pas un dossier dans un CRM, vous parlez avec moi directement, du
+              premier message à la livraison. Je suis{" "}
               {siteConfig.founder.givenName}, basé à{" "}
-              {siteConfig.address.locality}, et je travaille directement avec
-              vous, de la première conversation à la livraison.
+              {siteConfig.address.locality}.
             </p>
             <Link
               href="/about"

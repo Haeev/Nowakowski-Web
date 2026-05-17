@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, ArrowRight, CheckCircle2 } from "lucide-react"
 import { AnimatedSection, AnimatedItem, fadeUp } from "../ui/animations"
 import ObfuscatedEmail from "../ui/ObfuscatedEmail"
 import { getTelHref, siteConfig } from "@/lib/site-config"
-import { Container, Section, SectionHeading } from "../ui"
+import { Container, Section, SectionHeading, WhatsAppButton } from "../ui"
 
 type SubmitStatus = "idle" | "loading" | "success" | "error"
 
@@ -201,6 +201,26 @@ const Contact = () => {
               )}
             </div>
           </form>
+        </AnimatedSection>
+
+        <AnimatedSection
+          className="mx-auto mt-8 max-w-2xl"
+          variants={fadeUp}
+        >
+          <div
+            className="flex items-center gap-4"
+            role="separator"
+            aria-label="ou plus rapide"
+          >
+            <span className="h-px flex-1 bg-border" aria-hidden />
+            <span className="text-xs uppercase tracking-wider text-fg-muted">
+              ou plus rapide :
+            </span>
+            <span className="h-px flex-1 bg-border" aria-hidden />
+          </div>
+          <div className="mt-6">
+            <WhatsAppButton variant="primary" size="block" />
+          </div>
         </AnimatedSection>
 
         <AnimatedSection className="mx-auto mt-10 max-w-3xl" variants={fadeUp}>

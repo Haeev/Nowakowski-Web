@@ -12,9 +12,13 @@ export const siteConfig = {
     phoneDisplay: "06 52 76 93 72",
     emailParts: ["loic", "@", "nowakowski-web", ".", "fr"] as const,
     emailLabel: "M'écrire par email",
+    whatsapp: {
+      number: "33652769372",
+      message:
+        "Bonjour, je suis intéressé par la création d'un site web pour mon activité.",
+    },
   },
   address: {
-    street: "40 rue Victor Hugo",
     locality: "Stiring-Wendel",
     region: "Moselle",
     postalCode: "57350",
@@ -50,3 +54,11 @@ export const getEmail = (): string =>
 
 export const getTelHref = (): string =>
   `tel:${siteConfig.contact.phoneRaw}`
+
+export const getWhatsAppHref = (
+  customMessage?: string,
+): string => {
+  const { number, message } = siteConfig.contact.whatsapp
+  const text = encodeURIComponent(customMessage ?? message)
+  return `https://wa.me/${number}?text=${text}`
+}
