@@ -3,12 +3,9 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-
-const TRUST_BADGES = [
-  "✓ Livraison en 5 à 7 jours",
-  "✓ Hébergement inclus",
-  "✓ Support réactif",
-]
+import { TRUST_BADGES } from "@/lib/content/trust-badges"
+import { siteConfig } from "@/lib/site-config"
+import { Button, Container } from "../ui"
 
 const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1]
 
@@ -39,7 +36,7 @@ const Hero = () => (
       WEB
     </span>
 
-    <div className="container">
+    <Container>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -47,7 +44,8 @@ const Hero = () => (
         className="mb-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand"
       >
         <span aria-hidden className="inline-block h-px w-8 bg-brand" />
-        Nowakowski Web · Stiring-Wendel, Moselle
+        {siteConfig.name} · {siteConfig.address.locality},{" "}
+        {siteConfig.address.region}
       </motion.p>
 
       <h1 className="font-display font-extrabold tracking-tight text-balance text-5xl leading-[1.1] sm:text-6xl md:text-7xl lg:text-8xl lg:leading-[1.05]">
@@ -110,16 +108,11 @@ const Hero = () => (
           whileTap={{ scale: 0.97 }}
           transition={{ duration: 0.2 }}
         >
-          <Link
-            href="#tarifs"
-            className="inline-flex items-center justify-center rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-white shadow-soft transition-shadow duration-200 hover:shadow-brand-glow"
-          >
-            Voir les tarifs
-          </Link>
+          <Button href="#tarifs">Voir les tarifs</Button>
         </motion.div>
         <Link
           href="#realisations"
-          className="group inline-flex items-center gap-2 text-sm font-semibold text-fg transition-colors duration-200 hover:text-[#F51934]"
+          className="group inline-flex items-center gap-2 text-sm font-semibold text-fg transition-colors duration-200 hover:text-brand-red"
         >
           Voir les réalisations
           <ArrowRight
@@ -147,7 +140,7 @@ const Hero = () => (
         ))}
       </motion.ul>
 
-    </div>
+    </Container>
 
     <motion.a
       href="#services"

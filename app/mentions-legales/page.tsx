@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
-import Nav from "@/components/Nav"
-import Footer from "@/components/Footer"
-import ObfuscatedEmail from "@/components/ObfuscatedEmail"
+import Nav from "@/components/layout/Nav"
+import Footer from "@/components/layout/Footer"
+import ObfuscatedEmail from "@/components/ui/ObfuscatedEmail"
 
 export const metadata: Metadata = {
   title: "Mentions légales",

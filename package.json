@@ -13,6 +13,7 @@
     "@portabletext/react": "^3.2.4",
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^3.99.0",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "gray-matter": "4.0.3",
     "lucide-react": "0.453.0",
@@ -23,7 +24,8 @@
     "react-dom": "18.3.1",
     "resend": "^6.12.3",
     "sanity": "^3.99.0",
-    "styled-components": "^6.4.1"
+    "styled-components": "^6.4.1",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@types/node": "20.16.10",

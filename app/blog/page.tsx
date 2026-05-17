@@ -3,8 +3,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Clock } from "lucide-react"
 
-import Nav from "@/components/Nav"
-import Footer from "@/components/Footer"
+import Nav from "@/components/layout/Nav"
+import Footer from "@/components/layout/Footer"
 import { getAllArticles } from "@/sanity/lib/queries"
 import { urlForImage } from "@/sanity/lib/image"
 

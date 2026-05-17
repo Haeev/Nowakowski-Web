@@ -1,22 +1,21 @@
 import { getAllRealisations } from "@/lib/realisations"
-import { AnimatedSection, AnimatedItem, staggerContainer, fadeUp } from "./animations"
-import SectionLabel from "./SectionLabel"
-import RealisationCard from "./RealisationCard"
+import { AnimatedSection, AnimatedItem, staggerContainer, fadeUp } from "../ui/animations"
+import SectionLabel from "../ui/SectionLabel"
+import RealisationCard from "../ui/RealisationCard"
+import { Container, Section, SectionHeading } from "../ui"
 
 const Realisations = () => {
   const realisations = getAllRealisations()
 
   return (
-    <section id="realisations" className="py-16 md:py-20">
-      <div className="container">
+    <Section id="realisations">
+      <Container>
         <AnimatedSection className="max-w-3xl">
           <AnimatedItem>
             <SectionLabel accent="red">Réalisations</SectionLabel>
           </AnimatedItem>
           <AnimatedItem variants={fadeUp}>
-            <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance">
-              Des sites qui travaillent.
-            </h2>
+            <SectionHeading>Des sites qui travaillent.</SectionHeading>
           </AnimatedItem>
         </AnimatedSection>
 
@@ -30,12 +29,15 @@ const Realisations = () => {
             variants={staggerContainer}
           >
             {realisations.map((realisation) => (
-              <RealisationCard key={realisation.slug} realisation={realisation} />
+              <RealisationCard
+                key={realisation.slug}
+                realisation={realisation}
+              />
             ))}
           </AnimatedSection>
         )}
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }
 

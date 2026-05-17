@@ -3,6 +3,9 @@ import { Poppins, Inter } from "next/font/google"
 import Script from "next/script"
 import Providers from "./providers"
 import "./globals.css"
+import { getSiteUrl, getSiteUrlObject, isProduction } from "@/lib/env"
+import { siteConfig } from "@/lib/site-config"
+import PreviewBanner from "@/components/ui/PreviewBanner"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -28,11 +31,13 @@ export const viewport: Viewport = {
   ],
 }
 
+const SITE_URL = getSiteUrl()
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nowakowski-web.fr"),
+  metadataBase: getSiteUrlObject(),
   title: {
-    default: "Nowakowski Web — Sites web pour artisans à Forbach",
-    template: "%s | Nowakowski Web",
+    default: `${siteConfig.name} — Sites web pour artisans à Forbach`,
+    template: `%s | ${siteConfig.name}`,
   },
   description:
     "Création de sites web professionnels pour artisans et PME en Moselle. Conformes RGPD et RGAA. À partir de 1 200€. Livrés en 5 à 7 jours.",
@@ -51,27 +56,39 @@ export const metadata: Metadata = {
     "hébergement site web Moselle",
     "maintenance site web Forbach",
   ],
-  authors: [{ name: "Loïc Nowakowski", url: "https://nowakowski-web.fr" }],
-  creator: "Loïc Nowakowski",
-  publisher: "Nowakowski Web",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  authors: [
+    { name: siteConfig.founder.fullName, url: siteConfig.productionUrl },
+  ],
+  creator: siteConfig.founder.fullName,
+  publisher: siteConfig.name,
+  robots: isProduction()
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      }
+    : {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: {
+          index: false,
+          follow: false,
+          noimageindex: true,
+        },
+      },
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://nowakowski-web.fr",
-    siteName: "Nowakowski Web",
-    title:
-      "Nowakowski Web : sites web pour artisans à Forbach et en Moselle",
+    url: SITE_URL,
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} : sites web pour artisans à Forbach et en Moselle`,
     description:
       "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 200€, livré en 5 à 7 jours. Hébergement inclus.",
     images: [
@@ -79,21 +96,21 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Nowakowski Web — Création de sites web Forbach Moselle",
+        alt: `${siteConfig.name} — Création de sites web Forbach Moselle`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nowakowski Web : sites web pour artisans en Moselle",
+    title: `${siteConfig.name} : sites web pour artisans en Moselle`,
     description:
       "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 200€, livré en 5 à 7 jours. Hébergement inclus.",
     images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://nowakowski-web.fr",
+    canonical: siteConfig.productionUrl,
     languages: {
-      "fr-FR": "https://nowakowski-web.fr",
+      "fr-FR": siteConfig.productionUrl,
     },
   },
   verification: {
@@ -117,13 +134,16 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       >
         Aller au contenu principal
       </a>
+      <PreviewBanner />
       <Providers>{children}</Providers>
-      <Script
-        defer
-        data-domain="nowakowski-web.fr"
-        src="https://plausible.io/js/script.js"
-        strategy="afterInteractive"
-      />
+      {isProduction() && (
+        <Script
+          defer
+          data-domain={siteConfig.analytics.plausibleDomain}
+          src={siteConfig.analytics.plausibleScript}
+          strategy="afterInteractive"
+        />
+      )}
     </body>
   </html>
 )

@@ -1,5 +1,7 @@
 "use client"
 
+import { getEmail, siteConfig } from "@/lib/site-config"
+
 type ObfuscatedEmailProps = {
   className?: string
   label?: string
@@ -8,12 +10,11 @@ type ObfuscatedEmailProps = {
 
 const ObfuscatedEmail = ({
   className,
-  label = "M'écrire par email",
+  label = siteConfig.contact.emailLabel,
   showIcon,
 }: ObfuscatedEmailProps) => {
   const handleClick = () => {
-    const email = ["loic", "@", "nowakowski-web", ".", "fr"].join("")
-    window.location.href = `mailto:${email}`
+    window.location.href = `mailto:${getEmail()}`
   }
 
   return (
