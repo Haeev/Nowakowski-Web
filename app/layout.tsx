@@ -36,7 +36,7 @@ const SITE_URL = getSiteUrl()
 export const metadata: Metadata = {
   metadataBase: getSiteUrlObject(),
   title: {
-    default: `${siteConfig.name} — Sites web pour artisans à Forbach`,
+    default: `${siteConfig.name} — Sites web pour artisans en Moselle et Grand Est`,
     template: `%s | ${siteConfig.name}`,
   },
   description:
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} — Création de sites web Forbach Moselle`,
+        alt: `${siteConfig.name} — Création de sites web Moselle Grand Est`,
       },
     ],
   },

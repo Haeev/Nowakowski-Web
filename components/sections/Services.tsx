@@ -62,14 +62,14 @@ const Services = () => (
               id="tranquillite-heading"
               className="font-display text-2xl font-bold tracking-tight md:text-3xl"
             >
-              Vous ne gérez rien. Jamais.
+              Une seule personne pour tout.
             </h3>
             <p className="mt-4 text-base leading-relaxed text-fg-muted md:text-lg">
               Pas d&apos;admin compliqué à apprendre, pas de plugin à mettre à
               jour, pas de panne à 3h du matin. Vous voulez changer une photo ?
-              Ajouter un service ? Mettre à jour vos horaires ? Vous m&apos;envoyez
-              un WhatsApp. C&apos;est en ligne dans la journée. Vous restez
-              concentré sur votre métier — moi, je m&apos;occupe du vôtre.
+              Ajouter un service ? Mettre à jour vos horaires ? Vous
+              m&apos;envoyez un WhatsApp. C&apos;est en ligne dans la journée.
+              Vous restez concentré sur votre métier.
             </p>
           </div>
         </article>

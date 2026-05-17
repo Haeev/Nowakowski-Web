@@ -43,8 +43,8 @@ const Tarifs = () => (
             À partir de 1 200€
           </p>
           <p className="mt-5 max-w-2xl text-base text-fg-muted md:text-lg">
-            Devis personnalisé · Livraison en 5 à 7 jours · 50% à la commande,
-            50% à la livraison
+            Devis personnalisé · Livraison en 2 semaines en moyenne · Paiement
+            en plusieurs fois possible (3x, 4x ou 12x sans frais)
           </p>
           <motion.div
             whileHover={{ scale: 1.03 }}

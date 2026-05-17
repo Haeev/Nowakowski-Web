@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { TRUST_BADGES } from "@/lib/content/trust-badges"
 import { siteConfig } from "@/lib/site-config"
-import { Button, Container } from "../ui"
+import { Button, Container, WhatsAppButton } from "../ui"
 
 const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1]
 
@@ -101,7 +101,7 @@ const Hero = () => (
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.65, duration: 0.6, ease: EASE }}
-        className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+        className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center"
       >
         <motion.div
           whileHover={{ scale: 1.03 }}
@@ -109,6 +109,13 @@ const Hero = () => (
           transition={{ duration: 0.2 }}
         >
           <Button href="#tarifs">Voir les tarifs</Button>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          transition={{ duration: 0.2 }}
+        >
+          <WhatsAppButton variant="outline" size="lg" />
         </motion.div>
         <Link
           href="#realisations"

@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer"
 import Hero from "@/components/sections/Hero"
 import Services from "@/components/sections/Services"
 import WhyNowakowski from "@/components/sections/WhyNowakowski"
+import Processus from "@/components/sections/Processus"
 import Tarifs from "@/components/sections/Tarifs"
 import ALaCarte from "@/components/sections/ALaCarte"
 import PourquoiMoi from "@/components/sections/PourquoiMoi"
@@ -20,6 +21,7 @@ const HomePage = () => (
       <Hero />
       <Services />
       <WhyNowakowski />
+      <Processus />
       <Tarifs />
       <ALaCarte />
       <PourquoiMoi />

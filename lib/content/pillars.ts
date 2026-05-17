@@ -1,4 +1,4 @@
-import { MapPin, Zap, Shield, MessageCircle, type LucideIcon } from "lucide-react"
+import { MapPin, Zap, ShieldCheck, MessageCircle, type LucideIcon } from "lucide-react"
 
 export type Pillar = {
   icon: LucideIcon
@@ -9,9 +9,9 @@ export type Pillar = {
 export const PILLARS: Pillar[] = [
   {
     icon: MapPin,
-    title: "Local",
+    title: "Direct",
     description:
-      "Moselle et Grand Est. Je connais vos clients parce que je suis d'ici.",
+      "Vous parlez à la personne qui fait votre site, pas à un commercial. Une seule personne, du devis à la livraison.",
   },
   {
     icon: Zap,
@@ -19,9 +19,10 @@ export const PILLARS: Pillar[] = [
     description: "Site livré en 5 à 7 jours. Pas 3 mois d'attente.",
   },
   {
-    icon: Shield,
-    title: "Sans risque",
-    description: "Vous payez en deux fois. Pas de mauvaise surprise.",
+    icon: ShieldCheck,
+    title: "Garantie 30 jours",
+    description:
+      "Pas satisfait dans le mois suivant la livraison ? Je modifie sans frais ou je rembourse intégralement.",
   },
   {
     icon: MessageCircle,
@@ -39,6 +40,6 @@ export type Stat = {
 
 export const STATS: Stat[] = [
   { value: "5-7", label: "jours de livraison" },
-  { value: "1 200€", label: "à partir de", accent: true },
+  { value: "1 200€", label: "tarif de base", accent: true },
   { value: "24h", label: "temps de réponse" },
 ]

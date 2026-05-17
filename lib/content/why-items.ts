@@ -10,14 +10,14 @@ export const WHY_ITEMS: WhyItem[] = [
       "Un WhatsApp, c'est en ligne dans la journée. Vous restez sur votre métier.",
   },
   {
-    title: "Conforme RGPD & RGAA",
+    title: "Conforme RGPD et accessible (RGAA)",
     description:
-      "Protection des données, accessibilité, mentions légales. Vous êtes en règle dès le premier jour.",
+      "Mentions légales, politique de confidentialité et gestion des cookies en règle. Site utilisable par les personnes malvoyantes ou à mobilité réduite. Vous protégez vos visiteurs et évitez les amendes.",
   },
   {
-    title: "Domaine et emails français",
+    title: "Domaine .fr et hébergement européen",
     description:
-      "Gérés par OVH, leader européen du cloud. Infrastructure de site en région européenne.",
+      "Domaine et emails OVH (France). Site hébergé sur l'infrastructure Vercel (Europe). Vos données ne quittent pas l'Europe.",
   },
   {
     title: "Votre site vous appartient",
@@ -25,9 +25,9 @@ export const WHY_ITEMS: WhyItem[] = [
       "Pas de verrouillage. Si vous partez, vous repartez avec tout : domaine, code, contenus.",
   },
   {
-    title: "Performance maximale pour Google",
+    title: "Site rapide et toujours en ligne",
     description:
-      "Construit avec la même technologie que Netflix ou TikTok. Chargement ultra-rapide, SEO béton.",
+      "Construit avec Next.js et Vercel (mêmes outils qu'OpenAI ou GitHub). Pages qui s'ouvrent en moins d'1 seconde, score Google PageSpeed 95+/100, disponibilité 99.9%+. Pas de WordPress = pas de faille de sécurité à entretenir.",
   },
   {
     title: "Tarifs annoncés, jamais de surprise",
