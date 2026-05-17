@@ -3,8 +3,10 @@
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
-import SectionLabel from "./SectionLabel"
-import { FAQ_ITEMS } from "@/lib/faq"
+import SectionLabel from "../ui/SectionLabel"
+import { FAQ_ITEMS } from "@/lib/content/faq"
+import { cn } from "@/lib/cn"
+import { Container, Section, SectionHeading } from "../ui"
 
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
@@ -14,16 +16,11 @@ const Faq = () => {
   }
 
   return (
-    <section
-      className="py-16 md:py-20"
-      style={{ backgroundColor: "rgb(var(--surface) / 1)" }}
-    >
-      <div className="container">
+    <Section tone="surface">
+      <Container>
         <div className="max-w-3xl">
           <SectionLabel accent="red">Questions fréquentes</SectionLabel>
-          <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance">
-            Tout ce que vous voulez savoir.
-          </h2>
+          <SectionHeading>Tout ce que vous voulez savoir.</SectionHeading>
         </div>
 
         <div className="mx-auto mt-12 max-w-3xl">
@@ -44,11 +41,12 @@ const Faq = () => {
                       className="group flex w-full items-center justify-between gap-6 px-6 py-6 text-left"
                     >
                       <span
-                        className={`leading-snug transition-colors duration-200 group-hover:text-brand md:text-lg ${
+                        className={cn(
+                          "leading-snug transition-colors duration-200 group-hover:text-brand md:text-lg",
                           isOpen
                             ? "font-semibold text-fg"
-                            : "font-medium text-gray-700 dark:text-gray-300"
-                        }`}
+                            : "font-medium text-gray-700 dark:text-gray-300",
+                        )}
                       >
                         {item.question}
                       </span>
@@ -87,8 +85,8 @@ const Faq = () => {
             })}
           </ul>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }
 

@@ -3,10 +3,15 @@
 import { type FormEvent, useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, Phone, MapPin, ArrowRight, CheckCircle2 } from "lucide-react"
-import { AnimatedSection, AnimatedItem, fadeUp } from "./animations"
-import ObfuscatedEmail from "./ObfuscatedEmail"
+import { AnimatedSection, AnimatedItem, fadeUp } from "../ui/animations"
+import ObfuscatedEmail from "../ui/ObfuscatedEmail"
+import { getTelHref, siteConfig } from "@/lib/site-config"
+import { Container, Section, SectionHeading } from "../ui"
 
 type SubmitStatus = "idle" | "loading" | "success" | "error"
+
+const inputClasses =
+  "w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none disabled:opacity-60"
 
 const Contact = () => {
   const [name, setName] = useState("")
@@ -52,18 +57,18 @@ const Contact = () => {
   }
 
   return (
-    <section
+    <Section
       id="contact"
-      className="grain-overlay py-16 md:py-20 bg-white dark:bg-[#0D0D0D]"
+      className="grain-overlay bg-white dark:bg-[#0D0D0D]"
     >
-      <div className="container">
+      <Container>
         <AnimatedSection className="mx-auto max-w-3xl text-center">
           <AnimatedItem variants={fadeUp}>
-            <h2 className="font-display text-5xl font-extrabold tracking-tight md:text-6xl lg:text-7xl text-balance">
+            <SectionHeading size="large">
               On travaille
               <br />
               ensemble ?
-            </h2>
+            </SectionHeading>
           </AnimatedItem>
           <AnimatedItem variants={fadeUp}>
             <p className="mx-auto mt-6 max-w-xl text-lg text-fg-muted">
@@ -99,9 +104,9 @@ const Contact = () => {
                 maxLength={200}
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder="Loïc Nowakowski"
+                placeholder={siteConfig.founder.fullName}
                 disabled={isLoading}
-                className="w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none disabled:opacity-60"
+                className={inputClasses}
               />
             </div>
             <div>
@@ -123,7 +128,7 @@ const Contact = () => {
                 onChange={(event) => setContact(event.target.value)}
                 placeholder="06 12 34 56 78 ou vous@exemple.fr"
                 disabled={isLoading}
-                className="w-full rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none disabled:opacity-60"
+                className={inputClasses}
               />
             </div>
             <div>
@@ -146,7 +151,7 @@ const Contact = () => {
                 onChange={(event) => setMessage(event.target.value)}
                 placeholder="Parlez-moi de votre activité et de ce que vous voulez faire en ligne…"
                 disabled={isLoading}
-                className="w-full resize-y rounded-xl border-2 border-border bg-bg px-4 py-3 text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none disabled:opacity-60"
+                className={`${inputClasses} resize-y`}
               />
             </div>
 
@@ -189,7 +194,7 @@ const Contact = () => {
               {isError && (
                 <p
                   id="contact-error"
-                  className="text-center font-medium text-[#F51934]"
+                  className="text-center font-medium text-brand-red"
                 >
                   {errorMsg}
                 </p>
@@ -207,23 +212,24 @@ const Contact = () => {
               </span>
             </li>
             <li>
-              <a href="tel:+33652769372" className="inline-flex">
+              <a href={getTelHref()} className="inline-flex">
                 <span className="inline-flex items-center gap-2 text-sm text-fg-muted transition-colors hover:text-brand">
                   <Phone className="h-4 w-4 text-brand" aria-hidden />
-                  06 52 76 93 72
+                  {siteConfig.contact.phoneDisplay}
                 </span>
               </a>
             </li>
             <li>
               <span className="inline-flex items-center gap-2 text-sm text-fg-muted">
                 <MapPin className="h-4 w-4 text-brand" aria-hidden />
-                Stiring-Wendel, Moselle (57)
+                {siteConfig.address.locality}, {siteConfig.address.region} (
+                {siteConfig.address.departmentCode})
               </span>
             </li>
           </ul>
         </AnimatedSection>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }
 

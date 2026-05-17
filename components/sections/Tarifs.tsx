@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
 import {
@@ -8,66 +7,22 @@ import {
   AnimatedItem,
   fadeUp,
   staggerContainer,
-} from "./animations"
-import SectionLabel from "./SectionLabel"
-
-type Plan = {
-  name: string
-  priceValue: number
-  period: string
-  features: string[]
-  cta: string
-}
-
-const PLANS: Plan[] = [
-  {
-    name: "Présence",
-    priceValue: 20,
-    period: "/mois",
-    features: [
-      "Hébergement & domaine inclus",
-      "Site en ligne et sécurisé",
-      "1 à 2 modifications mineures par mois",
-    ],
-    cta: "Choisir Présence",
-  },
-  {
-    name: "Visibilité",
-    priceValue: 80,
-    period: "/mois",
-    features: [
-      "Tout Présence inclus",
-      "Modifications fréquentes (images, textes, sections)",
-      "1 article SEO optimisé par mois",
-      "Support prioritaire",
-    ],
-    cta: "Choisir Visibilité",
-  },
-  {
-    name: "Croissance",
-    priceValue: 150,
-    period: "/mois",
-    features: [
-      "Tout Visibilité inclus",
-      "4 articles ou actualités par mois",
-      "Gestion contenu via WhatsApp",
-      "Tarif préférentiel sur extras",
-    ],
-    cta: "Choisir Croissance",
-  },
-]
+} from "../ui/animations"
+import SectionLabel from "../ui/SectionLabel"
+import { PRICING_PLANS } from "@/lib/content/pricing"
+import { Button, Container, Section, SectionHeading } from "../ui"
 
 const Tarifs = () => (
-  <section id="tarifs" className="py-16 md:py-20">
-    <div className="container">
+  <Section id="tarifs">
+    <Container>
       <AnimatedSection className="max-w-3xl">
         <AnimatedItem>
           <SectionLabel>Tarifs</SectionLabel>
         </AnimatedItem>
         <AnimatedItem variants={fadeUp}>
-          <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance">
+          <SectionHeading>
             Tarifs création de site web : simple et transparent.
-          </h2>
+          </SectionHeading>
         </AnimatedItem>
         <AnimatedItem variants={fadeUp}>
           <p className="mt-6 text-lg text-fg-muted">
@@ -96,12 +51,7 @@ const Tarifs = () => (
             whileTap={{ scale: 0.97 }}
             className="mt-8 inline-block"
           >
-            <Link
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-shadow duration-200 hover:shadow-brand-glow"
-            >
-              Demander un devis →
-            </Link>
+            <Button href="#contact">Demander un devis →</Button>
           </motion.div>
         </div>
       </AnimatedSection>
@@ -122,7 +72,7 @@ const Tarifs = () => (
         className="grid items-stretch gap-6 grid-cols-1 md:grid-cols-3"
         variants={staggerContainer}
       >
-        {PLANS.map((plan) => (
+        {PRICING_PLANS.map((plan) => (
           <motion.article
             key={plan.name}
             variants={fadeUp}
@@ -154,12 +104,9 @@ const Tarifs = () => (
               ))}
             </ul>
             <motion.div whileTap={{ scale: 0.97 }} className="mt-8">
-              <Link
-                href="#contact"
-                className="inline-flex w-full items-center justify-center rounded-full border-2 border-brand px-5 py-3 text-sm font-semibold text-brand transition-all duration-200 hover:bg-brand hover:text-white"
-              >
+              <Button href="#contact" variant="outline" size="block">
                 {plan.cta}
-              </Link>
+              </Button>
             </motion.div>
           </motion.article>
         ))}
@@ -167,12 +114,12 @@ const Tarifs = () => (
 
       <AnimatedSection variants={fadeUp}>
         <p className="mt-8 text-center text-sm text-fg-muted">
-          En cas d'arrêt, votre domaine vous appartient et vous recevez tous les
-          fichiers de votre site.
+          En cas d&apos;arrêt, votre domaine vous appartient et vous recevez
+          tous les fichiers de votre site.
         </p>
       </AnimatedSection>
-    </div>
-  </section>
+    </Container>
+  </Section>
 )
 
 export default Tarifs

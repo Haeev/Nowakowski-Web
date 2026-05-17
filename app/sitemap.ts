@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next"
 
 import { getAllArticles } from "@/sanity/lib/queries"
+import { siteConfig } from "@/lib/site-config"
 
-const SITE_URL = "https://nowakowski-web.fr"
+const SITE_URL = siteConfig.productionUrl
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const articles = await getAllArticles().catch(() => [])

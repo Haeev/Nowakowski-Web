@@ -1,8 +1,9 @@
-import { FAQ_ITEMS } from "@/lib/faq"
+import { FAQ_ITEMS } from "@/lib/content/faq"
+import { getEmail, siteConfig } from "@/lib/site-config"
 
-const SITE_URL = "https://nowakowski-web.fr"
-const PHONE = "+33652769372"
-const EMAIL = "loic@nowakowski-web.fr"
+const SITE_URL = siteConfig.productionUrl
+const PHONE = siteConfig.contact.phoneRaw
+const EMAIL = getEmail()
 
 const buildJsonLd = () => ({
   "@context": "https://schema.org",
@@ -10,8 +11,8 @@ const buildJsonLd = () => ({
     {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#business`,
-      name: "Nowakowski Web",
-      legalName: "Nowakowski Services",
+      name: siteConfig.name,
+      legalName: siteConfig.legalName,
       description:
         "Création de sites web professionnels pour artisans et PME en Moselle et Grand Est. Sites modernes, conformes RGPD et RGAA, hébergement et maintenance inclus.",
       url: SITE_URL,
@@ -20,23 +21,19 @@ const buildJsonLd = () => ({
       founder: { "@id": `${SITE_URL}/#loic` },
       address: {
         "@type": "PostalAddress",
-        streetAddress: "40 rue Victor Hugo",
-        addressLocality: "Stiring-Wendel",
-        addressRegion: "Moselle",
-        postalCode: "57350",
-        addressCountry: "FR",
+        streetAddress: siteConfig.address.street,
+        addressLocality: siteConfig.address.locality,
+        addressRegion: siteConfig.address.region,
+        postalCode: siteConfig.address.postalCode,
+        addressCountry: siteConfig.address.country,
       },
       geo: {
         "@type": "GeoCoordinates",
-        latitude: "49.1957",
-        longitude: "6.9421",
+        latitude: siteConfig.address.geo.latitude,
+        longitude: siteConfig.address.geo.longitude,
       },
       areaServed: [
-        { "@type": "City", name: "Forbach" },
-        { "@type": "City", name: "Sarreguemines" },
-        { "@type": "City", name: "Saint-Avold" },
-        { "@type": "City", name: "Metz" },
-        { "@type": "City", name: "Stiring-Wendel" },
+        ...siteConfig.areaServed.map((name) => ({ "@type": "City", name })),
         { "@type": "AdministrativeArea", name: "Moselle" },
         { "@type": "AdministrativeArea", name: "Grand Est" },
       ],
@@ -118,15 +115,15 @@ const buildJsonLd = () => ({
       paymentAccepted: "Virement bancaire, chèque",
       priceRange: "€€",
       image: `${SITE_URL}/og-image.jpg`,
-      sameAs: ["https://www.linkedin.com/in/loic-nowakowski"],
+      sameAs: [siteConfig.social.linkedin],
     },
     {
       "@type": "Person",
       "@id": `${SITE_URL}/#loic`,
-      name: "Loïc Nowakowski",
-      givenName: "Loïc",
-      familyName: "Nowakowski",
-      jobTitle: "Créateur de sites web",
+      name: siteConfig.founder.fullName,
+      givenName: siteConfig.founder.givenName,
+      familyName: siteConfig.founder.familyName,
+      jobTitle: siteConfig.founder.role,
       description:
         "Développeur web indépendant basé à Stiring-Wendel (Moselle), je conçois des sites professionnels rapides, accessibles et référencés pour les artisans et PME du Grand Est.",
       url: `${SITE_URL}/about`,
@@ -135,10 +132,10 @@ const buildJsonLd = () => ({
       email: EMAIL,
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Stiring-Wendel",
-        addressRegion: "Moselle",
-        postalCode: "57350",
-        addressCountry: "FR",
+        addressLocality: siteConfig.address.locality,
+        addressRegion: siteConfig.address.region,
+        postalCode: siteConfig.address.postalCode,
+        addressCountry: siteConfig.address.country,
       },
       worksFor: { "@id": `${SITE_URL}/#business` },
       knowsAbout: [
@@ -154,13 +151,13 @@ const buildJsonLd = () => ({
         "TailwindCSS",
       ],
       knowsLanguage: ["fr", "en"],
-      sameAs: ["https://www.linkedin.com/in/loic-nowakowski"],
+      sameAs: [siteConfig.social.linkedin],
     },
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: "Nowakowski Web",
+      name: siteConfig.name,
       description: "Création de sites web pour artisans et PME en Moselle",
       publisher: { "@id": `${SITE_URL}/#business` },
       inLanguage: "fr-FR",

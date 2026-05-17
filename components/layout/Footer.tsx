@@ -1,21 +1,10 @@
 import Link from "next/link"
-import ObfuscatedEmail from "./ObfuscatedEmail"
-
-const PRIMARY_LINKS = [
-  { label: "Services", href: "/#services" },
-  { label: "Tarifs", href: "/#tarifs" },
-  { label: "Réalisations", href: "/#realisations" },
-  { label: "Blog", href: "/blog" },
-  { label: "À propos", href: "/about" },
-  { label: "Contact", href: "/#contact" },
-]
-
-const LEGAL_LINKS = [
-  { label: "Mentions légales", href: "/mentions-legales" },
-  { label: "CGV", href: "/cgv" },
-  { label: "Accessibilité", href: "/accessibilite" },
-  { label: "Politique de confidentialité", href: "/politique-confidentialite" },
-]
+import ObfuscatedEmail from "../ui/ObfuscatedEmail"
+import { getTelHref, siteConfig } from "@/lib/site-config"
+import {
+  FOOTER_LEGAL_LINKS,
+  FOOTER_PRIMARY_LINKS,
+} from "@/lib/content/navigation"
 
 const Footer = () => (
   <footer className="relative bg-neutral-100 dark:bg-[#111111]">
@@ -24,10 +13,12 @@ const Footer = () => (
       <div className="grid gap-10 md:grid-cols-3 md:gap-8">
         <div>
           <p className="font-display text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
-            Nowakowski Web<span className="text-brand">.</span>
+            {siteConfig.name}
+            <span className="text-brand">.</span>
           </p>
           <p className="mt-2 text-sm text-fg-muted">
-            © 2026 · Stiring-Wendel, Moselle (57)
+            © {new Date().getFullYear()} · {siteConfig.address.locality},{" "}
+            {siteConfig.address.region} ({siteConfig.address.departmentCode})
           </p>
         </div>
 
@@ -36,7 +27,7 @@ const Footer = () => (
           className="md:justify-self-center"
         >
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-            {PRIMARY_LINKS.map((link) => (
+            {FOOTER_PRIMARY_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -55,14 +46,15 @@ const Footer = () => (
           </p>
           <p className="mt-1 text-sm">
             <a
-              href="tel:+33652769372"
+              href={getTelHref()}
               className="text-fg transition-colors hover:text-brand"
             >
-              06 52 76 93 72
+              {siteConfig.contact.phoneDisplay}
             </a>
           </p>
           <p className="mt-1 text-sm text-fg-muted">
-            Stiring-Wendel, Moselle (57)
+            {siteConfig.address.locality}, {siteConfig.address.region} (
+            {siteConfig.address.departmentCode})
           </p>
         </div>
       </div>
@@ -72,7 +64,7 @@ const Footer = () => (
           aria-label="Liens légaux"
           className="flex flex-col items-center gap-y-3 text-xs sm:flex-row sm:justify-center sm:gap-x-6"
         >
-          {LEGAL_LINKS.map((link) => (
+          {FOOTER_LEGAL_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}

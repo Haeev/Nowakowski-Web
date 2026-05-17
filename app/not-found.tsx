@@ -1,8 +1,8 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 
-import Nav from "@/components/Nav"
-import Footer from "@/components/Footer"
+import Nav from "@/components/layout/Nav"
+import Footer from "@/components/layout/Footer"
 
 export const metadata: Metadata = {
   title: "Page introuvable",

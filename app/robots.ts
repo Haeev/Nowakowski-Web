@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next"
 
-const SITE_URL = "https://nowakowski-web.fr"
+import { siteConfig } from "@/lib/site-config"
+
+const SITE_URL = siteConfig.productionUrl
 
 const robots = (): MetadataRoute.Robots => ({
   rules: [

@@ -4,23 +4,11 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
-import Logo from "./Logo"
-import ThemeToggle from "./ThemeToggle"
-
-type NavLink = {
-  label: string
-  href: string
-  id: string
-  external?: boolean
-}
-
-const NAV_LINKS: NavLink[] = [
-  { label: "Services", href: "/#services", id: "services" },
-  { label: "Tarifs", href: "/#tarifs", id: "tarifs" },
-  { label: "Réalisations", href: "/#realisations", id: "realisations" },
-  { label: "Contact", href: "/#contact", id: "contact" },
-  { label: "Blog", href: "/blog", id: "blog", external: true },
-]
+import Logo from "../ui/Logo"
+import ThemeToggle from "../ui/ThemeToggle"
+import { NAV_LINKS } from "@/lib/content/navigation"
+import { cn } from "@/lib/cn"
+import { Button } from "../ui"
 
 const Nav = () => {
   const pathname = usePathname()
@@ -104,13 +92,14 @@ const Nav = () => {
                   )}
                   <Link
                     href={link.href}
-                    className={`group relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                    className={cn(
+                      "group relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
                       isActive
                         ? "bg-brand text-white"
                         : link.external
                           ? "text-fg-muted/70 hover:text-fg"
-                          : "text-fg-muted hover:text-fg"
-                    }`}
+                          : "text-fg-muted hover:text-fg",
+                    )}
                     aria-current={isActive ? "page" : undefined}
                   >
                     {link.label}
@@ -130,12 +119,9 @@ const Nav = () => {
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-            <Link
-              href="/#contact"
-              className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-shadow duration-200 hover:shadow-brand-glow"
-            >
+            <Button href="/#contact" size="md">
               Demander un devis
-            </Link>
+            </Button>
           </motion.div>
         </div>
 
@@ -210,9 +196,10 @@ const Nav = () => {
                     <Link
                       href={link.href}
                       onClick={handleClose}
-                      className={`block rounded-xl px-4 py-3 font-display text-2xl font-semibold transition-colors hover:text-brand ${
-                        link.external ? "text-fg-muted" : "text-fg"
-                      }`}
+                      className={cn(
+                        "block rounded-xl px-4 py-3 font-display text-2xl font-semibold transition-colors hover:text-brand",
+                        link.external ? "text-fg-muted" : "text-fg",
+                      )}
                     >
                       {link.label}
                     </Link>
@@ -220,13 +207,9 @@ const Nav = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link
-                  href="/#contact"
-                  onClick={handleClose}
-                  className="inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-soft hover:shadow-brand-glow transition-all"
-                >
+                <Button href="/#contact" size="block" onClick={handleClose}>
                   Demander un devis
-                </Link>
+                </Button>
               </div>
             </motion.aside>
           </div>

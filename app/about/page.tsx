@@ -2,17 +2,17 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, MapPin, Handshake, Compass, Sparkles } from "lucide-react"
 
-import Nav from "@/components/Nav"
-import Footer from "@/components/Footer"
-import FloatingCallButton from "@/components/FloatingCallButton"
-import SectionLabel from "@/components/SectionLabel"
+import Nav from "@/components/layout/Nav"
+import Footer from "@/components/layout/Footer"
+import FloatingCallButton from "@/components/ui/FloatingCallButton"
+import SectionLabel from "@/components/ui/SectionLabel"
 import {
   AnimatedSection,
   AnimatedItem,
   fadeLeft,
   fadeUp,
   staggerContainer,
-} from "@/components/animations"
+} from "@/components/ui/animations"
 
 export const metadata: Metadata = {
   title: "À propos : Loïc Nowakowski, créateur de sites web en Moselle",

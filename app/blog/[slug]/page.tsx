@@ -6,9 +6,9 @@ import { notFound } from "next/navigation"
 import { PortableText } from "@portabletext/react"
 import { ArrowLeft, ChevronRight, Clock } from "lucide-react"
 
-import Nav from "@/components/Nav"
-import Footer from "@/components/Footer"
-import { portableTextComponents } from "@/components/PortableTextComponents"
+import Nav from "@/components/layout/Nav"
+import Footer from "@/components/layout/Footer"
+import { portableTextComponents } from "@/components/blog/PortableTextComponents"
 import {
   getArticleBySlug,
   getArticlesSlugs,
