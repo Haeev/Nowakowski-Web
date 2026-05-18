@@ -123,10 +123,9 @@ const CgvPage = () => (
                 paiement.
               </p>
               <p>
-                Le devis est valable trente (30) jours à compter de sa date
-                d&apos;émission. La commande est considérée comme ferme et
-                définitive à réception du devis signé par le Client et du
-                versement de l&apos;acompte prévu.
+              Le devis est valable trente (30) jours à compter de sa date
+              d&apos;émission. La commande est considérée comme ferme et
+              définitive à réception du devis signé par le Client.
               </p>
             </div>
           </section>
@@ -152,10 +151,10 @@ const CgvPage = () => (
                 <span className="font-semibold text-fg">
                   Création de site vitrine
                 </span>
-                {" "}: le paiement s&apos;effectue en deux versements, 50% à
-                la commande (acompte) et 50% à la livraison du site, avant
-                mise en ligne. Le paiement est réalisé par virement
-                bancaire.
+                {" "}: le règlement de la totalité du montant est dû à la
+                livraison du site, préalablement à sa mise en ligne. Aucun
+                acompte n&apos;est demandé. Le paiement est réalisé par
+                virement bancaire.
               </p>
               <p>
                 <span className="font-semibold text-fg">
@@ -182,9 +181,9 @@ const CgvPage = () => (
             <div className="mt-4 space-y-4">
               <p>
                 Pour un site vitrine standard, le délai de livraison est de
-                2 semaines en moyenne à compter de la réception de
-                l&apos;acompte et des éléments nécessaires (textes, photos,
-                logo, accès au nom de domaine le cas échéant).
+                2 semaines en moyenne à compter de la réception du devis
+                signé et des éléments nécessaires (textes, photos, logo,
+                accès au nom de domaine le cas échéant).
               </p>
               <p>
                 Ces délais sont donnés à titre indicatif et peuvent être
