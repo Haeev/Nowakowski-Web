@@ -67,32 +67,41 @@ const CgvPage = () => (
                   <span className="font-semibold text-fg">
                     Création de site vitrine
                   </span>
-                  {" "}: à partir de 1 200€ TTC, livraison en 5 à 7 jours
-                  ouvrés pour un site vitrine standard.
+                  {" "}: à partir de 1 000€ TTC, livraison sous 2 semaines
+                  en moyenne pour un site vitrine standard. Le tarif peut
+                  varier à la hausse selon la complexité du projet et le
+                  degré de personnalisation demandé.
                 </li>
                 <li>
                   <span className="font-semibold text-fg">
                     Formule Présence
                   </span>
-                  {" "}: abonnement mensuel de 29€ TTC incluant
-                  l&apos;hébergement, le nom de domaine et les mises à jour
-                  techniques courantes.
+                  {" "}: abonnement mensuel de 29€ TTC comprenant
+                  l&apos;hébergement, le nom de domaine, les sauvegardes,
+                  les mises à jour techniques et de sécurité, ainsi que
+                  2 adresses email professionnelles @votredomaine.fr.
                 </li>
                 <li>
                   <span className="font-semibold text-fg">
                     Formule Visibilité
                   </span>
-                  {" "}: abonnement mensuel de 69€ TTC incluant la formule
-                  Présence ainsi que le suivi SEO local et les évolutions
-                  régulières du site.
+                  {" "}: abonnement mensuel de 69€ TTC comprenant
+                  l&apos;intégralité de la formule Présence, 1 article SEO
+                  rédigé et publié chaque mois, le suivi du référencement
+                  local, ainsi que 3 adresses email professionnelles
+                  @votredomaine.fr.
                 </li>
                 <li>
                   <span className="font-semibold text-fg">
                     Formule Croissance
                   </span>
-                  {" "}: abonnement mensuel de 179€ TTC incluant la formule
-                  Visibilité ainsi qu&apos;un accompagnement renforcé et le
-                  développement de nouvelles fonctionnalités.
+                  {" "}: abonnement mensuel de 179€ TTC comprenant
+                  l&apos;intégralité de la formule Visibilité, 4 articles
+                  SEO par mois, la gestion des modifications de contenu et
+                  la publication d&apos;articles via WhatsApp à partir des
+                  informations transmises par le Client, une remise de 33%
+                  sur l&apos;ensemble des services à la carte, ainsi que
+                  5 adresses email professionnelles @votredomaine.fr.
                 </li>
               </ul>
               <p>
@@ -143,9 +152,10 @@ const CgvPage = () => (
                 <span className="font-semibold text-fg">
                   Création de site vitrine
                 </span>
-                {" "}: le paiement s&apos;effectue en deux fois, 50% à la
-                commande (acompte) et 50% à la livraison du site, avant mise
-                en ligne.
+                {" "}: le paiement s&apos;effectue en deux versements, 50% à
+                la commande (acompte) et 50% à la livraison du site, avant
+                mise en ligne. Le paiement est réalisé par virement
+                bancaire.
               </p>
               <p>
                 <span className="font-semibold text-fg">
@@ -172,7 +182,7 @@ const CgvPage = () => (
             <div className="mt-4 space-y-4">
               <p>
                 Pour un site vitrine standard, le délai de livraison est de
-                5 à 7 jours ouvrés à compter de la réception de
+                2 semaines en moyenne à compter de la réception de
                 l&apos;acompte et des éléments nécessaires (textes, photos,
                 logo, accès au nom de domaine le cas échéant).
               </p>
@@ -189,7 +199,39 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              6. Hébergement et maintenance
+              6. Garantie satisfait ou remboursé 30 jours
+            </h2>
+            <div className="mt-4 space-y-4">
+              <p>
+                Pour les sites créés (prestation de création unique), le
+                Client dispose d&apos;une garantie de 30 jours à compter de
+                la livraison du site. Si le Client n&apos;est pas satisfait
+                du résultat, il peut demander :
+              </p>
+              <ul className="ml-6 list-disc space-y-2">
+                <li>
+                  soit des modifications sans frais supplémentaires jusqu&apos;à
+                  ce que le site corresponde à ses attentes initiales (dans
+                  la limite du cahier des charges convenu) ;
+                </li>
+                <li>
+                  soit le remboursement intégral du montant versé pour la
+                  création du site.
+                </li>
+              </ul>
+              <p>
+                La demande doit être adressée au Prestataire par email ou
+                WhatsApp dans le délai de 30 jours suivant la livraison. La
+                garantie ne couvre pas les frais d&apos;abonnement mensuel
+                déjà consommés (hébergement, nom de domaine, etc.), ni les
+                demandes hors périmètre du devis initial.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
+              7. Hébergement et maintenance
             </h2>
             <div className="mt-4 space-y-4">
               <p>
@@ -211,7 +253,7 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              7. Obligations du Client
+              8. Obligations du Client
             </h2>
             <div className="mt-4 space-y-4">
               <p>
@@ -234,7 +276,7 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              8. Propriété intellectuelle
+              9. Propriété intellectuelle
             </h2>
             <div className="mt-4 space-y-4">
               <p>
@@ -259,15 +301,17 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              9. Résiliation
+              10. Résiliation
             </h2>
             <div className="mt-4 space-y-4">
               <p>
-                Les abonnements mensuels sont sans engagement de durée. Le
-                Client peut résilier son abonnement à tout moment, par
-                simple email à l&apos;adresse du Prestataire. La
-                résiliation prend effet à la fin de la période mensuelle
-                en cours, déjà facturée.
+                Les abonnements mensuels sont sans engagement de durée et
+                sans frais de résiliation. Le Client peut résilier son
+                abonnement à tout moment, par email ou WhatsApp adressé au
+                Prestataire. La résiliation prend effet à la fin du cycle
+                de facturation suivant le mois en cours : le mois en cours
+                ainsi que le mois suivant restent dus, puis le Client est
+                libre.
               </p>
               <p>
                 En cas de manquement grave de l&apos;une des parties à ses
@@ -280,7 +324,7 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              10. Responsabilité
+              11. Responsabilité
             </h2>
             <div className="mt-4 space-y-4">
               <p>
@@ -307,7 +351,7 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              11. Données personnelles
+              12. Données personnelles
             </h2>
             <p className="mt-4">
               Les modalités de traitement des données personnelles dans le
@@ -325,7 +369,7 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              12. Médiation de la consommation
+              13. Médiation de la consommation
             </h2>
             <p className="mt-4">
               Conformément aux articles L611-1 et suivants du Code de la
@@ -342,7 +386,7 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              13. Litiges et droit applicable
+              14. Litiges et droit applicable
             </h2>
             <div className="mt-4 space-y-4">
               <p>
@@ -362,7 +406,7 @@ const CgvPage = () => (
 
           <section>
             <h2 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
-              14. Contact
+              15. Contact
             </h2>
             <p className="mt-4">
               Pour toute question relative aux présentes CGV, vous pouvez

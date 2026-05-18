@@ -7,22 +7,22 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Combien coûte un site web pour artisan à Forbach ?",
     answer:
-      "La création d'un site vitrine professionnel pour artisan ou PME démarre à partir de 1 200€. Le tarif exact dépend de vos besoins spécifiques. Contactez-moi pour un devis gratuit sous 24h.",
+      "La création d'un site vitrine professionnel pour artisan ou PME démarre à partir de 1 000€. Le tarif exact dépend de vos besoins spécifiques (complexité, personnalisation). Contactez-moi pour un devis gratuit sous 24h.",
   },
   {
     question: "En combien de temps mon site web sera-t-il livré ?",
     answer:
-      "En moyenne 2 semaines après validation du devis. Souvent moins (5 à 7 jours quand vous me transmettez rapidement vos textes et photos). Le délai dépend surtout de votre disponibilité, pas de la mienne.",
+      "Sous 2 semaines en moyenne après validation du devis. Le délai dépend surtout de votre disponibilité pour me transmettre vos textes et photos, pas de la mienne.",
   },
   {
     question: "Proposez-vous l'hébergement et la maintenance du site ?",
     answer:
-      "Oui. Je propose trois formules d'abonnement mensuel : Présence à 20€/mois, Visibilité à 80€/mois avec 1 article SEO inclus, et Croissance à 150€/mois avec 4 articles et gestion de contenu via WhatsApp.",
+      "Oui. Je propose trois formules d'abonnement mensuel : Présence à 29€ TTC/mois, Visibilité à 69€ TTC/mois avec 1 article SEO inclus, et Croissance à 179€ TTC/mois avec 4 articles SEO et publication via WhatsApp à partir des infos que vous m'envoyez.",
   },
   {
     question: "Mon site est-il rapide et performant ?",
     answer:
-      "Oui. Construction sur Next.js (utilisé par OpenAI, Loom, Notion) et Vercel (serveurs en Europe, mêmes que GitHub). Concrètement : pages qui s'ouvrent en moins d'1 seconde, score Google PageSpeed 95+/100, disponibilité 99.9%+. Pas de WordPress = pas de plugin à mettre à jour, pas de faille de sécurité connue.",
+      "Oui. Construction sur Next.js (utilisé par OpenAI, Loom, Notion) et Vercel, infrastructure hébergée en Europe (Francfort). Concrètement : pages qui s'ouvrent en moins d'1 seconde, score Google PageSpeed 95+/100, disponibilité 99.9%+. Pas de WordPress = pas de plugins à maintenir, pas de surface d'attaque liée aux CMS grand public.",
   },
   {
     question: "Les adresses email professionnelles sont-elles incluses ?",
@@ -37,12 +37,23 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Que se passe-t-il si j'arrête mon abonnement ?",
     answer:
-      "Aucun engagement de durée. Préavis de 30 jours par email ou WhatsApp. Vous repartez avec tout : nom de domaine, code source, contenus, accès. Aucun verrouillage, c'est votre site, vous en restez propriétaire à 100%.",
+      "Vous pouvez résilier à tout moment par email ou WhatsApp. La résiliation prend effet à la fin du cycle de facturation suivant le mois en cours. Aucun engagement de durée, aucun frais de résiliation. Vous repartez avec tout : nom de domaine, code source, contenus, accès. Aucun verrouillage, c'est votre site, vous en restez propriétaire à 100%.",
+  },
+  {
+    question: "Êtes-vous remboursable si le site ne me convient pas ?",
+    answer:
+      "Oui. Pour la prestation de création, vous bénéficiez d'une garantie satisfait ou remboursé de 30 jours après la livraison. Si le résultat ne correspond pas à vos attentes initiales (cahier des charges convenu), je modifie sans frais supplémentaires jusqu'à ce que ça vous convienne, ou je vous rembourse intégralement le montant versé pour la création. La garantie ne couvre pas les frais d'abonnement déjà consommés (hébergement, nom de domaine) ni les demandes hors devis initial.",
   },
   {
     question: "Puis-je modifier mon site moi-même ?",
     answer:
-      "Pas besoin, et c'est voulu. Vous m'envoyez un WhatsApp ou un email avec ce que vous voulez changer, c'est en ligne dans la journée. Inclus selon votre formule. Pas de risque de casser quelque chose, pas d'interface compliquée à apprendre. Vous restez concentré sur votre métier.",
+      "Pas besoin, et c'est voulu. Vous m'envoyez un WhatsApp ou un email avec ce que vous voulez changer (un tarif, un horaire, une photo, un nouveau service), c'est en ligne dans la journée. Inclus dans toutes les formules. Pas de risque de casser quelque chose, pas d'interface compliquée à apprendre. Vous restez concentré sur votre métier.",
+  },
+  {
+    question:
+      "Comment fonctionne la publication d'articles SEO de la formule Croissance ?",
+    answer:
+      "Vous m'envoyez des photos d'un chantier récent et quelques infos par WhatsApp (ce que vous avez fait, où, pour qui le cas échéant). Je rédige et publie un article SEO complet optimisé pour Google. Pas d'idée d'article ? Je publie des articles optimisés liés à votre secteur d'activité, sans rien vous demander. 4 articles par mois inclus.",
   },
   {
     question: "Est-ce que mon site sera visible sur Google Maps ?",

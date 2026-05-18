@@ -40,11 +40,11 @@ const Tarifs = () => (
             Création de site vitrine
           </h3>
           <p className="mt-6 font-display text-4xl font-bold tracking-tight text-brand md:text-5xl">
-            À partir de 1 200€
+            À partir de 1 000€
           </p>
           <p className="mt-5 max-w-2xl text-base text-fg-muted md:text-lg">
-            Devis personnalisé · Livraison en 2 semaines en moyenne · Paiement
-            en plusieurs fois possible (3x, 4x ou 12x sans frais)
+            Devis personnalisé · Livraison sous 2 semaines en moyenne ·
+            Paiement 50% à la commande, 50% à la livraison
           </p>
           <motion.div
             whileHover={{ scale: 1.03 }}

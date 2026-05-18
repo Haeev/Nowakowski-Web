@@ -104,7 +104,7 @@ const Contact = () => {
                 maxLength={200}
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder={siteConfig.founder.fullName}
+                placeholder="Votre prénom et nom"
                 disabled={isLoading}
                 className={inputClasses}
               />
@@ -122,7 +122,7 @@ const Contact = () => {
                 type="text"
                 required
                 aria-required="true"
-                autoComplete="email"
+                autoComplete="on"
                 maxLength={200}
                 value={contact}
                 onChange={(event) => setContact(event.target.value)}

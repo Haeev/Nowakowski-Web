@@ -11,7 +11,7 @@ import {
   staggerContainer,
 } from "../ui/animations"
 import SectionLabel from "../ui/SectionLabel"
-import { PILLARS, STATS } from "@/lib/content/pillars"
+import { COMMITMENTS, PILLARS } from "@/lib/content/pillars"
 import { siteConfig } from "@/lib/site-config"
 import { cn } from "@/lib/cn"
 import { Container, IconBubble, Section, SectionHeading } from "../ui"
@@ -28,7 +28,7 @@ const PourquoiMoi = () => (
     />
     <Container>
       <AnimatedSection>
-        <SectionLabel>Pourquoi {siteConfig.name}</SectionLabel>
+        <SectionLabel>L&apos;approche {siteConfig.name}</SectionLabel>
       </AnimatedSection>
 
       <div className="mt-2 grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -37,7 +37,7 @@ const PourquoiMoi = () => (
           variants={staggerContainer}
         >
           <AnimatedItem variants={fadeLeft}>
-            <SectionHeading>Local. Réactif. Honnête.</SectionHeading>
+            <SectionHeading>Pourquoi me choisir, moi.</SectionHeading>
           </AnimatedItem>
           <AnimatedItem variants={fadeUp}>
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg-muted">
@@ -56,23 +56,24 @@ const PourquoiMoi = () => (
           </AnimatedItem>
 
           <AnimatedItem variants={fadeUp}>
-            <div className="mt-10 grid grid-cols-3 gap-6 sm:gap-8">
-              {STATS.map((stat) => (
-                <div key={stat.label}>
-                  <span
-                    className={cn(
-                      "block font-display text-3xl font-bold leading-none md:text-4xl",
-                      stat.accent ? "text-brand" : "text-fg",
-                    )}
-                  >
-                    {stat.value}
+            <ul className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              {COMMITMENTS.map((commitment) => (
+                <li
+                  key={commitment.title}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold",
+                    commitment.accent
+                      ? "border-brand/40 bg-brand/10 text-brand"
+                      : "border-border bg-surface text-fg",
+                  )}
+                >
+                  <span aria-hidden className="text-brand">
+                    ✓
                   </span>
-                  <p className="mt-2 text-sm leading-snug text-fg-muted">
-                    {stat.label}
-                  </p>
-                </div>
+                  {commitment.title}
+                </li>
               ))}
-            </div>
+            </ul>
           </AnimatedItem>
         </AnimatedSection>
 

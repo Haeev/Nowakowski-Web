@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description:
-    "Création de sites web professionnels pour artisans et PME en Moselle. Conformes RGPD et RGAA. À partir de 1 200€. Livrés en 5 à 7 jours.",
+    "Création de sites web professionnels pour artisans et PME en Moselle. Conformes RGPD et RGAA. À partir de 1 000€. Livrés sous 2 semaines.",
   manifest: "/manifest.json",
   keywords: [
     "création site web Forbach",
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `${siteConfig.name} : sites web pour artisans à Forbach et en Moselle`,
     description:
-      "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 200€, livré en 5 à 7 jours. Hébergement inclus.",
+      "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 000€, livré sous 2 semaines. Hébergement inclus.",
     images: [
       {
         url: "/og-image.jpg",
@@ -104,7 +104,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteConfig.name} : sites web pour artisans en Moselle`,
     description:
-      "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 200€, livré en 5 à 7 jours. Hébergement inclus.",
+      "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 000€, livré sous 2 semaines. Hébergement inclus.",
     images: ["/og-image.jpg"],
   },
   alternates: {
@@ -113,11 +113,13 @@ export const metadata: Metadata = {
       "fr-FR": siteConfig.productionUrl,
     },
   },
-  verification: {
-    google:
-      process.env.GOOGLE_SITE_VERIFICATION ??
-      "TODO_GOOGLE_SEARCH_CONSOLE_CODE",
-  },
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
   category: "business",
 }
 
