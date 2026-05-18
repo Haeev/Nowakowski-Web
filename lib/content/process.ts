@@ -32,6 +32,6 @@ export const PROCESS_STEPS: ProcessStep[] = [
     title: "Mise en ligne",
     duration: "Le jour J",
     description:
-      "Je publie sur votre nom de domaine, configure l'hébergement et active vos emails pro. Votre site est soumis à Google dès le premier jour. Vous restez joignable par WhatsApp pour toute question après la livraison.",
+      "Je publie sur votre nom de domaine, configure l'hébergement et active vos emails pro. Votre site est soumis à Google dès le premier jour. Je reste joignable par WhatsApp pour toute question après la livraison.",
   },
 ]
