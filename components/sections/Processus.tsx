@@ -6,7 +6,7 @@ import {
 } from "../ui/animations"
 import SectionLabel from "../ui/SectionLabel"
 import { PROCESS_STEPS } from "@/lib/content/process"
-import { Container, Section, SectionHeading } from "../ui"
+import { Button, Container, Section, SectionHeading } from "../ui"
 
 const Processus = () => (
   <Section id="processus">
@@ -57,6 +57,19 @@ const Processus = () => (
             </p>
           </AnimatedItem>
         ))}
+      </AnimatedSection>
+
+      <AnimatedSection
+        variants={fadeUp}
+        className="mt-16 flex flex-col items-center gap-4 text-center"
+      >
+        <p className="text-lg text-fg-muted">
+          Prêt à démarrer ? Je vous envoie un devis clair sous 24h, sans
+          engagement.
+        </p>
+        <AnimatedItem variants={fadeUp}>
+          <Button href="#contact">Demander un devis gratuit →</Button>
+        </AnimatedItem>
       </AnimatedSection>
     </Container>
   </Section>

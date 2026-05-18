@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react"
 import SectionLabel from "../ui/SectionLabel"
 import { FAQ_ITEMS } from "@/lib/content/faq"
 import { cn } from "@/lib/cn"
-import { Container, Section, SectionHeading } from "../ui"
+import { Button, Container, Section, SectionHeading } from "../ui"
 
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
@@ -84,6 +84,13 @@ const Faq = () => {
               )
             })}
           </ul>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-3xl flex flex-col items-center gap-4 text-center">
+          <p className="text-lg text-fg-muted">
+            Votre question n&apos;est pas dans la liste ?
+          </p>
+          <Button href="#contact">Posez-la moi directement →</Button>
         </div>
       </Container>
     </Section>

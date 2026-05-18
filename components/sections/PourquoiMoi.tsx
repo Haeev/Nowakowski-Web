@@ -14,7 +14,7 @@ import SectionLabel from "../ui/SectionLabel"
 import { COMMITMENTS, PILLARS } from "@/lib/content/pillars"
 import { siteConfig } from "@/lib/site-config"
 import { cn } from "@/lib/cn"
-import { Container, IconBubble, Section, SectionHeading } from "../ui"
+import { Button, Container, IconBubble, Section, SectionHeading } from "../ui"
 
 const PourquoiMoi = () => (
   <Section className="relative overflow-hidden">
@@ -101,6 +101,22 @@ const PourquoiMoi = () => (
           ))}
         </AnimatedSection>
       </div>
+
+      <AnimatedSection
+        variants={fadeUp}
+        className="mt-16 flex flex-col items-center gap-4 text-center"
+      >
+        <p className="text-lg font-semibold">
+          Ça vous parle ? On commence quand vous voulez.
+        </p>
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          className="inline-block"
+        >
+          <Button href="#contact">Demander un devis →</Button>
+        </motion.div>
+      </AnimatedSection>
     </Container>
   </Section>
 )
