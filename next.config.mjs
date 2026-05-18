@@ -17,6 +17,9 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  experimental: {
+    browsersListForSwc: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

@@ -10,7 +10,7 @@ import { Button, Container, WhatsAppButton } from "../ui"
 const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1]
 
 const lineFade = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 1, y: 32 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 }
 
@@ -38,7 +38,7 @@ const Hero = () => (
 
     <Container>
       <motion.p
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 1, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: EASE }}
         className="mb-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand"
