@@ -11,27 +11,27 @@ export const PROCESS_STEPS: ProcessStep[] = [
     title: "Devis",
     duration: "Sous 24h",
     description:
-      "Vous me décrivez votre projet, je vous envoie un devis clair et sans surprise dans la journée.",
+      "Remplissez le formulaire en 2 minutes ou envoyez-moi un WhatsApp. Je vous réponds dans la journée avec un devis détaillé, un tarif précis et une date de livraison estimée. Aucun engagement de votre côté.",
   },
   {
     step: 2,
     title: "Prise d'info",
-    duration: "1 à 2h max",
+    duration: "30 à 60 min",
     description:
-      "Vous me transmettez vos textes, photos et services. Si vous n'avez rien, je vous guide. Pas besoin d'être technique.",
+      "Un appel ou échange WhatsApp pour comprendre votre activité, vos clients et ce qui vous différencie. Textes, photos, services : je vous guide pas à pas. Rien à préparer à l'avance — si vous n'avez rien, je m'occupe de tout.",
   },
   {
     step: 3,
     title: "Maquette",
-    duration: "Quelques jours",
+    duration: "5 à 7 jours",
     description:
-      "Je vous montre le site avant publication. Vous pouvez demander des ajustements.",
+      "Vous recevez un aperçu complet de votre futur site avant toute mise en ligne. Vous validez, je corrige — autant de fois que nécessaire. Rien n'est publié sans votre accord explicite.",
   },
   {
     step: 4,
     title: "Mise en ligne",
     duration: "Le jour J",
     description:
-      "Je publie sur votre nom de domaine. Vos emails pro sont activés. Vous êtes en ligne.",
+      "Je publie sur votre nom de domaine, configure l'hébergement et active vos emails pro. Votre site est soumis à Google dès le premier jour. Vous restez joignable par WhatsApp pour toute question après la livraison.",
   },
 ]

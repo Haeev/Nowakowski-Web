@@ -93,8 +93,10 @@ const Hero = () => (
         transition={{ delay: 0.5, duration: 0.6, ease: EASE }}
         className="mt-8 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl"
       >
-        Je crée des sites web professionnels pour les artisans et PME de
-        Moselle et du Grand Est. Rapide, visible sur Google, et géré de A à Z.
+        Votre prochain client vous cherche sur Google en ce moment. Je crée le
+        site qui lui donne envie d&apos;appeler{" "}
+        <span className="font-semibold text-fg">vous</span> — pas votre
+        concurrent. Artisans et PME en Moselle et Grand Est.
       </motion.p>
 
       <motion.div

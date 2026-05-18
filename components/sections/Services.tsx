@@ -5,7 +5,7 @@ import { MessageCircle } from "lucide-react"
 import { AnimatedSection, AnimatedItem, fadeUp, staggerContainer } from "../ui/animations"
 import SectionLabel from "../ui/SectionLabel"
 import { SERVICES } from "@/lib/content/services"
-import { Container, IconBubble, Section, SectionHeading } from "../ui"
+import { Button, Container, IconBubble, Section, SectionHeading } from "../ui"
 
 const Services = () => (
   <Section id="services" tone="surface">
@@ -73,6 +73,16 @@ const Services = () => (
             </p>
           </div>
         </article>
+      </AnimatedSection>
+
+      <AnimatedSection variants={fadeUp} className="mt-10 text-center">
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          className="inline-block"
+        >
+          <Button href="#tarifs">Voir les tarifs →</Button>
+        </motion.div>
       </AnimatedSection>
     </Container>
   </Section>
