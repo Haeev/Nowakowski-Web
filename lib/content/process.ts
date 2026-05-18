@@ -23,7 +23,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
   {
     step: 3,
     title: "Maquette",
-    duration: "5 à 7 jours",
+    duration: "Moins de 2 semaines",
     description:
       "Vous recevez un aperçu complet de votre futur site avant toute mise en ligne. Vous validez, je corrige — autant de fois que nécessaire. Rien n'est publié sans votre accord explicite.",
   },
