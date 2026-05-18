@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       text: `Nom : ${name}\nContact : ${contact}\n\nMessage :\n${message}`,
       html: `
         <div style="font-family: -apple-system, sans-serif; max-width: 600px;">
-          <h2 style="color: #AB19F5;">Nouveau message — Nowakowski Web</h2>
+          <h2 style="color: #AB19F5;">Nouveau message : Nowakowski Web</h2>
           <p><strong>Nom :</strong> ${safeName}</p>
           <p><strong>Contact :</strong> ${safeContact}</p>
           <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />

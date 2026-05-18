@@ -123,14 +123,14 @@ export const articleType = defineType({
     }),
     defineField({
       name: "seoTitle",
-      title: "SEO — Title balise meta",
+      title: "SEO : Title balise meta",
       description: "Optionnel. Si vide, le titre principal sera utilisé.",
       type: "string",
       validation: (rule) => rule.max(70),
     }),
     defineField({
       name: "seoDescription",
-      title: "SEO — Meta description",
+      title: "SEO : Meta description",
       description: "Optionnel. Si vide, le résumé sera utilisé.",
       type: "string",
       validation: (rule) => rule.max(160),

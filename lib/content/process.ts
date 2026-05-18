@@ -18,14 +18,14 @@ export const PROCESS_STEPS: ProcessStep[] = [
     title: "Prise d'info",
     duration: "30 à 60 min",
     description:
-      "Un appel ou échange WhatsApp pour comprendre votre activité, vos clients et ce qui vous différencie. Textes, photos, services : je vous guide pas à pas. Rien à préparer à l'avance — si vous n'avez rien, je m'occupe de tout.",
+      "Un appel ou échange WhatsApp pour comprendre votre activité, vos clients et ce qui vous différencie. Textes, photos, services : je vous guide pas à pas. Rien à préparer à l'avance. Si vous n'avez rien, je m'occupe de tout.",
   },
   {
     step: 3,
     title: "Maquette",
     duration: "Moins de 2 semaines",
     description:
-      "Vous recevez un aperçu complet de votre futur site avant toute mise en ligne. Vous validez, je corrige — autant de fois que nécessaire. Rien n'est publié sans votre accord explicite.",
+      "Vous recevez un aperçu complet de votre futur site avant toute mise en ligne. Vous validez, je corrige, autant de fois que nécessaire. Rien n'est publié sans votre accord explicite.",
   },
   {
     step: 4,
