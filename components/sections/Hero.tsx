@@ -94,8 +94,14 @@ const Hero = () => (
         className="mt-8 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl"
       >
         Votre prochain client vous cherche sur Google. Je crée le site qui lui
-        donne envie de vous appeler, pas votre concurrent. Artisans et PME en
-        Moselle et Grand Est.
+        donne envie de{" "}
+        <span
+          className="font-bold text-brand"
+          style={{ textShadow: "0 0 18px rgba(171,25,245,0.5)" }}
+        >
+          vous
+        </span>{" "}
+        appeler, pas votre concurrent. Artisans et PME en Moselle et Grand Est.
       </motion.p>
 
       <motion.div
