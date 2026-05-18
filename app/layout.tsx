@@ -123,13 +123,40 @@ export const metadata: Metadata = {
   category: "business",
 }
 
+const GTM_ID = "GTM-PF7H6GSD"
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html
     lang="fr"
     suppressHydrationWarning
     className={`${poppins.variable} ${inter.variable}`}
   >
+    <head>
+      {isProduction() && (
+        <Script
+          id="gtm-script"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
+      )}
+    </head>
     <body className="min-h-screen antialiased">
+      {isProduction() && (
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+      )}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand focus:text-white focus:rounded focus:shadow-brand"
