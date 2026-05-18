@@ -9,6 +9,7 @@ export type Realisation = {
   ville: string
   url: string
   image?: string
+  screenshot?: string
   couleur: string
   date: string
   description: string
@@ -32,6 +33,7 @@ const readRealisationFile = (filename: string): Realisation | null => {
     ville: String(data.ville ?? ""),
     url: String(data.url ?? "#"),
     image: data.image ? String(data.image) : undefined,
+    screenshot: data.screenshot ? String(data.screenshot) : undefined,
     couleur: String(data.couleur ?? "#7C3AED"),
     date: String(data.date ?? ""),
     description: String(data.description ?? ""),

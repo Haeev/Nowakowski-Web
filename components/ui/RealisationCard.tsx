@@ -11,14 +11,18 @@ type RealisationCardProps = {
   realisation: Realisation
 }
 
-const getScreenshotUrl = (url: string) =>
+const getMicrolicnkUrl = (url: string) =>
   `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`
 
 const RealisationCard = ({ realisation }: RealisationCardProps) => {
   const [imgError, setImgError] = useState(false)
 
   const hasUrl = Boolean(realisation.url) && realisation.url !== "#"
-  const screenshotUrl = hasUrl ? getScreenshotUrl(realisation.url) : null
+
+  const staticScreenshot = realisation.screenshot ?? null
+  const fallbackScreenshot = hasUrl ? getMicrolicnkUrl(realisation.url) : null
+  const screenshotUrl = staticScreenshot ?? fallbackScreenshot
+  const isStatic = Boolean(staticScreenshot)
   const showScreenshot = Boolean(screenshotUrl) && !imgError
 
   const Inner = (
@@ -36,7 +40,7 @@ const RealisationCard = ({ realisation }: RealisationCardProps) => {
               src={screenshotUrl!}
               alt={`Aperçu du site ${realisation.title}`}
               fill
-              unoptimized
+              unoptimized={!isStatic}
               className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
               onError={() => setImgError(true)}
             />
