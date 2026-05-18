@@ -67,7 +67,7 @@ const VALUES: Value[] = [
     icon: MapPin,
     title: "Ancré localement",
     description:
-      "Basé à Stiring-Wendel, je connais le tissu économique de la Moselle. Vos clients ne sont pas qu'un trafic web : ce sont vos voisins.",
+      "Basé à Stiring-Wendel, je connais le tissu économique de la Moselle. Vos clients ne sont pas qu'un trafic web : ce sont des voisins.",
   },
 ]
 

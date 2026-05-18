@@ -101,7 +101,7 @@ const PolitiqueConfidentialitePage = () => (
                   Coordonnées de contact : adresse email et/ou numéro de
                   téléphone.
                 </li>
-                <li>Contenu du message libre que vous nous adressez.</li>
+                <li>Contenu du message libre que vous m&apos;adressez.</li>
               </ul>
               <h3 className="font-display text-lg font-semibold text-fg">
                 Via la mesure d&apos;audience (Plausible Analytics)
@@ -299,7 +299,7 @@ const PolitiqueConfidentialitePage = () => (
                 </li>
               </ul>
               <p>
-                Pour exercer ces droits, contactez-nous par email à{" "}
+                Pour exercer ces droits, contactez-moi par email à{" "}
                 <ObfuscatedEmail
                   className="text-fg transition-colors hover:text-brand"
                   label="loïc[at]nowakowski-web.fr"
@@ -308,7 +308,7 @@ const PolitiqueConfidentialitePage = () => (
                 mois maximum.
               </p>
               <p>
-                Si vous estimez, après nous avoir contactés, que vos droits
+                Si vous estimez, après m&apos;avoir contacté, que vos droits
                 ne sont pas respectés, vous pouvez introduire une
                 réclamation auprès de la{" "}
                 <a

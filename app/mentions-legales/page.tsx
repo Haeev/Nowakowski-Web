@@ -234,7 +234,7 @@ const MentionsLegalesPage = () => (
             <div className="mt-4 space-y-2">
               <p>
                 Pour toute question relative aux présentes mentions légales,
-                vous pouvez nous contacter par email à{" "}
+                vous pouvez me contacter par email à{" "}
                 <ObfuscatedEmail
                   className="text-fg transition-colors hover:text-brand"
                   label="loïc[at]nowakowski-web.fr"
