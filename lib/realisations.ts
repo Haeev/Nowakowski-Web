@@ -14,6 +14,7 @@ export type Realisation = {
   date: string
   description: string
   content: string
+  published?: boolean
 }
 
 const REALISATIONS_DIR = path.join(process.cwd(), "content", "realisations")
@@ -38,6 +39,7 @@ const readRealisationFile = (filename: string): Realisation | null => {
     date: String(data.date ?? ""),
     description: String(data.description ?? ""),
     content,
+    published: data.published !== false ? true : false,
   }
 }
 
@@ -48,6 +50,7 @@ export const getAllRealisations = (): Realisation[] => {
   const realisations = files
     .map(readRealisationFile)
     .filter((r): r is Realisation => r !== null)
+    .filter((r) => r.published !== false)
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 
   return realisations
