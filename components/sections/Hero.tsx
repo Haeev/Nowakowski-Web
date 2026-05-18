@@ -56,7 +56,7 @@ const Hero = () => (
           transition={{ delay: 0 }}
           className="block"
         >
-          Votre prochain client
+          Votre entreprise
         </motion.span>
         <motion.span
           initial="hidden"
@@ -65,7 +65,7 @@ const Hero = () => (
           transition={{ delay: 0.15 }}
           className="block"
         >
-          vous cherche sur Google.
+          mérite un site qui
         </motion.span>
         <motion.span
           initial="hidden"
@@ -74,16 +74,7 @@ const Hero = () => (
           transition={{ delay: 0.3 }}
           className="block"
         >
-          Je crée le <span className="text-gradient text-glow">site</span> qui lui
-        </motion.span>
-        <motion.span
-          initial="hidden"
-          animate="visible"
-          variants={lineFade}
-          transition={{ delay: 0.45 }}
-          className="block"
-        >
-          donne envie de vous appeler, pas votre concurrent.
+          <span className="text-gradient text-glow">travaille</span> pour vous.
         </motion.span>
       </h1>
 
@@ -102,8 +93,9 @@ const Hero = () => (
         transition={{ delay: 0.5, duration: 0.6, ease: EASE }}
         className="mt-8 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl"
       >
-        Sites web pour artisans et PME en Moselle et Grand Est. À partir de
-        1 000€, livré en 2 semaines.
+        Votre prochain client vous cherche sur Google. Je crée le site qui lui
+        donne envie de vous appeler, pas votre concurrent. Artisans et PME en
+        Moselle et Grand Est.
       </motion.p>
 
       <motion.div
