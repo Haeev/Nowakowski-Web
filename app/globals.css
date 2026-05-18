@@ -13,8 +13,8 @@
   --surface: 245 245 245;       /* #F5F5F5 */
   --surface-2: 235 235 235;     /* #EBEBEB */
   --fg: 13 13 13;               /* #0D0D0D */
-  --fg-muted: 102 102 102;      /* #666666 */
-  --fg-subtle: 153 153 153;     /* #999999 */
+  --fg-muted: 74 74 74;         /* #4A4A4A — ratio ~8.4:1 on white (WCAG AA ✓) */
+  --fg-subtle: 102 102 102;     /* #666666 — ratio ~5.7:1 on white (WCAG AA ✓) */
   --border: 224 224 224;        /* #E0E0E0 */
   --border-strong: 200 200 200; /* #C8C8C8 */
 }
@@ -25,8 +25,8 @@
   --surface: 24 24 24;           /* #181818 */
   --surface-2: 36 36 36;         /* #242424 */
   --fg: 232 232 232;             /* #E8E8E8 */
-  --fg-muted: 136 136 136;       /* #888888 */
-  --fg-subtle: 102 102 102;      /* #666666 */
+  --fg-muted: 192 192 192;       /* #C0C0C0 — ratio ~10.5:1 on #0D0D0D (WCAG AA ✓) */
+  --fg-subtle: 144 144 144;      /* #909090 — ratio ~6.2:1 on #0D0D0D (WCAG AA ✓) */
   --border: 42 42 42;            /* #2A2A2A */
   --border-strong: 64 64 64;     /* #404040 */
 }
