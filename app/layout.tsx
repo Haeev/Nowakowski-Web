@@ -11,14 +11,14 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-poppins",
-  display: "swap",
+  display: "optional",
 })
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-inter",
-  display: "swap",
+  display: "optional",
 })
 
 export const viewport: Viewport = {
@@ -135,7 +135,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       {isProduction() && (
         <Script
           id="gtm-script"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
