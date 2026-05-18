@@ -44,7 +44,7 @@ const Tarifs = () => (
           </p>
           <p className="mt-5 max-w-2xl text-base text-fg-muted md:text-lg">
             Devis personnalisé · Livraison sous 2 semaines en moyenne ·
-            Paiement 50% à la commande, 50% à la livraison
+            Paiement intégral à la livraison · Aucun acompte
           </p>
           <motion.div
             whileHover={{ scale: 1.03 }}
