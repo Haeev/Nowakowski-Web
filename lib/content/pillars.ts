@@ -45,6 +45,6 @@ export type Commitment = {
 
 export const COMMITMENTS: Commitment[] = [
   { title: "Joignable directement" },
-  { title: "Sans bullshit technique", accent: true },
+  { title: "Sans jargon inutile", accent: true },
   { title: "Garantie 30 jours" },
 ]
