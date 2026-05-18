@@ -46,15 +46,12 @@ const MentionsLegalesPage = () => (
             <div className="mt-4 space-y-2">
               <p>
                 <span className="font-semibold text-fg">Loïc Nowakowski</span>
-                , exerçant sous l&apos;enseigne « Nowakowski Web ».
+                , exerçant sous l&apos;enseigne Nowakowski Web (nom commercial
+                : Nowakowski Services).
               </p>
               <p>
                 Statut juridique :{" "}
-                {/* TODO: ajouter le statut juridique (micro-entreprise, EI, SASU, etc.) */}
-                <span className="italic text-fg-subtle">
-                  à compléter
-                </span>
-                .
+                <span className="text-fg">Entrepreneur individuel (EI)</span>.
               </p>
               <p>
                 Adresse : Stiring-Wendel, Moselle (57), France.
@@ -79,21 +76,19 @@ const MentionsLegalesPage = () => (
               </p>
               <p>
                 SIRET :{" "}
-                {/* TODO: ajouter le numéro SIRET */}
-                <span className="italic text-fg-subtle">à compléter</span>.
+                <span className="text-fg">992 888 347 000 18</span>.
               </p>
               <p>
-                RCS / RM :{" "}
-                {/* TODO: ajouter le numéro RCS ou RM si applicable */}
-                <span className="italic text-fg-subtle">
-                  à compléter si applicable
+                RCS / RM : Non applicable — activité libérale non
+                réglementée, immatriculée au Registre National des
+                Entreprises (RNE).
+              </p>
+              <p>
+                TVA :{" "}
+                <span className="text-fg">
+                  TVA non applicable, art. 293 B du CGI
                 </span>
                 .
-              </p>
-              <p>
-                Numéro de TVA intracommunautaire :{" "}
-                {/* TODO: ajouter le numéro de TVA ou mentionner "TVA non applicable, art. 293 B du CGI" pour micro-entrepreneur */}
-                <span className="italic text-fg-subtle">à compléter</span>.
               </p>
               <p>
                 Directeur de la publication : Loïc Nowakowski.

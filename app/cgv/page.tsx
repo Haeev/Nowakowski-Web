@@ -67,8 +67,8 @@ const CgvPage = () => (
                   <span className="font-semibold text-fg">
                     Création de site vitrine
                   </span>
-                  {" "}: à partir de 1 000€ TTC, livraison sous 2 semaines
-                  en moyenne pour un site vitrine standard. Le tarif peut
+                  {" "}: à partir de 1 000€, livraison sous 2 semaines en
+                  moyenne pour un site vitrine standard. Le tarif peut
                   varier à la hausse selon la complexité du projet et le
                   degré de personnalisation demandé.
                 </li>
@@ -76,7 +76,7 @@ const CgvPage = () => (
                   <span className="font-semibold text-fg">
                     Formule Présence
                   </span>
-                  {" "}: abonnement mensuel de 29€ TTC comprenant
+                  {" "}: abonnement mensuel de 29€ comprenant
                   l&apos;hébergement, le nom de domaine, les sauvegardes,
                   les mises à jour techniques et de sécurité, ainsi que
                   2 adresses email professionnelles @votredomaine.fr.
@@ -85,7 +85,7 @@ const CgvPage = () => (
                   <span className="font-semibold text-fg">
                     Formule Visibilité
                   </span>
-                  {" "}: abonnement mensuel de 69€ TTC comprenant
+                  {" "}: abonnement mensuel de 69€ comprenant
                   l&apos;intégralité de la formule Présence, 1 article SEO
                   rédigé et publié chaque mois, le suivi du référencement
                   local, ainsi que 3 adresses email professionnelles
@@ -95,7 +95,7 @@ const CgvPage = () => (
                   <span className="font-semibold text-fg">
                     Formule Croissance
                   </span>
-                  {" "}: abonnement mensuel de 179€ TTC comprenant
+                  {" "}: abonnement mensuel de 179€ comprenant
                   l&apos;intégralité de la formule Visibilité, 4 articles
                   SEO par mois, la gestion des modifications de contenu et
                   la publication d&apos;articles via WhatsApp à partir des
@@ -136,16 +136,20 @@ const CgvPage = () => (
             </h2>
             <div className="mt-4 space-y-4">
               <p>
-                Les prix sont indiqués en euros. Le statut fiscal du
-                Prestataire est précisé dans les{" "}
+                Les prix sont indiqués en euros.{" "}
+                <span className="font-semibold text-fg">
+                  TVA non applicable, art. 293 B du CGI
+                </span>{" "}
+                — le Prestataire exerce en tant qu&apos;entrepreneur
+                individuel (EI) bénéficiant de la franchise en base de TVA.
+                Le statut fiscal complet est précisé dans les{" "}
                 <Link
                   href="/mentions-legales"
                   className="text-fg underline decoration-fg-subtle underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
                 >
                   mentions légales
                 </Link>
-                .{" "}
-                {/* TODO: confirmer "TVA non applicable, art. 293 B du CGI" pour micro-entreprise, ou indiquer le taux de TVA applicable */}
+                .
               </p>
               <p>
                 <span className="font-semibold text-fg">
@@ -374,12 +378,40 @@ const CgvPage = () => (
               Conformément aux articles L611-1 et suivants du Code de la
               consommation, le Client consommateur a la possibilité de
               recourir gratuitement à un médiateur de la consommation en
-              cas de litige. Coordonnées du médiateur :{" "}
-              {/* TODO: ajouter le nom et les coordonnées du médiateur de la consommation référencé */}
-              <span className="italic text-fg-subtle">
-                à compléter
+              cas de litige non résolu à l&apos;amiable. Le Prestataire
+              a désigné comme médiateur :
+            </p>
+            <p className="mt-4">
+              <span className="font-semibold text-fg">
+                CM2C — Centre de Médiation de la Consommation de
+                Conciliateurs de Justice
               </span>
-              .
+              <br />
+              14 rue Saint-Jean — 75017 Paris
+              <br />
+              Site web :{" "}
+              <a
+                href="https://www.cm2c.net"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-fg underline decoration-fg-subtle underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
+              >
+                www.cm2c.net
+              </a>
+              <br />
+              Email :{" "}
+              <a
+                href="mailto:cm2c@cm2c.net"
+                className="text-fg transition-colors hover:text-brand"
+              >
+                cm2c@cm2c.net
+              </a>
+            </p>
+            <p className="mt-4">
+              La saisine du médiateur doit intervenir dans un délai d&apos;un
+              an à compter de la réclamation écrite adressée au Prestataire.
+              Ce recours est exclusivement ouvert aux Clients consommateurs
+              (personnes physiques n&apos;agissant pas à titre professionnel).
             </p>
           </section>
 
