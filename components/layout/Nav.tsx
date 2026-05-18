@@ -94,10 +94,10 @@ const Nav = () => {
                     href={link.href}
                     className={cn(
                       "group relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
-                      isActive
+                        isActive
                         ? "bg-brand text-white"
                         : link.external
-                          ? "text-fg-muted/70 hover:text-fg"
+                          ? "text-fg-muted hover:text-fg"
                           : "text-fg-muted hover:text-fg",
                     )}
                     aria-current={isActive ? "page" : undefined}
