@@ -12,15 +12,15 @@ export const SERVICES: Service[] = [
     icon: Monitor,
     title: "Site vitrine professionnel",
     description:
-      "Rapide, moderne, visible sur Google. Conçu pour convertir vos visiteurs en clients. Livré en 5 à 7 jours.",
-    detail: "À partir de 1 200€",
+      "Rapide, moderne, visible sur Google. Conçu pour convertir vos visiteurs en clients. Livré en 2 semaines.",
+    detail: "À partir de 1 000€",
   },
   {
     icon: Server,
     title: "Hébergement & maintenance",
     description:
       "Je m'occupe de tout. Votre site reste en ligne, à jour et sécurisé. Un problème ? Je suis joignable.",
-    detail: "Dès 20€/mois",
+    detail: "Dès 29€ TTC/mois",
   },
   {
     icon: FileText,

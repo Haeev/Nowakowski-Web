@@ -45,11 +45,12 @@ const buildJsonLd = () => ({
             "@type": "Offer",
             name: "Formule Présence",
             description:
-              "Hébergement, nom de domaine, maintenance et modifications mineures.",
+              "Hébergement, nom de domaine, sauvegardes, mises à jour techniques et 2 adresses email pro incluses.",
             priceSpecification: {
               "@type": "UnitPriceSpecification",
-              price: "20",
+              price: "29",
               priceCurrency: "EUR",
+              valueAddedTaxIncluded: true,
               unitCode: "MON",
               referenceQuantity: {
                 "@type": "QuantitativeValue",
@@ -62,11 +63,12 @@ const buildJsonLd = () => ({
             "@type": "Offer",
             name: "Formule Visibilité",
             description:
-              "Hébergement, modifications fréquentes et 1 article SEO par mois.",
+              "Tout Présence + 1 article SEO rédigé chaque mois, suivi SEO local et 3 adresses email pro incluses.",
             priceSpecification: {
               "@type": "UnitPriceSpecification",
-              price: "80",
+              price: "69",
               priceCurrency: "EUR",
+              valueAddedTaxIncluded: true,
               unitCode: "MON",
               referenceQuantity: {
                 "@type": "QuantitativeValue",
@@ -79,11 +81,12 @@ const buildJsonLd = () => ({
             "@type": "Offer",
             name: "Formule Croissance",
             description:
-              "Hébergement, 4 articles ou actualités par mois, gestion de contenu via WhatsApp.",
+              "Tout Visibilité + 4 articles SEO par mois, publication via WhatsApp à partir des infos client, -33% sur les services à la carte et 5 adresses email pro incluses.",
             priceSpecification: {
               "@type": "UnitPriceSpecification",
-              price: "150",
+              price: "179",
               priceCurrency: "EUR",
+              valueAddedTaxIncluded: true,
               unitCode: "MON",
               referenceQuantity: {
                 "@type": "QuantitativeValue",
@@ -99,18 +102,18 @@ const buildJsonLd = () => ({
           "@type": "Offer",
           name: "Création de site vitrine",
           description:
-            "Site vitrine professionnel pour artisans et PME en Moselle et Grand Est, livré en 2 semaines en moyenne.",
+            "Site vitrine professionnel pour artisans et PME en Moselle et Grand Est, livré sous 2 semaines en moyenne.",
           priceSpecification: {
             "@type": "PriceSpecification",
-            price: "1200",
+            price: "1000",
             priceCurrency: "EUR",
-            minPrice: "1200",
+            minPrice: "1000",
           },
         },
       ],
       knowsLanguage: ["fr", "en"],
       currenciesAccepted: "EUR",
-      paymentAccepted: "Virement bancaire, chèque",
+      paymentAccepted: "Virement bancaire",
       priceRange: "€€",
       image: `${SITE_URL}/og-image.jpg`,
       sameAs: [siteConfig.social.linkedin],

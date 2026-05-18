@@ -2,14 +2,19 @@
 > Création de sites web professionnels pour artisans et PME en Moselle et Grand Est, France. Conforme RGPD et RGAA.
 
 ## Services
-- Création de site vitrine : à partir de 1 200€, livraison 5-7 jours
-- Formule Présence : 20€/mois, hébergement et maintenance, modifications mineures
-- Formule Visibilité : 80€/mois, hébergement + 1 article SEO/mois + modifications fréquentes
-- Formule Croissance : 150€/mois, hébergement + 4 articles/mois + gestion contenu via WhatsApp
+- Création de site vitrine : à partir de 1 000€, livré sous 2 semaines
+- Formule Présence : 29€ TTC/mois, hébergement, nom de domaine, sauvegardes, mises à jour, 2 emails pro inclus
+- Formule Visibilité : 69€ TTC/mois, tout Présence + 1 article SEO/mois + suivi SEO local + 3 emails pro inclus
+- Formule Croissance : 179€ TTC/mois, tout Visibilité + 4 articles SEO/mois + publication via WhatsApp + -33% sur les services à la carte + 5 emails pro inclus
+
+## Engagements
+- Garantie satisfait ou remboursé 30 jours sur la prestation de création
+- Abonnements sans engagement de durée et sans frais de résiliation
+- Paiement 50% à la commande, 50% à la livraison (virement bancaire)
 
 ## Hébergement et données
 - Domaine et emails : OVH (France)
-- Hébergement du site : Vercel, infrastructure Union Européenne (région Francfort)
+- Hébergement du site : Vercel, infrastructure hébergée en Europe (région Francfort)
 - Envoi des emails de contact : Resend (Union Européenne)
 - Aucune donnée transférée hors UE
 

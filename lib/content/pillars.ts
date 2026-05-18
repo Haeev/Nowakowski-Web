@@ -1,4 +1,10 @@
-import { MapPin, Zap, ShieldCheck, MessageCircle, type LucideIcon } from "lucide-react"
+import {
+  MapPin,
+  Zap,
+  ShieldCheck,
+  MessageCircle,
+  type LucideIcon,
+} from "lucide-react"
 
 export type Pillar = {
   icon: LucideIcon
@@ -16,7 +22,7 @@ export const PILLARS: Pillar[] = [
   {
     icon: Zap,
     title: "Rapide",
-    description: "Site livré en 5 à 7 jours. Pas 3 mois d'attente.",
+    description: "Site livré sous 2 semaines. Pas 3 mois d'attente.",
   },
   {
     icon: ShieldCheck,
@@ -32,14 +38,13 @@ export const PILLARS: Pillar[] = [
   },
 ]
 
-export type Stat = {
-  value: string
-  label: string
+export type Commitment = {
+  title: string
   accent?: boolean
 }
 
-export const STATS: Stat[] = [
-  { value: "5-7", label: "jours de livraison" },
-  { value: "1 200€", label: "tarif de base", accent: true },
-  { value: "24h", label: "temps de réponse" },
+export const COMMITMENTS: Commitment[] = [
+  { title: "Joignable directement" },
+  { title: "Sans bullshit technique", accent: true },
+  { title: "Garantie 30 jours" },
 ]
