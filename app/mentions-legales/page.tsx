@@ -149,7 +149,7 @@ const MentionsLegalesPage = () => (
               <p className="pt-2">Service d&apos;envoi d&apos;emails :</p>
               <p>
                 <span className="font-semibold text-fg">Resend Inc.</span>
-                {" "}— infrastructure Union Européenne.
+                , infrastructure Union Européenne.
               </p>
             </div>
           </section>

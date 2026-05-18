@@ -11,7 +11,7 @@ export default defineConfig({
   basePath: studioBasePath,
   projectId,
   dataset,
-  title: "Nowakowski Web — Studio",
+  title: "Nowakowski Web : Studio",
   schema,
   plugins: [structureTool(), visionTool({ defaultApiVersion: apiVersion })],
 })

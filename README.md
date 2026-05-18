@@ -142,8 +142,8 @@ Voir [`.env.example`](./.env.example) pour la liste exhaustive. Configurer chaqu
 
 ## Identité visuelle
 
-- Couleur principale : `#AB19F5` (violet — token Tailwind `brand`)
-- Accent : `#F51934` (rouge — token Tailwind `brand-red`)
+- Couleur principale : `#AB19F5` (violet, token Tailwind `brand`)
+- Accent : `#F51934` (rouge, token Tailwind `brand-red`)
 - Police titres : **Poppins** 600/700/800
 - Police body : **Inter** 400/500/600
 - Logo SVG officiel dans `public/logo-primary.svg` et `public/logo-light.svg`

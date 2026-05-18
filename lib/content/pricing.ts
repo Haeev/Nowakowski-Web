@@ -40,7 +40,7 @@ export const PRICING_PLANS: Plan[] = [
     features: [
       "Tout Visibilité inclus",
       "4 articles SEO par mois",
-      "Publication d'articles via WhatsApp à partir des infos que vous m'envoyez (photos d'un chantier, quelques mots) — sans idée ? Je publie des articles optimisés liés à votre activité",
+      "Publication d'articles via WhatsApp à partir des infos que vous m'envoyez (photos d'un chantier, quelques mots). Sans idée ? Je publie des articles optimisés liés à votre activité",
       "-33% sur tous les services à la carte",
       "5 adresses email pro @votredomaine.fr",
     ],
