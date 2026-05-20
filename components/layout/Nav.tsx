@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { AnimatePresence, motion } from "framer-motion"
 import Logo from "../ui/Logo"
 import ThemeToggle from "../ui/ThemeToggle"
 import { NAV_LINKS } from "@/lib/content/navigation"
@@ -94,7 +93,7 @@ const Nav = () => {
                     href={link.href}
                     className={cn(
                       "group relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
-                        isActive
+                      isActive
                         ? "bg-brand text-white"
                         : link.external
                           ? "text-fg-muted hover:text-fg"
@@ -118,11 +117,11 @@ const Nav = () => {
 
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+          <div className="transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]">
             <Button href="/#contact" size="md">
               Demander un devis
             </Button>
-          </motion.div>
+          </div>
         </div>
 
         <div className="flex md:hidden items-center gap-2">
@@ -159,62 +158,64 @@ const Nav = () => {
         </div>
       </div>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <div className="fixed inset-0 z-50 md:hidden">
-            <motion.button
-              type="button"
-              aria-label="Fermer le menu"
-              onClick={handleClose}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            />
-            <motion.aside
-              role="dialog"
-              aria-modal="true"
-              aria-label="Menu mobile"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-              className="absolute right-0 top-0 h-full w-[85%] max-w-sm border-l border-border bg-bg p-6 shadow-xl"
-            >
-              <div className="flex items-center justify-between mb-8">
-                <Logo />
-              </div>
-              <ul className="flex flex-col gap-2">
-                {NAV_LINKS.map((link) => (
-                  <li
-                    key={link.id}
-                    className={
-                      link.external ? "mt-2 border-t border-border pt-2" : ""
-                    }
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={handleClose}
-                      className={cn(
-                        "block rounded-xl px-4 py-3 font-display text-2xl font-semibold transition-colors hover:text-brand",
-                        link.external ? "text-fg-muted" : "text-fg",
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8">
-                <Button href="/#contact" size="block" onClick={handleClose}>
-                  Demander un devis
-                </Button>
-              </div>
-            </motion.aside>
-          </div>
+      <div
+        className={cn(
+          "fixed inset-0 z-50 md:hidden",
+          mobileOpen ? "visible" : "invisible pointer-events-none",
         )}
-      </AnimatePresence>
+        aria-hidden={!mobileOpen}
+      >
+        <button
+          type="button"
+          aria-label="Fermer le menu"
+          onClick={handleClose}
+          tabIndex={mobileOpen ? 0 : -1}
+          className={cn(
+            "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-200",
+            mobileOpen ? "opacity-100" : "opacity-0",
+          )}
+        />
+        <aside
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu mobile"
+          className={cn(
+            "absolute right-0 top-0 h-full w-[85%] max-w-sm border-l border-border bg-bg p-6 shadow-xl transition-transform duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
+            mobileOpen ? "translate-x-0" : "translate-x-full",
+          )}
+        >
+          <div className="flex items-center justify-between mb-8">
+            <Logo />
+          </div>
+          <ul className="flex flex-col gap-2">
+            {NAV_LINKS.map((link) => (
+              <li
+                key={link.id}
+                className={
+                  link.external ? "mt-2 border-t border-border pt-2" : ""
+                }
+              >
+                <Link
+                  href={link.href}
+                  onClick={handleClose}
+                  tabIndex={mobileOpen ? 0 : -1}
+                  className={cn(
+                    "block rounded-xl px-4 py-3 font-display text-2xl font-semibold transition-colors hover:text-brand",
+                    link.external ? "text-fg-muted" : "text-fg",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8">
+            <Button href="/#contact" size="block" onClick={handleClose}>
+              Demander un devis
+            </Button>
+          </div>
+        </aside>
+      </div>
     </header>
   )
 }
