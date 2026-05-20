@@ -1,14 +1,16 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import Script from "next/script"
 import { notFound } from "next/navigation"
 import { PortableText } from "@portabletext/react"
 import { ArrowLeft, ChevronRight, Clock } from "lucide-react"
 
 import Nav from "@/components/layout/Nav"
 import Footer from "@/components/layout/Footer"
+import JsonLdScript from "@/components/seo/JsonLdScript"
 import { portableTextComponents } from "@/components/blog/PortableTextComponents"
+import { buildArticlePageJsonLd, SCHEMA_SITE_URL } from "@/lib/schema"
+import { siteConfig } from "@/lib/site-config"
 import {
   getArticleBySlug,
   getArticlesSlugs,
@@ -17,8 +19,6 @@ import { urlForImage } from "@/sanity/lib/image"
 
 export const revalidate = 60
 export const dynamicParams = true
-
-const SITE_URL = "https://nowakowski-web.fr"
 
 type PageProps = {
   params: { slug: string }
@@ -45,7 +45,7 @@ export const generateMetadata = async ({
     article.seoDescription ||
     article.excerpt ||
     "Article du blog Nowakowski Web"
-  const url = `${SITE_URL}/blog/${article.slug}`
+  const url = `${SCHEMA_SITE_URL}/blog/${article.slug}`
   const ogImage = urlForImage(article.mainImage)
     ?.width(1200)
     .height(630)
@@ -62,7 +62,8 @@ export const generateMetadata = async ({
       title,
       description,
       publishedTime: article.publishedAt,
-      authors: ["Loïc Nowakowski"],
+      modifiedTime: article._updatedAt ?? article.publishedAt,
+      authors: [siteConfig.founder.fullName],
       images: ogImage
         ? [{ url: ogImage, width: 1200, height: 630, alt: title }]
         : undefined,
@@ -104,32 +105,21 @@ const ArticlePage = async ({ params }: PageProps) => {
     .height(630)
     .fit("crop")
     .url()
-  const url = `${SITE_URL}/blog/${article.slug}`
   const readingTime = article.readingTime ?? article.estimatedReadingTime
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
-    author: { "@type": "Person", name: "Loïc Nowakowski" },
-    publisher: {
-      "@type": "Organization",
-      name: "Nowakowski Web",
-      logo: {
-        "@type": "ImageObject",
-        url: `${SITE_URL}/icon.svg`,
-      },
-    },
-    image: ogImage ? [ogImage] : undefined,
-    url,
-    mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    description: article.excerpt || article.seoDescription || "",
-  }
+  const jsonLd = buildArticlePageJsonLd({
+    title: article.title,
+    slug: article.slug,
+    publishedAt: article.publishedAt,
+    updatedAt: article._updatedAt,
+    excerpt: article.excerpt,
+    seoDescription: article.seoDescription,
+    imageUrl: ogImage,
+  })
 
   return (
     <>
+      <JsonLdScript data={jsonLd} />
       <Nav />
       <main id="main-content">
         <article>
@@ -180,7 +170,9 @@ const ArticlePage = async ({ params }: PageProps) => {
                   {readingTime} min de lecture
                 </span>
               ) : null}
-                <span className="text-fg-subtle">Par Loïc Nowakowski</span>
+                <span className="text-fg-subtle">
+                  Par {siteConfig.founder.fullName}
+                </span>
               </div>
             </div>
           </header>
@@ -223,13 +215,6 @@ const ArticlePage = async ({ params }: PageProps) => {
         </article>
       </main>
       <Footer />
-
-      <Script
-        id="article-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
     </>
   )
 }

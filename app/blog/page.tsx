@@ -5,6 +5,8 @@ import { ArrowRight, Clock } from "lucide-react"
 
 import Nav from "@/components/layout/Nav"
 import Footer from "@/components/layout/Footer"
+import JsonLdScript from "@/components/seo/JsonLdScript"
+import { buildBlogIndexJsonLd } from "@/lib/schema"
 import { getAllArticles } from "@/sanity/lib/queries"
 import { urlForImage } from "@/sanity/lib/image"
 
@@ -51,9 +53,11 @@ const formatCategory = (slug: string) => CATEGORY_LABELS[slug] ?? slug
 
 const BlogPage = async () => {
   const articles = await getAllArticles()
+  const jsonLd = buildBlogIndexJsonLd(articles)
 
   return (
     <>
+      <JsonLdScript data={jsonLd} />
       <Nav />
       <main id="main-content">
         <section className="relative overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16">
