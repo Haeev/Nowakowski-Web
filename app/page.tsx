@@ -2,12 +2,12 @@ import dynamic from "next/dynamic"
 import Nav from "@/components/layout/Nav"
 import Footer from "@/components/layout/Footer"
 import Hero from "@/components/sections/Hero"
-import Services from "@/components/sections/Services"
 import WhyNowakowski from "@/components/sections/WhyNowakowski"
-import Processus from "@/components/sections/Processus"
 import JsonLd from "@/components/sections/JsonLd"
 import FloatingCallButton from "@/components/ui/FloatingCallButton"
 
+const Services = dynamic(() => import("@/components/sections/Services"))
+const Processus = dynamic(() => import("@/components/sections/Processus"))
 const Tarifs = dynamic(() => import("@/components/sections/Tarifs"))
 const ALaCarte = dynamic(() => import("@/components/sections/ALaCarte"))
 const PourquoiMoi = dynamic(() => import("@/components/sections/PourquoiMoi"))
