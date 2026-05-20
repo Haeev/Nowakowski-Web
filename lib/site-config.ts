@@ -34,7 +34,7 @@ export const siteConfig = {
     role: "Créateur de sites web",
   },
   social: {
-    linkedin: "https://www.linkedin.com/in/loic-nowakowski",
+    linkedin: "https://www.linkedin.com/in/lo%C3%AFc-nowakowksi",
   },
   areaServed: [
     "Forbach",

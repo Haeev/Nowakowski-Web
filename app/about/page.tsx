@@ -1,6 +1,15 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, MapPin, Handshake, Compass, Sparkles } from "lucide-react"
+import {
+  ArrowRight,
+  MapPin,
+  Handshake,
+  Compass,
+  Sparkles,
+  Linkedin,
+} from "lucide-react"
+import { siteConfig } from "@/lib/site-config"
 
 import Nav from "@/components/layout/Nav"
 import Footer from "@/components/layout/Footer"
@@ -196,11 +205,86 @@ const AboutPage = () => (
                         maintenance pour artisans et PME
                       </dd>
                     </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wider text-fg-subtle">
+                        LinkedIn
+                      </dt>
+                      <dd className="mt-1">
+                        <a
+                          href={siteConfig.social.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 font-display text-lg font-semibold text-fg transition-colors hover:text-brand"
+                          aria-label="Profil LinkedIn de Loïc Nowakowski (nouvel onglet)"
+                        >
+                          <Linkedin
+                            className="h-5 w-5 shrink-0 text-brand"
+                            aria-hidden
+                          />
+                          loïc-nowakowksi
+                        </a>
+                      </dd>
+                    </div>
                   </dl>
                 </div>
               </AnimatedItem>
             </AnimatedSection>
           </div>
+        </div>
+      </section>
+
+      <section className="pb-12 md:pb-16">
+        <div className="container">
+          <AnimatedSection variants={staggerContainer}>
+            <AnimatedItem variants={fadeUp}>
+              <article className="group overflow-hidden rounded-3xl border border-border bg-surface shadow-sm transition-colors duration-300 hover:border-brand/60">
+                <div className="relative aspect-[4/1] w-full overflow-hidden bg-neutral-900">
+                  <Image
+                    src="/linkedin-banner-nowakowski-web.svg"
+                    alt=""
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, 1200px"
+                    priority={false}
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-r from-[#0D0D0D]/50 via-[#AB19F5]/15 to-transparent"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-px bg-gradient-brand opacity-80"
+                  />
+                </div>
+                <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+                  <div className="max-w-xl">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
+                      LinkedIn
+                    </p>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">
+                      Parcours &amp; actualités pro
+                    </h2>
+                    <p className="mt-3 text-base leading-relaxed text-fg-muted">
+                      Pour les échanges B2B ou une première prise de contact en
+                      dehors du site — mon parcours, mes projets et mes
+                      actualités sont sur LinkedIn.
+                    </p>
+                  </div>
+                  <a
+                    href={siteConfig.social.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 sm:self-center"
+                    aria-label="Voir le profil LinkedIn de Loïc Nowakowski (nouvel onglet)"
+                  >
+                    <Linkedin className="h-4 w-4" aria-hidden />
+                    Voir mon profil
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </a>
+                </div>
+              </article>
+            </AnimatedItem>
+          </AnimatedSection>
         </div>
       </section>
 
