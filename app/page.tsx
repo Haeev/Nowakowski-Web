@@ -1,17 +1,19 @@
+import dynamic from "next/dynamic"
 import Nav from "@/components/layout/Nav"
 import Footer from "@/components/layout/Footer"
 import Hero from "@/components/sections/Hero"
 import Services from "@/components/sections/Services"
 import WhyNowakowski from "@/components/sections/WhyNowakowski"
 import Processus from "@/components/sections/Processus"
-import Tarifs from "@/components/sections/Tarifs"
-import ALaCarte from "@/components/sections/ALaCarte"
-import PourquoiMoi from "@/components/sections/PourquoiMoi"
-import Realisations from "@/components/sections/Realisations"
-import Faq from "@/components/sections/Faq"
-import Contact from "@/components/sections/Contact"
 import JsonLd from "@/components/sections/JsonLd"
 import FloatingCallButton from "@/components/ui/FloatingCallButton"
+
+const Tarifs = dynamic(() => import("@/components/sections/Tarifs"))
+const ALaCarte = dynamic(() => import("@/components/sections/ALaCarte"))
+const PourquoiMoi = dynamic(() => import("@/components/sections/PourquoiMoi"))
+const Realisations = dynamic(() => import("@/components/sections/Realisations"))
+const Faq = dynamic(() => import("@/components/sections/Faq"))
+const Contact = dynamic(() => import("@/components/sections/Contact"))
 
 const HomePage = () => (
   <>

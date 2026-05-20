@@ -18,7 +18,7 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   experimental: {
-    browsersListForSwc: true,
+    optimizePackageImports: ["lucide-react", "framer-motion"],
   },
   images: {
     formats: ["image/avif", "image/webp"],
