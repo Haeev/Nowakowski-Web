@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396" role="img" aria-labelledby="title desc">
+  <title id="title">Banni&#232;re LinkedIn Nowakowski Web</title>
+  <desc id="desc">Cr&#233;ation de sites web pour artisans et PME en Moselle et Grand Est.</desc>
+  <defs>
+    <radialGradient id="violetGlow" cx="70%" cy="4%" r="65%">
+      <stop offset="0%" stop-color="#AB19F5" stop-opacity="0.62" />
+      <stop offset="38%" stop-color="#AB19F5" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#0D0D0D" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="brandLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#AB19F5" />
+      <stop offset="100%" stop-color="#F51934" />
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1" />
+    </pattern>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <rect width="1584" height="396" fill="#0D0D0D" />
+  <rect width="1584" height="396" fill="url(#violetGlow)" />
+  <rect width="1584" height="396" fill="url(#grid)" opacity="0.9" />
+
+  <path d="M0 396 L386 0" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="2" />
+  <path d="M1036 396 L1432 0" stroke="#FFFFFF" stroke-opacity="0.055" stroke-width="2" />
+  <path d="M1184 396 L1584 0" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="2" />
+
+  <g filter="url(#softShadow)">
+    <rect x="1236" y="48" width="88" height="88" rx="22" fill="#111111" stroke="#FFFFFF" stroke-opacity="0.12" />
+    <text x="1280" y="109" text-anchor="middle" font-family="Poppins, Inter, Arial, sans-serif" font-size="54" font-weight="800" fill="#FFFFFF">N</text>
+    <circle cx="1310" cy="107" r="7" fill="#AB19F5" />
+  </g>
+
+  <g font-family="Poppins, Inter, Arial, sans-serif">
+    <text x="448" y="82" font-size="24" font-weight="700" letter-spacing="8" fill="#C0C0C0">NOWAKOWSKI WEB</text>
+    <rect x="448" y="102" width="744" height="5" rx="2.5" fill="url(#brandLine)" />
+
+    <text x="448" y="159" font-size="52" font-weight="800" letter-spacing="-1.6" fill="#FFFFFF">Sites web pour artisans &amp; PME</text>
+    <text x="448" y="207" font-size="37" font-weight="700" letter-spacing="-0.6" fill="#C0C0C0">Moselle &amp; Grand Est</text>
+    <text x="448" y="250" font-size="25" font-weight="500" fill="#E8E8E8">Rapides &#183; professionnels &#183; pens&#233;s pour g&#233;n&#233;rer des devis</text>
+
+    <g transform="translate(448 304)">
+      <rect width="282" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.1" />
+      <circle cx="28" cy="22" r="6" fill="#AB19F5" />
+      <text x="48" y="30" font-size="20" font-weight="700" fill="#FFFFFF">nowakowski-web.fr</text>
+    </g>
+  </g>
+</svg>

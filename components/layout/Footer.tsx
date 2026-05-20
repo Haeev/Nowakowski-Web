@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Linkedin } from "lucide-react"
 import ObfuscatedEmail from "../ui/ObfuscatedEmail"
 import { getTelHref, siteConfig } from "@/lib/site-config"
 import {
@@ -50,6 +51,18 @@ const Footer = () => (
               className="text-fg transition-colors hover:text-brand"
             >
               {siteConfig.contact.phoneDisplay}
+            </a>
+          </p>
+          <p className="mt-1 text-sm">
+            <a
+              href={siteConfig.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-end gap-1.5 text-fg transition-colors hover:text-brand md:ml-auto"
+              aria-label="Profil LinkedIn de Loïc Nowakowski (nouvel onglet)"
+            >
+              <Linkedin className="h-4 w-4 shrink-0" aria-hidden />
+              LinkedIn
             </a>
           </p>
           <p className="mt-1 text-sm text-fg-muted">
