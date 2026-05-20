@@ -2,7 +2,7 @@
 
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion"
 import type { Variants, Transition, MotionProps } from "framer-motion"
-import { useEffect, useRef, type ReactNode, type ElementType } from "react"
+import { useEffect, useMemo, useRef, type ReactNode, type ElementType } from "react"
 
 const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1]
 
@@ -79,7 +79,7 @@ export const AnimatedSection = ({
   once = true,
   ...rest
 }: AnimatedSectionProps) => {
-  const Tag = motion(as as any)
+  const Tag = useMemo(() => motion(as as any), [as])
   return (
     <Tag
       className={className}
@@ -108,7 +108,7 @@ export const AnimatedItem = ({
   variants = fadeUp,
   ...rest
 }: AnimatedItemProps) => {
-  const Tag = motion(as as any)
+  const Tag = useMemo(() => motion(as as any), [as])
   return (
     <Tag className={className} variants={variants} {...rest}>
       {children}
