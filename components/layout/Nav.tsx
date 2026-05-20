@@ -61,6 +61,7 @@ const Nav = () => {
   const handleClose = () => setMobileOpen(false)
 
   return (
+    <>
     <header
       className="sticky top-0 z-50 transition-colors duration-300"
       style={{
@@ -157,10 +158,11 @@ const Nav = () => {
           </button>
         </div>
       </div>
+    </header>
 
       <div
         className={cn(
-          "fixed inset-0 z-50 md:hidden",
+          "fixed inset-0 z-[60] md:hidden",
           mobileOpen ? "visible" : "invisible pointer-events-none",
         )}
         aria-hidden={!mobileOpen}
@@ -216,7 +218,7 @@ const Nav = () => {
           </div>
         </aside>
       </div>
-    </header>
+    </>
   )
 }
 
