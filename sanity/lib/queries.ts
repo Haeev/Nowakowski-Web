@@ -5,6 +5,7 @@ import { client } from "./client"
 
 export type ArticleListItem = {
   _id: string
+  _updatedAt?: string
   title: string
   slug: string
   publishedAt: string
@@ -26,6 +27,7 @@ export type Article = ArticleListItem & {
 
 const articleListProjection = `
   _id,
+  _updatedAt,
   title,
   "slug": slug.current,
   publishedAt,
