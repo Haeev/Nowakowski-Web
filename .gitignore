@@ -38,3 +38,7 @@ next-env.d.ts
 # sanity build artifacts
 /dist
 /.sanity
+
+# documents internes (non diffusés)
+CHARTE-GRAPHIQUE.html
+MEGA-PROMPT-SITE-VITRINE.md
