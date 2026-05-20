@@ -67,9 +67,16 @@ components/
 sanity/                   ← config Sanity Studio
 middleware.ts             ← X-Robots-Tag noindex sur preview/dev
 public/
-  logo-primary.svg, logo-light.svg, monogram-icon.svg
+  favicon.ico, icon-192.png, icon-512.png ← favicons & PWA icons
+  og-image.jpg            ← Open Graph (1200×630)
+  linkedin-banner-nowakowski-web.svg ← bannière LinkedIn (page about)
+  manifest.json           ← manifest PWA
   llms.txt                ← pour les crawlers IA (GEO)
-  realisations/           ← images des réalisations clients
+  _brand-assets/          ← logos & assets d'identité (non servis sur le site)
+    icon.svg              ← copie du logo/icône du site
+    logo-primary.svg, logo-light.svg, logo-nowakowski-web.svg,
+    logo-nowakowski.svg, monogram-icon.svg
+  realisations/           ← screenshots des réalisations clients
 ```
 
 ## Environnements Vercel
@@ -146,4 +153,4 @@ Voir [`.env.example`](./.env.example) pour la liste exhaustive. Configurer chaqu
 - Accent : `#F51934` (rouge, token Tailwind `brand-red`)
 - Police titres : **Poppins** 600/700/800
 - Police body : **Inter** 400/500/600
-- Logo SVG officiel dans `public/logo-primary.svg` et `public/logo-light.svg`
+- Logos SVG officiels dans `public/_brand-assets/` (ne sont pas servis directement par le site)
