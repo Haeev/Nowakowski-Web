@@ -5,8 +5,8 @@ import { TRUST_BADGES } from "@/lib/content/trust-badges"
 import { siteConfig } from "@/lib/site-config"
 import { Button, Container, WhatsAppButton } from "../ui"
 
-const WireframeOrbBackground = dynamic(
-  () => import("@/components/hero/WireframeOrbBackground"),
+const ParticleOrbBackground = dynamic(
+  () => import("@/components/hero/ParticleOrbBackground"),
   { ssr: false }
 )
 
@@ -15,7 +15,7 @@ const Hero = () => (
     id="top"
     className="relative overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16"
   >
-    <WireframeOrbBackground />
+    <ParticleOrbBackground />
 
     <div
       aria-hidden
