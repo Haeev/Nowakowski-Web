@@ -1,20 +1,28 @@
+import dynamic from "next/dynamic"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { TRUST_BADGES } from "@/lib/content/trust-badges"
 import { siteConfig } from "@/lib/site-config"
 import { Button, Container, WhatsAppButton } from "../ui"
 
+const WireframeOrbBackground = dynamic(
+  () => import("@/components/hero/WireframeOrbBackground"),
+  { ssr: false }
+)
+
 const Hero = () => (
   <section
     id="top"
     className="relative overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16"
   >
+    <WireframeOrbBackground />
+
     <div
       aria-hidden
       className="pointer-events-none absolute inset-0 -z-10"
       style={{
         background:
-          "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(171, 25, 245, 0.16) 0%, transparent 70%)",
+          "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(171, 25, 245, 0.12) 0%, transparent 70%)",
       }}
     />
 
