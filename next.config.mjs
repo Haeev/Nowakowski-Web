@@ -34,8 +34,33 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    const privateClientPaths = ["olivia", "bocreno", "braun"]
+
+    return privateClientPaths.map((slug) => ({
+      source: `/${slug}`,
+      destination: `/${slug}/index.html`,
+    }))
+  },
   async headers() {
+    const privateNoIndex = {
+      key: "X-Robots-Tag",
+      value: "noindex, nofollow, noarchive, nosnippet, noimageindex",
+    }
+    const privateClientPaths = ["olivia", "bocreno", "braun"]
+    const privateHeaders = privateClientPaths.flatMap((slug) => [
+      {
+        source: `/${slug}`,
+        headers: [...securityHeaders, privateNoIndex],
+      },
+      {
+        source: `/${slug}/:path*`,
+        headers: [...securityHeaders, privateNoIndex],
+      },
+    ])
+
     return [
+      ...privateHeaders,
       {
         source: "/:path*",
         headers: securityHeaders,
