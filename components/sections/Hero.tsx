@@ -34,7 +34,7 @@ const Hero = () => (
       WEB
     </span>
 
-    <Container>
+    <Container className="relative z-10">
       <p className="mb-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
         <span aria-hidden className="inline-block h-px w-8 bg-brand" />
         {siteConfig.name} · {siteConfig.address.locality},{" "}

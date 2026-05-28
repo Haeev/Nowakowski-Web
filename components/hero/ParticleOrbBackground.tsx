@@ -1,7 +1,7 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import { ParticleOrbCanvas } from "./particle-orb"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { ParticleOrbCanvas, type ParticleOrbConfig } from "./particle-orb"
 
 const HERO_SECTION_ID = "top"
 
@@ -65,6 +65,20 @@ const ParticleOrbBackground = () => {
     }
   }, [prefersReducedMotion, updateMouse])
 
+  const orbConfig = useMemo<ParticleOrbConfig>(
+    () => ({
+      color: 0xab19f5,
+      radius: 1.9,
+      detail: 5,
+      rotationSpeed: 0.07,
+      noiseTimeScale: 0.1,
+      particleSizeMin: 0.005,
+      particleSizeMax: 0.032,
+      opacity: 0.38,
+    }),
+    []
+  )
+
   if (prefersReducedMotion || !ready) {
     return null
   }
@@ -72,27 +86,19 @@ const ParticleOrbBackground = () => {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute -inset-[50%] -z-10 overflow-visible opacity-[0.5]"
+      className="pointer-events-none absolute -inset-[50%] -z-10 overflow-visible opacity-[0.32]"
       style={{
         maskImage:
-          "radial-gradient(ellipse 100% 92% at 50% 42%, black 28%, transparent 84%)",
+          "radial-gradient(ellipse 100% 92% at 50% 42%, black 18%, transparent 86%)",
         WebkitMaskImage:
-          "radial-gradient(ellipse 100% 92% at 50% 42%, black 28%, transparent 84%)",
+          "radial-gradient(ellipse 100% 92% at 50% 42%, black 18%, transparent 86%)",
       }}
     >
       <ParticleOrbCanvas
         mouse={mouse}
         parallaxStrength={0.42}
         cameraZ={2.55}
-        config={{
-          color: 0xab19f5,
-          radius: 1.9,
-          detail: 36,
-          rotationSpeed: 0.07,
-          noiseTimeScale: 0.1,
-          particleSizeMin: 0.007,
-          particleSizeMax: 0.05,
-        }}
+        config={orbConfig}
       />
     </div>
   )

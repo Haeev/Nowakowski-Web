@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import * as THREE from "three"
 
 interface PointsMaterialWithShader extends THREE.PointsMaterial {
@@ -15,16 +15,21 @@ export type ParticleOrbConfig = {
   particleSizeMax?: number
   rotationSpeed?: number
   noiseTimeScale?: number
+  opacity?: number
 }
+
+/** Subdivisions icosaèdre Three.js (0–6). Au-delà, le GPU freeze. */
+const MAX_ICO_DETAIL = 6
 
 const defaults: Required<ParticleOrbConfig> = {
   color: 0xab19f5,
   radius: 1.85,
-  detail: 36,
-  particleSizeMin: 0.008,
-  particleSizeMax: 0.055,
+  detail: 5,
+  particleSizeMin: 0.006,
+  particleSizeMax: 0.038,
   rotationSpeed: 0.08,
   noiseTimeScale: 0.12,
+  opacity: 0.42,
 }
 
 type MouseRef = { current: { x: number; y: number } }
@@ -43,18 +48,40 @@ export const ParticleOrbCanvas = ({
   className?: string
 }) => {
   const rootRef = useRef<HTMLDivElement>(null)
-  const configRef = useRef({ ...defaults, ...configOverrides })
+  const configKey = JSON.stringify(configOverrides ?? {})
+  const mergedConfig = useMemo(
+    () => ({ ...defaults, ...configOverrides }),
+    // Stable config identity via serialized key (parent passes memoized object)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [configKey]
+  )
+  const configRef = useRef(mergedConfig)
 
   useEffect(() => {
-    configRef.current = { ...defaults, ...configOverrides }
-  }, [configOverrides])
+    configRef.current = mergedConfig
+  }, [mergedConfig])
 
   useEffect(() => {
     const container = rootRef.current
     if (!container) return
 
-    const config = { ...defaults, ...configOverrides }
-    const scene = new THREE.Scene()
+    let disposed = false
+    let animationFrameId = 0
+    let resizeObserver: ResizeObserver | undefined
+    let renderer: THREE.WebGLRenderer | undefined
+    let geometry: THREE.IcosahedronGeometry | undefined
+    let material: THREE.PointsMaterial | undefined
+    let texture: THREE.CanvasTexture | undefined
+
+    const init = () => {
+      if (disposed || !container) return
+
+      const config = mergedConfig
+      const icoDetail = Math.min(
+        Math.max(0, Math.floor(config.detail)),
+        MAX_ICO_DETAIL
+      )
+      const scene = new THREE.Scene()
 
     const getSize = () => ({
       width: Math.max(container.clientWidth, 1),
@@ -71,7 +98,7 @@ export const ParticleOrbCanvas = ({
     )
     camera.position.z = cameraZ
 
-    const renderer = new THREE.WebGLRenderer({
+      renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
       powerPreference: "high-performance",
@@ -82,15 +109,15 @@ export const ParticleOrbCanvas = ({
     renderer.setClearColor(0x000000, 0)
     container.appendChild(renderer.domElement)
 
-    const geometry = new THREE.IcosahedronGeometry(1, config.detail)
-    const texture = createDotTexture(32, "#FFFFFF")
-    const material = new THREE.PointsMaterial({
+      geometry = new THREE.IcosahedronGeometry(1, icoDetail)
+      texture = createDotTexture(32, "#FFFFFF")
+      material = new THREE.PointsMaterial({
       map: texture,
       blending: THREE.AdditiveBlending,
       color: config.color,
       depthTest: false,
       transparent: true,
-      opacity: 0.85,
+      opacity: config.opacity,
     })
 
     setupPointsShader(material, {
@@ -100,60 +127,79 @@ export const ParticleOrbCanvas = ({
       noiseTimeScale: config.noiseTimeScale,
     })
 
-    const points = new THREE.Points(geometry, material)
-    scene.add(points)
+      const canvas = renderer.domElement
+      canvas.style.pointerEvents = "none"
+      canvas.style.position = "absolute"
+      canvas.style.inset = "0"
+      canvas.style.width = "100%"
+      canvas.style.height = "100%"
 
-    const smoothedMouse = { x: 0, y: 0 }
-    let animationFrameId = 0
+      const points = new THREE.Points(geometry, material)
+      scene.add(points)
 
-    const animate = (timeMs: number) => {
-      const time = timeMs * 0.001
-      const cfg = configRef.current
+      const smoothedMouse = { x: 0, y: 0 }
 
-      smoothedMouse.x = THREE.MathUtils.lerp(smoothedMouse.x, mouse.current.x, 0.085)
-      smoothedMouse.y = THREE.MathUtils.lerp(smoothedMouse.y, mouse.current.y, 0.085)
+      const animate = (timeMs: number) => {
+        if (disposed || !renderer || !material) return
+        const time = timeMs * 0.001
+        const cfg = configRef.current
 
-      points.rotation.set(
-        smoothedMouse.y * 0.12,
-        time * cfg.rotationSpeed + smoothedMouse.x * 0.18,
-        0
-      )
+        smoothedMouse.x = THREE.MathUtils.lerp(smoothedMouse.x, mouse.current.x, 0.085)
+        smoothedMouse.y = THREE.MathUtils.lerp(smoothedMouse.y, mouse.current.y, 0.085)
 
-      camera.position.x = smoothedMouse.x * parallaxStrength
-      camera.position.y = smoothedMouse.y * parallaxStrength * 0.85
-      camera.lookAt(0, 0, 0)
+        points.rotation.set(
+          smoothedMouse.y * 0.12,
+          time * cfg.rotationSpeed + smoothedMouse.x * 0.18,
+          0
+        )
 
-      const shader = (material as PointsMaterialWithShader).userData.shader
-      if (shader?.uniforms.time) shader.uniforms.time.value = time
+        camera.position.x = smoothedMouse.x * parallaxStrength
+        camera.position.y = smoothedMouse.y * parallaxStrength * 0.85
+        camera.lookAt(0, 0, 0)
 
-      renderer.render(scene, camera)
+        const shader = (material as PointsMaterialWithShader).userData.shader
+        if (shader?.uniforms.time) shader.uniforms.time.value = time
+
+        renderer.render(scene, camera)
+        animationFrameId = requestAnimationFrame(animate)
+      }
       animationFrameId = requestAnimationFrame(animate)
-    }
-    animationFrameId = requestAnimationFrame(animate)
 
-    const resizeObserver = new ResizeObserver(() => {
+      resizeObserver = new ResizeObserver(() => {
+      if (!renderer) return
       const { width, height } = getSize()
       camera.aspect = width / height
       camera.updateProjectionMatrix()
       renderer.setSize(width, height)
-    })
-    resizeObserver.observe(container)
+      })
+      resizeObserver.observe(container)
+    }
+
+    const deferredId = requestAnimationFrame(init)
 
     return () => {
+      disposed = true
+      cancelAnimationFrame(deferredId)
       cancelAnimationFrame(animationFrameId)
-      resizeObserver.disconnect()
-      scene.remove(points)
-      geometry.dispose()
-      material.dispose()
-      texture.dispose()
-      renderer.dispose()
-      if (renderer.domElement.parentElement === container) {
+      resizeObserver?.disconnect()
+      geometry?.dispose()
+      material?.dispose()
+      texture?.dispose()
+      renderer?.dispose()
+      if (renderer?.domElement.parentElement === container) {
         container.removeChild(renderer.domElement)
       }
     }
-  }, [cameraZ, configOverrides, mouse, parallaxStrength])
+    // mouse is a stable ref — read in rAF without re-init WebGL
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- merged via configKey
+  }, [cameraZ, configKey, parallaxStrength])
 
-  return <div ref={rootRef} className={`h-full w-full ${className}`} />
+  return (
+    <div
+      ref={rootRef}
+      className={`absolute inset-0 h-full w-full ${className}`}
+    />
+  )
 }
 
 const createDotTexture = (size = 32, color = "#FFFFFF"): THREE.CanvasTexture => {
@@ -163,10 +209,12 @@ const createDotTexture = (size = 32, color = "#FFFFFF"): THREE.CanvasTexture => 
   const ctx = canvas.getContext("2d")
   if (!ctx) throw new Error("2D canvas context not available")
 
-  const circle = new Path2D()
-  circle.arc(radius, radius, radius, 0, 2 * Math.PI)
-  ctx.fillStyle = color
-  ctx.fill(circle)
+  const gradient = ctx.createRadialGradient(radius, radius, 0, radius, radius, radius)
+  gradient.addColorStop(0, color)
+  gradient.addColorStop(0.45, "rgba(255,255,255,0.35)")
+  gradient.addColorStop(1, "rgba(255,255,255,0)")
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, size, size)
 
   return new THREE.CanvasTexture(canvas)
 }
