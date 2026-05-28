@@ -1,21 +1,16 @@
-import dynamic from "next/dynamic"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import HeroOrbGate from "@/components/hero/HeroOrbGate"
 import { TRUST_BADGES } from "@/lib/content/trust-badges"
 import { siteConfig } from "@/lib/site-config"
 import { Button, Container, WhatsAppButton } from "../ui"
-
-const ParticleOrbBackground = dynamic(
-  () => import("@/components/hero/ParticleOrbBackground"),
-  { ssr: false }
-)
 
 const Hero = () => (
   <section
     id="top"
     className="relative overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16"
   >
-    <ParticleOrbBackground />
+    <HeroOrbGate />
 
     <div
       aria-hidden

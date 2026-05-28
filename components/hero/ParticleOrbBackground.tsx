@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { MOBILE_ORB_MEDIA } from "@/lib/hero-orb-media"
 import { ParticleOrbCanvas, type ParticleOrbConfig } from "./particle-orb"
 
 const HERO_SECTION_ID = "top"
@@ -19,11 +20,26 @@ const usePrefersReducedMotion = () => {
   return reduced
 }
 
+const useIsMobileViewport = () => {
+  const [isMobile, setIsMobile] = useState(true)
+
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_ORB_MEDIA)
+    const update = () => setIsMobile(mq.matches)
+    update()
+    mq.addEventListener("change", update)
+    return () => mq.removeEventListener("change", update)
+  }, [])
+
+  return isMobile
+}
+
 const ParticleOrbBackground = () => {
   const mouse = useRef({ x: 0, y: 0 })
   const sectionRef = useRef<HTMLElement | null>(null)
   const [ready, setReady] = useState(false)
   const prefersReducedMotion = usePrefersReducedMotion()
+  const isMobile = useIsMobileViewport()
 
   const updateMouse = useCallback((clientX: number, clientY: number) => {
     const section = sectionRef.current
@@ -39,7 +55,7 @@ const ParticleOrbBackground = () => {
   }, [])
 
   useEffect(() => {
-    if (prefersReducedMotion) return
+    if (prefersReducedMotion || isMobile) return
 
     const section = document.getElementById(HERO_SECTION_ID)
     if (!section) return
@@ -62,8 +78,9 @@ const ParticleOrbBackground = () => {
       section.removeEventListener("pointermove", handlePointerMove)
       section.removeEventListener("pointerleave", handlePointerLeave)
       sectionRef.current = null
+      setReady(false)
     }
-  }, [prefersReducedMotion, updateMouse])
+  }, [prefersReducedMotion, isMobile, updateMouse])
 
   const orbConfig = useMemo<ParticleOrbConfig>(
     () => ({
@@ -79,7 +96,7 @@ const ParticleOrbBackground = () => {
     []
   )
 
-  if (prefersReducedMotion || !ready) {
+  if (prefersReducedMotion || isMobile || !ready) {
     return null
   }
 
