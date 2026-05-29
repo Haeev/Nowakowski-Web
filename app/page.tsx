@@ -5,6 +5,7 @@ import Hero from "@/components/sections/Hero"
 import WhyNowakowski from "@/components/sections/WhyNowakowski"
 import JsonLd from "@/components/sections/JsonLd"
 import FloatingCallButton from "@/components/ui/FloatingCallButton"
+import AuditWidget from "@/components/audit/AuditWidget"
 
 const Services = dynamic(() => import("@/components/sections/Services"))
 const Processus = dynamic(() => import("@/components/sections/Processus"))
@@ -33,6 +34,7 @@ const HomePage = () => (
     </main>
     <Footer />
     <FloatingCallButton />
+    <AuditWidget />
   </>
 )
 
