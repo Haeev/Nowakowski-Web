@@ -7,6 +7,11 @@ import type {
 
 const TARGET_COUNT = 4
 
+const isPerfectCategory = (
+  result: AuditStrategyResult,
+  category: AuditCategoryKey,
+): boolean => result.scores[category] === 100
+
 const getCategoryScore = (
   result: AuditStrategyResult,
   category: AuditCategoryKey,
@@ -34,6 +39,7 @@ export const selectPriorityIssues = (
 
   for (const category of CATEGORY_ORDER) {
     if (selected.length >= TARGET_COUNT) break
+    if (isPerfectCategory(result, category)) continue
     const top = result.issuesByCategory[category][0]
     if (top) pushIssue(top)
   }
@@ -43,6 +49,7 @@ export const selectPriorityIssues = (
   const worstFirst = sortCategoriesByWorstScore(result)
   for (const category of worstFirst) {
     if (selected.length >= TARGET_COUNT) break
+    if (isPerfectCategory(result, category)) continue
     const issues = result.issuesByCategory[category]
     for (let index = 1; index < issues.length; index += 1) {
       if (selected.length >= TARGET_COUNT) break

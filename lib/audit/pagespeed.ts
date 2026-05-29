@@ -26,6 +26,9 @@ const PSI_CATEGORIES = [
 const PASS_THRESHOLD = 0.9
 const MAX_ISSUES_PER_CATEGORY = 3
 
+const isPerfectCategoryScore = (score: number | null): boolean =>
+  score === 100
+
 const PSI_TO_AUDIT_KEY: Record<
   (typeof PSI_CATEGORIES)[number],
   AuditCategoryKey
@@ -178,7 +181,19 @@ const parseStrategyResult = (
   }
   return {
     scores,
-    issuesByCategory: collectIssuesByCategory(lighthouse),
+    issuesByCategory: (() => {
+      const issuesByCategory = collectIssuesByCategory(lighthouse)
+      // Lighthouse peut signaler des audits faible poids alors que le score
+      // arrondi affiche 100 : on n'affiche rien à corriger pour ces catégories.
+      ;(
+        Object.keys(issuesByCategory) as AuditCategoryKey[]
+      ).forEach((key) => {
+        if (isPerfectCategoryScore(scores[key])) {
+          issuesByCategory[key] = []
+        }
+      })
+      return issuesByCategory
+    })(),
   }
 }
 
