@@ -92,18 +92,19 @@ const AuditWidget = () => {
         aria-expanded={false}
         aria-label="Ouvrir l'audit gratuit de votre site"
         className={cn(
-          "group fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-1.5 rounded-l-xl border border-r-0 border-border bg-surface/95 px-2 py-3 shadow-brand backdrop-blur transition-all duration-300 hover:bg-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg motion-reduce:transition-none",
+          "group fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-1.5 rounded-l-xl border border-r-0 border-brand/40 bg-surface/95 px-2.5 py-3 shadow-brand backdrop-blur transition-all duration-300 hover:border-brand hover:bg-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg motion-reduce:animate-none motion-reduce:transition-none",
+          "md:gap-2 md:border-l-4 md:border-l-brand md:bg-brand/10 md:px-3.5 md:py-5 md:shadow-brand-glow md:hover:bg-brand md:hover:shadow-brand-glow motion-safe:md:animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]",
         )}
       >
         <Gauge
-          className="h-4 w-4 text-brand transition-colors group-hover:text-white"
+          className="h-5 w-5 text-brand transition-colors group-hover:text-white md:h-6 md:w-6"
           aria-hidden
         />
-        <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-fg transition-colors [writing-mode:vertical-rl] group-hover:text-white">
-          Audit
+        <span className="text-xs font-semibold uppercase tracking-[0.1em] text-fg transition-colors [writing-mode:vertical-rl] group-hover:text-white md:text-sm md:tracking-[0.08em]">
+          Audit gratuit
         </span>
         <ChevronLeft
-          className="h-3 w-3 text-fg-subtle transition-colors group-hover:text-white"
+          className="h-4 w-4 text-brand transition-colors group-hover:text-white md:h-5 md:w-5"
           aria-hidden
         />
       </button>
