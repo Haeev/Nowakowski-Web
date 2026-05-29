@@ -54,10 +54,7 @@ const AuditUrlForm = ({
     <form onSubmit={handleSubmit} noValidate className={cn("w-full", className)}>
       <label
         htmlFor={inputId}
-        className={cn(
-          "mb-2 block font-semibold text-fg",
-          compact ? "text-xs" : "text-sm",
-        )}
+        className="mb-2 block text-sm font-semibold text-fg"
       >
         Adresse de votre site
       </label>
@@ -66,7 +63,7 @@ const AuditUrlForm = ({
           <Search
             className={cn(
               "pointer-events-none absolute top-1/2 -translate-y-1/2 text-fg-subtle",
-              compact ? "left-3 h-3.5 w-3.5" : "left-4 h-4 w-4",
+              compact ? "left-3.5 h-4 w-4" : "left-4 h-4 w-4",
             )}
             aria-hidden
           />
@@ -84,7 +81,7 @@ const AuditUrlForm = ({
             aria-describedby={hasError ? errorId : undefined}
             className={cn(
               "w-full rounded-xl border-2 border-border bg-bg text-fg placeholder:text-fg-subtle transition-colors focus:border-brand focus:outline-none",
-              compact ? "py-2.5 pl-9 pr-3 text-sm" : "py-3 pl-11 pr-4",
+              compact ? "py-3 pl-10 pr-3.5 text-sm" : "py-3 pl-11 pr-4",
             )}
           />
         </div>
@@ -92,20 +89,17 @@ const AuditUrlForm = ({
           type="submit"
           className={cn(
             "group inline-flex items-center justify-center gap-2 rounded-xl bg-brand font-semibold text-white shadow-soft transition-shadow duration-200 hover:shadow-brand-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
-            compact ? "px-4 py-2.5 text-xs" : "px-6 py-3 text-sm",
+            compact ? "px-4 py-3 text-sm" : "px-6 py-3 text-sm",
           )}
         >
           Analyser gratuitement
           <ArrowRight
-            className={cn(
-              "transition-transform group-hover:translate-x-1",
-              compact ? "h-3.5 w-3.5" : "h-4 w-4",
-            )}
+            className="h-4 w-4 transition-transform group-hover:translate-x-1"
             aria-hidden
           />
         </button>
       </div>
-      <p className={cn("text-fg-subtle", compact ? "mt-2 text-[11px]" : "mt-3 text-xs")}>
+      <p className={cn("text-fg-subtle", compact ? "mt-2.5 text-xs" : "mt-3 text-xs")}>
         Gratuit, sans inscription, résultats en 30 secondes.
       </p>
       <p

@@ -118,12 +118,12 @@ const AuditWidget = () => {
         aria-labelledby="audit-widget-title"
         onKeyDown={handleCardKeyDown}
         className={cn(
-          "w-[min(calc(100vw-1.5rem),320px)] rounded-2xl border border-border bg-surface/95 p-4 shadow-brand backdrop-blur motion-reduce:transition-none sm:p-5",
+          "w-[min(calc(100vw-1.5rem),390px)] rounded-2xl border border-border bg-surface/95 p-5 shadow-xl shadow-brand/15 backdrop-blur motion-reduce:transition-none sm:p-6",
           "transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
         )}
       >
         <div className="flex items-start justify-between gap-3">
-          <p className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-brand">
+          <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
             <span aria-hidden className="inline-block h-px w-4 bg-brand" />
             Audit gratuit
           </p>
@@ -131,30 +131,30 @@ const AuditWidget = () => {
             type="button"
             onClick={handleCollapse}
             aria-label="Réduire le widget d'audit"
-            className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-fg transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-fg transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
-            <X className="h-3.5 w-3.5" aria-hidden />
+            <X className="h-4 w-4" aria-hidden />
           </button>
         </div>
 
         <h2
           id="audit-widget-title"
-          className="mt-3 font-display text-lg font-bold leading-snug tracking-tight text-fg"
+          className="mt-4 font-display text-xl font-bold leading-snug tracking-tight text-fg"
         >
           Votre site est-il à la hauteur ?
         </h2>
-        <p className="mt-2 text-xs leading-relaxed text-fg-muted">
+        <p className="mt-2.5 text-sm leading-relaxed text-fg-muted">
           Analyse gratuite en 30 secondes : vitesse, SEO et accessibilité.
         </p>
 
-        <div className="mt-4">
+        <div className="mt-5">
           <AuditUrlForm compact onSubmitted={handleCollapse} />
         </div>
 
-        <ul className="mt-4 space-y-1.5 text-[11px] text-fg-muted">
+        <ul className="mt-5 space-y-2 text-xs text-fg-muted sm:text-sm">
           {WIDGET_POINTS.map((point) => (
-            <li key={point} className="flex items-start gap-1.5">
-              <Check className="mt-0.5 h-3 w-3 shrink-0 text-brand" aria-hidden />
+            <li key={point} className="flex items-start gap-2">
+              <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand" aria-hidden />
               <span>{point}</span>
             </li>
           ))}
