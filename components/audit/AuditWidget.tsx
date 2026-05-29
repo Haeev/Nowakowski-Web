@@ -6,59 +6,59 @@ import {
   useRef,
   useState,
 } from "react"
-import { Check, Gauge, X } from "lucide-react"
+import { Check, ChevronLeft, Gauge, X } from "lucide-react"
 import AuditUrlForm from "./AuditUrlForm"
 import { cn } from "@/lib/cn"
 
 const WIDGET_POINTS = [
-  "Performance, SEO, accessibilité et bonnes pratiques",
-  "Vue mobile et ordinateur",
-  "Les 3 priorités à corriger, expliquées simplement",
+  "Performance, SEO, accessibilité",
+  "Mobile + ordinateur",
+  "Top 3 priorités expliquées",
 ]
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 const AuditWidget = () => {
-  const [open, setOpen] = useState(false)
-  const panelRef = useRef<HTMLDivElement | null>(null)
-  const handleRef = useRef<HTMLButtonElement | null>(null)
-  const wasOpenRef = useRef(false)
+  const [expanded, setExpanded] = useState(true)
+  const cardRef = useRef<HTMLDivElement | null>(null)
+  const tabRef = useRef<HTMLButtonElement | null>(null)
+  const wasExpandedRef = useRef(true)
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleExpand = () => setExpanded(true)
+  const handleCollapse = () => setExpanded(false)
 
   useEffect(() => {
-    if (!open) return
+    if (!expanded) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false)
+      if (event.key === "Escape") setExpanded(false)
     }
     window.addEventListener("keydown", handleKeyDown)
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = "hidden"
-
-    const focusTimer = window.setTimeout(() => {
-      const input = panelRef.current?.querySelector<HTMLInputElement>("input")
-      input?.focus()
-    }, 80)
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-      document.body.style.overflow = previousOverflow
-      window.clearTimeout(focusTimer)
-    }
-  }, [open])
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [expanded])
 
   useEffect(() => {
-    if (wasOpenRef.current && !open) handleRef.current?.focus()
-    wasOpenRef.current = open
-  }, [open])
+    if (wasExpandedRef.current && !expanded) {
+      tabRef.current?.focus()
+      return
+    }
+    if (!wasExpandedRef.current && expanded) {
+      const focusTimer = window.setTimeout(() => {
+        const input = cardRef.current?.querySelector<HTMLInputElement>("input")
+        input?.focus()
+      }, 120)
+      return () => window.clearTimeout(focusTimer)
+    }
+  }, [expanded])
 
-  const handlePanelKeyDown = (event: ReactKeyboardEvent<HTMLElement>) => {
+  useEffect(() => {
+    wasExpandedRef.current = expanded
+  }, [expanded])
+
+  const handleCardKeyDown = (event: ReactKeyboardEvent<HTMLElement>) => {
     if (event.key !== "Tab") return
-    const focusables = panelRef.current?.querySelectorAll<HTMLElement>(
+    const focusables = cardRef.current?.querySelectorAll<HTMLElement>(
       FOCUSABLE_SELECTOR,
     )
     if (!focusables || focusables.length === 0) return
@@ -77,100 +77,90 @@ const AuditWidget = () => {
     }
   }
 
-  return (
-    <>
+  if (!expanded) {
+    return (
       <button
-        ref={handleRef}
+        ref={tabRef}
         type="button"
-        onClick={handleOpen}
-        aria-haspopup="dialog"
-        aria-expanded={open}
+        onClick={handleExpand}
+        aria-expanded={false}
         aria-label="Ouvrir l'audit gratuit de votre site"
         className={cn(
-          "group fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-2 rounded-l-2xl border border-r-0 border-border bg-surface/95 px-2.5 py-4 shadow-brand backdrop-blur transition-all duration-300 hover:bg-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
-          open ? "pointer-events-none translate-x-full opacity-0" : "opacity-100",
+          "group fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-1.5 rounded-l-xl border border-r-0 border-border bg-surface/95 px-2 py-3 shadow-brand backdrop-blur transition-all duration-300 hover:bg-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg motion-reduce:transition-none",
         )}
       >
         <Gauge
-          className="h-5 w-5 text-brand transition-colors group-hover:text-white"
+          className="h-4 w-4 text-brand transition-colors group-hover:text-white"
           aria-hidden
         />
-        <span className="text-xs font-semibold uppercase tracking-[0.15em] text-fg transition-colors [writing-mode:vertical-rl] group-hover:text-white">
-          Audit gratuit
+        <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-fg transition-colors [writing-mode:vertical-rl] group-hover:text-white">
+          Audit
         </span>
-      </button>
-
-      <div
-        className={cn(
-          "fixed inset-0 z-[60]",
-          open ? "visible" : "pointer-events-none invisible",
-        )}
-        aria-hidden={!open}
-      >
-        <button
-          type="button"
-          aria-label="Fermer l'audit"
-          tabIndex={-1}
-          onClick={handleClose}
-          className={cn(
-            "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300",
-            open ? "opacity-100" : "opacity-0",
-          )}
+        <ChevronLeft
+          className="h-3 w-3 text-fg-subtle transition-colors group-hover:text-white"
+          aria-hidden
         />
-        <aside
-          ref={panelRef}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="audit-widget-title"
-          onKeyDown={handlePanelKeyDown}
-          className={cn(
-            "absolute right-0 top-0 flex h-full w-full max-w-md flex-col overflow-y-auto border-l border-border bg-bg p-6 shadow-xl transition-transform duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] sm:p-8",
-            open ? "translate-x-0" : "translate-x-full",
-          )}
-        >
-          <div className="flex items-start justify-between gap-4">
-            <p className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
-              <span aria-hidden className="inline-block h-px w-6 bg-brand" />
-              Audit gratuit
-            </p>
-            <button
-              type="button"
-              onClick={handleClose}
-              aria-label="Fermer l'audit"
-              tabIndex={open ? 0 : -1}
-              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border text-fg transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-            >
-              <X className="h-4 w-4" aria-hidden />
-            </button>
-          </div>
+      </button>
+    )
+  }
 
-          <h2
-            id="audit-widget-title"
-            className="mt-5 font-display text-2xl font-bold tracking-tight text-fg"
-          >
-            Votre site est-il à la hauteur ?
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-fg-muted">
-            Analysez gratuitement la vitesse, le référencement et
-            l'accessibilité de votre site. Vous saurez en 30 secondes ce qui
-            peut être amélioré.
+  return (
+    <div
+      className={cn(
+        "fixed z-40",
+        "bottom-24 right-3 md:bottom-auto md:right-4 md:top-1/2 md:-translate-y-1/2",
+      )}
+    >
+      <div
+        ref={cardRef}
+        role="complementary"
+        aria-label="Audit gratuit de site web"
+        aria-labelledby="audit-widget-title"
+        onKeyDown={handleCardKeyDown}
+        className={cn(
+          "w-[min(calc(100vw-1.5rem),320px)] rounded-2xl border border-border bg-surface/95 p-4 shadow-brand backdrop-blur motion-reduce:transition-none sm:p-5",
+          "transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
+        )}
+      >
+        <div className="flex items-start justify-between gap-3">
+          <p className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-brand">
+            <span aria-hidden className="inline-block h-px w-4 bg-brand" />
+            Audit gratuit
           </p>
+          <button
+            type="button"
+            onClick={handleCollapse}
+            aria-label="Réduire le widget d'audit"
+            className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-fg transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          >
+            <X className="h-3.5 w-3.5" aria-hidden />
+          </button>
+        </div>
 
-          <div className="mt-6">
-            <AuditUrlForm onSubmitted={handleClose} />
-          </div>
+        <h2
+          id="audit-widget-title"
+          className="mt-3 font-display text-lg font-bold leading-snug tracking-tight text-fg"
+        >
+          Votre site est-il à la hauteur ?
+        </h2>
+        <p className="mt-2 text-xs leading-relaxed text-fg-muted">
+          Analyse gratuite en 30 secondes : vitesse, SEO et accessibilité.
+        </p>
 
-          <ul className="mt-8 space-y-3 text-sm text-fg-muted">
-            {WIDGET_POINTS.map((point) => (
-              <li key={point} className="flex items-start gap-2">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" aria-hidden />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        </aside>
+        <div className="mt-4">
+          <AuditUrlForm compact onSubmitted={handleCollapse} />
+        </div>
+
+        <ul className="mt-4 space-y-1.5 text-[11px] text-fg-muted">
+          {WIDGET_POINTS.map((point) => (
+            <li key={point} className="flex items-start gap-1.5">
+              <Check className="mt-0.5 h-3 w-3 shrink-0 text-brand" aria-hidden />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-    </>
+    </div>
   )
 }
 
