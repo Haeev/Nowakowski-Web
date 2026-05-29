@@ -24,6 +24,7 @@ const DESKTOP_MEDIA_QUERY = "(min-width: 768px)"
 const AuditWidget = () => {
   const [expanded, setExpanded] = useState(false)
   const cardRef = useRef<HTMLDivElement | null>(null)
+  const fabRef = useRef<HTMLButtonElement | null>(null)
   const tabRef = useRef<HTMLButtonElement | null>(null)
   const wasExpandedRef = useRef(false)
 
@@ -46,7 +47,12 @@ const AuditWidget = () => {
 
   useEffect(() => {
     if (wasExpandedRef.current && !expanded) {
-      tabRef.current?.focus()
+      const isDesktop = window.matchMedia(DESKTOP_MEDIA_QUERY).matches
+      if (isDesktop) {
+        tabRef.current?.focus()
+      } else {
+        fabRef.current?.focus()
+      }
       return
     }
     if (!wasExpandedRef.current && expanded) {
@@ -85,29 +91,41 @@ const AuditWidget = () => {
 
   if (!expanded) {
     return (
-      <button
-        ref={tabRef}
-        type="button"
-        onClick={handleExpand}
-        aria-expanded={false}
-        aria-label="Ouvrir l'audit gratuit de votre site"
-        className={cn(
-          "group fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-1.5 rounded-l-xl border border-r-0 border-brand/40 bg-surface/95 px-2.5 py-3 shadow-brand backdrop-blur transition-all duration-300 hover:border-brand hover:bg-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg motion-reduce:animate-none motion-reduce:transition-none",
-          "md:gap-2 md:border-l-4 md:border-l-brand md:bg-brand/10 md:px-3.5 md:py-5 md:shadow-brand-glow md:hover:bg-brand md:hover:shadow-brand-glow motion-safe:md:animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]",
-        )}
-      >
-        <Gauge
-          className="h-5 w-5 text-brand transition-colors group-hover:text-white md:h-6 md:w-6"
-          aria-hidden
-        />
-        <span className="text-xs font-semibold uppercase tracking-[0.1em] text-fg transition-colors [writing-mode:vertical-rl] group-hover:text-white md:text-sm md:tracking-[0.08em]">
-          Audit gratuit
-        </span>
-        <ChevronLeft
-          className="h-4 w-4 text-brand transition-colors group-hover:text-white md:h-5 md:w-5"
-          aria-hidden
-        />
-      </button>
+      <>
+        <button
+          ref={fabRef}
+          type="button"
+          onClick={handleExpand}
+          aria-expanded={false}
+          aria-label="Ouvrir l'audit gratuit de votre site"
+          className="fixed bottom-[5.5rem] right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand text-white shadow-brand transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg md:hidden"
+        >
+          <Gauge className="h-5 w-5" aria-hidden />
+        </button>
+
+        <button
+          ref={tabRef}
+          type="button"
+          onClick={handleExpand}
+          aria-expanded={false}
+          aria-label="Ouvrir l'audit gratuit de votre site"
+          className={cn(
+            "group fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 rounded-l-xl border border-r-0 border-l-4 border-l-brand border-brand/40 bg-brand/10 px-3.5 py-5 shadow-brand-glow backdrop-blur transition-all duration-300 hover:border-brand hover:bg-brand hover:shadow-brand-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg motion-reduce:animate-none motion-reduce:transition-none motion-safe:animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite] md:flex",
+          )}
+        >
+          <Gauge
+            className="h-6 w-6 text-brand transition-colors group-hover:text-white"
+            aria-hidden
+          />
+          <span className="text-sm font-semibold uppercase tracking-[0.08em] text-fg transition-colors [writing-mode:vertical-rl] group-hover:text-white">
+            Audit gratuit
+          </span>
+          <ChevronLeft
+            className="h-5 w-5 text-brand transition-colors group-hover:text-white"
+            aria-hidden
+          />
+        </button>
+      </>
     )
   }
 
@@ -115,7 +133,7 @@ const AuditWidget = () => {
     <div
       className={cn(
         "fixed z-40",
-        "bottom-24 right-3 md:bottom-auto md:right-4 md:top-1/2 md:-translate-y-1/2",
+        "bottom-[9.5rem] right-3 left-3 md:bottom-auto md:left-auto md:right-4 md:top-1/2 md:-translate-y-1/2",
       )}
     >
       <div
@@ -125,7 +143,7 @@ const AuditWidget = () => {
         aria-labelledby="audit-widget-title"
         onKeyDown={handleCardKeyDown}
         className={cn(
-          "w-[min(calc(100vw-1.5rem),390px)] rounded-2xl border border-border bg-surface/95 p-5 shadow-xl shadow-brand/15 backdrop-blur motion-reduce:transition-none sm:p-6",
+          "w-full max-w-[390px] md:ml-0 md:w-[min(calc(100vw-1.5rem),390px)] ml-auto rounded-2xl border border-border bg-surface/95 p-5 shadow-xl shadow-brand/15 backdrop-blur motion-reduce:transition-none sm:p-6",
           "transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
         )}
       >
