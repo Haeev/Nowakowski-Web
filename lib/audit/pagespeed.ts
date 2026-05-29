@@ -8,11 +8,7 @@ import type {
   AuditStrategyResult,
 } from "@/components/audit/types"
 import { EMPTY_ISSUES_BY_CATEGORY } from "@/components/audit/types"
-import {
-  DIAGNOSTIC_AUDIT_IDS,
-  METRIC_AUDIT_IDS,
-  translateIssue,
-} from "@/lib/audit/issue-labels"
+import { getIssueLabel, isDisplayableAudit } from "@/lib/audit/issue-labels"
 
 const PSI_ENDPOINT =
   "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
@@ -24,9 +20,7 @@ const PSI_CATEGORIES = [
   "seo",
 ] as const
 
-const PASS_THRESHOLD = 1
 const MAX_ISSUES_PER_CATEGORY = 3
-const DIAGNOSTICS_GROUP = "diagnostics"
 
 const isPerfectCategoryScore = (score: number | null): boolean =>
   score === 100
@@ -100,32 +94,13 @@ const scoreToPercent = (score: number | null | undefined): number | null => {
   return Math.round(score * 100)
 }
 
-const isSkippable = (audit: PsiAudit): boolean =>
-  audit.scoreDisplayMode === "informative" ||
-  audit.scoreDisplayMode === "notApplicable" ||
-  audit.scoreDisplayMode === "manual"
-
 const isOpportunity = (audit: PsiAudit): boolean =>
   audit.details?.type === "opportunity"
 
-const hasEstimatedSavings = (audit: PsiAudit): boolean => {
+const getSavingsScore = (audit: PsiAudit): number => {
   const ms = audit.details?.overallSavingsMs ?? 0
   const bytes = audit.details?.overallSavingsBytes ?? 0
-  return ms > 0 || bytes > 0
-}
-
-const isEligibleAudit = (
-  ref: PsiAuditRef,
-  audit: PsiAudit,
-): boolean => {
-  if (METRIC_AUDIT_IDS.has(ref.id)) return false
-  if (DIAGNOSTIC_AUDIT_IDS.has(ref.id)) return false
-  if (ref.group === DIAGNOSTICS_GROUP) return false
-  if (isSkippable(audit)) return false
-  if (typeof audit.score !== "number" || audit.score >= PASS_THRESHOLD) return false
-
-  if (isOpportunity(audit)) return hasEstimatedSavings(audit)
-  return true
+  return ms + bytes / 1000
 }
 
 const collectCategoryIssues = (
@@ -136,7 +111,7 @@ const collectCategoryIssues = (
   if (!auditRefs) return []
 
   type Candidate = {
-    id: string
+    auditId: string
     audit: PsiAudit
     isOpportunity: boolean
     savings: number
@@ -145,15 +120,16 @@ const collectCategoryIssues = (
   const candidates: Candidate[] = []
 
   auditRefs.forEach((ref) => {
-    const audit = audits[ref.id]
+    const auditId = ref.id
+    const audit = audits[auditId]
     if (!audit) return
-    if (!isEligibleAudit(ref, audit)) return
+    if (!isDisplayableAudit(auditId, audit)) return
 
     candidates.push({
-      id: ref.id,
+      auditId,
       audit,
       isOpportunity: isOpportunity(audit),
-      savings: audit.details?.overallSavingsMs ?? 0,
+      savings: getSavingsScore(audit),
       score: audit.score as number,
     })
   })
@@ -167,10 +143,12 @@ const collectCategoryIssues = (
   const issues: AuditIssue[] = []
   for (const candidate of candidates) {
     if (issues.length >= MAX_ISSUES_PER_CATEGORY) break
-    const title = translateIssue(candidate.id, candidate.audit.title)
+
+    const title = getIssueLabel(candidate.auditId)
     if (!title) continue
+
     issues.push({
-      id: candidate.id,
+      id: candidate.auditId,
       category: categoryKey,
       title,
       detail: candidate.audit.displayValue ?? null,

@@ -1,42 +1,6 @@
 /**
- * Audits qui sont de purs indicateurs de mesure (pas des actions concretes).
- */
-export const METRIC_AUDIT_IDS = new Set<string>([
-  "first-contentful-paint",
-  "largest-contentful-paint",
-  "first-meaningful-paint",
-  "speed-index",
-  "interactive",
-  "total-blocking-time",
-  "cumulative-layout-shift",
-  "max-potential-fid",
-  "experimental-interaction-to-next-paint",
-  "interaction-to-next-paint",
-])
-
-/**
- * Audits informatifs connus (diagnostics) a exclure si le groupe n'est pas renseigne.
- */
-export const DIAGNOSTIC_AUDIT_IDS = new Set<string>([
-  "network-requests",
-  "network-rtt",
-  "network-server-latency",
-  "mainthread-work-breakdown",
-  "bootup-time",
-  "diagnostics",
-  "metrics",
-  "resource-summary",
-  "third-party-facades",
-  "layout-shift-elements",
-  "largest-contentful-paint-element",
-  "lcp-lazy-loaded",
-  "prioritize-lcp-image",
-  "preload-lcp-image",
-  "dom-size",
-])
-
-/**
- * Traduction des audits Lighthouse en phrases simples, orientees benefice.
+ * Dictionnaire des audits Lighthouse indexe par identifiant anglais (audit.id).
+ * Seuls les audits presents ici peuvent apparaitre comme points a corriger.
  */
 export const ISSUE_LABELS: Record<string, string> = {
   "uses-optimized-images":
@@ -65,6 +29,8 @@ export const ISSUE_LABELS: Record<string, string> = {
     "Votre serveur met trop de temps à répondre avant même d'afficher la page.",
   "total-byte-weight":
     "Vos pages sont globalement très lourdes, ce qui pénalise les connexions mobiles.",
+  "dom-size":
+    "Votre page contient trop d'éléments HTML, ce qui ralentit l'affichage et la navigation.",
   "uses-long-cache-ttl":
     "Les fichiers ne sont pas gardés en mémoire par le navigateur : tout se recharge à chaque visite.",
   redirects:
@@ -99,6 +65,8 @@ export const ISSUE_LABELS: Record<string, string> = {
     "La page bloque l'indexation : Google risque de ne pas l'afficher dans ses résultats.",
   "crawlable-anchors":
     "Certains liens ne sont pas correctement configurés pour que Google les suive.",
+  "http-status-code":
+    "Certaines pages renvoient des erreurs HTTP, ce qui empêche Google de les indexer correctement.",
   "robots-txt":
     "Le fichier robots.txt pourrait bloquer l'exploration de certaines pages par Google.",
   hreflang:
@@ -111,6 +79,8 @@ export const ISSUE_LABELS: Record<string, string> = {
     "Certains boutons sont trop petits ou trop rapprochés pour être cliqués facilement sur mobile.",
   viewport:
     "La page n'est pas correctement adaptée à l'affichage sur mobile.",
+  "font-size":
+    "Certains textes sont trop petits pour être lus confortablement sur mobile.",
   "heading-order":
     "La hiérarchie des titres de la page n'est pas logique, ce qui complique la lecture.",
   "html-has-lang":
@@ -145,7 +115,7 @@ export const ISSUE_LABELS: Record<string, string> = {
     "Des éléments interactifs manquent d'attributs d'accessibilité obligatoires.",
   "aria-valid-attr-value":
     "Certaines valeurs d'accessibilité sont incorrectes.",
-  "bypass":
+  bypass:
     "Il manque un lien pour sauter directement au contenu principal de la page.",
   "form-field-multiple-labels":
     "Certains champs de formulaire ont plusieurs libellés, ce qui crée de la confusion.",
@@ -185,29 +155,37 @@ export const ISSUE_LABELS: Record<string, string> = {
     "Certaines images ne s'adaptent pas correctement à la taille des écrans.",
 }
 
-const GENERIC_FALLBACK =
-  "Un point d'amélioration a été détecté et pourrait être corrigé pour renforcer votre site."
+const PASS_THRESHOLD = 1
 
-const toReadableFallback = (rawTitle: string): string => {
-  const title = rawTitle.trim()
-  if (!title) return GENERIC_FALLBACK
+const SKIPPABLE_SCORE_DISPLAY_MODES = new Set([
+  "informative",
+  "manual",
+  "notApplicable",
+])
 
-  if (title.length > 80 || /[.!?]$/.test(title)) {
-    return title.endsWith(".") ? title : `${title}.`
-  }
-
-  const lower = title.charAt(0).toLowerCase() + title.slice(1)
-  return `Votre site pourrait être amélioré : ${lower}.`
+type AuditEligibilityInput = {
+  score: number | null
+  scoreDisplayMode?: string
 }
 
-export const translateIssue = (
-  id: string,
-  fallbackTitle?: string,
-): string | null => {
-  const mapped = ISSUE_LABELS[id]
-  if (mapped) return mapped
-  if (fallbackTitle && fallbackTitle.trim() !== "") {
-    return toReadableFallback(fallbackTitle)
+/** Un audit est affichable s'il est dans le dictionnaire, en echec, et actionnable. */
+export const isDisplayableAudit = (
+  auditId: string,
+  audit: AuditEligibilityInput,
+): boolean => {
+  if (!ISSUE_LABELS[auditId]) return false
+  if (
+    audit.scoreDisplayMode &&
+    SKIPPABLE_SCORE_DISPLAY_MODES.has(audit.scoreDisplayMode)
+  ) {
+    return false
   }
-  return GENERIC_FALLBACK
+  if (typeof audit.score !== "number" || audit.score >= PASS_THRESHOLD) {
+    return false
+  }
+  return true
 }
+
+/** Libelle francais pour un audit.id connu, ou null si absent du dictionnaire. */
+export const getIssueLabel = (auditId: string): string | null =>
+  ISSUE_LABELS[auditId] ?? null
