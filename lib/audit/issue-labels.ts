@@ -1,6 +1,5 @@
 /**
  * Audits qui sont de purs indicateurs de mesure (pas des actions concretes).
- * On les exclut des listes de problemes pour ne montrer que des actions actionnables.
  */
 export const METRIC_AUDIT_IDS = new Set<string>([
   "first-contentful-paint",
@@ -16,18 +15,38 @@ export const METRIC_AUDIT_IDS = new Set<string>([
 ])
 
 /**
- * Traduction des audits Lighthouse en phrases simples, orientees benefice,
- * comprehensibles par un non-technicien. Fallback sur le titre FR de PSI.
+ * Audits informatifs connus (diagnostics) a exclure si le groupe n'est pas renseigne.
+ */
+export const DIAGNOSTIC_AUDIT_IDS = new Set<string>([
+  "network-requests",
+  "network-rtt",
+  "network-server-latency",
+  "mainthread-work-breakdown",
+  "bootup-time",
+  "diagnostics",
+  "metrics",
+  "resource-summary",
+  "third-party-facades",
+  "layout-shift-elements",
+  "largest-contentful-paint-element",
+  "lcp-lazy-loaded",
+  "prioritize-lcp-image",
+  "preload-lcp-image",
+  "dom-size",
+])
+
+/**
+ * Traduction des audits Lighthouse en phrases simples, orientees benefice.
  */
 export const ISSUE_LABELS: Record<string, string> = {
   "uses-optimized-images":
     "Vos images sont trop lourdes et ralentissent l'affichage de vos pages.",
   "modern-image-formats":
-    "Vos images gagneraient à utiliser un format plus léger (WebP) pour charger plus vite.",
+    "Vos images gagneraient à utiliser un format plus léger et moderne.",
   "uses-responsive-images":
     "Vos images sont plus grandes que nécessaire et alourdissent le chargement.",
   "offscreen-images":
-    "Les images hors écran se chargent trop tôt et retardent l'affichage du contenu visible.",
+    "Des images hors écran se chargent trop tôt et ralentissent l'affichage.",
   "render-blocking-resources":
     "Des éléments bloquent l'affichage et retardent l'apparition de votre page.",
   "unused-javascript":
@@ -35,37 +54,31 @@ export const ISSUE_LABELS: Record<string, string> = {
   "legacy-javascript":
     "Votre site charge du code ancien qui pourrait être allégé pour gagner en vitesse.",
   "unused-css-rules":
-    "Du style (CSS) inutilisé est chargé pour rien et alourdit vos pages.",
+    "Des styles inutilisés alourdissent le chargement de vos pages.",
   "unminified-javascript":
-    "Vos fichiers JavaScript ne sont pas compressés au minimum, ce qui ralentit le chargement.",
+    "Votre code n'est pas compressé, ce qui ralentit l'affichage.",
   "unminified-css":
-    "Vos fichiers de style ne sont pas compressés au minimum, ce qui ralentit le chargement.",
+    "Vos feuilles de style ne sont pas compressées et pèsent plus que nécessaire.",
   "uses-text-compression":
-    "La compression des fichiers n'est pas activée : vos pages sont plus lourdes à télécharger.",
+    "Vos fichiers ne sont pas compressés au transfert, ce qui ralentit le chargement.",
   "server-response-time":
     "Votre serveur met trop de temps à répondre avant même d'afficher la page.",
   "total-byte-weight":
     "Vos pages sont globalement très lourdes, ce qui pénalise les connexions mobiles.",
   "uses-long-cache-ttl":
     "Les fichiers ne sont pas gardés en mémoire par le navigateur : tout se recharge à chaque visite.",
-  "dom-size":
-    "Vos pages contiennent trop d'éléments, ce qui les rend plus lentes à afficher.",
   redirects:
     "Des redirections inutiles ajoutent du délai avant d'arriver sur la bonne page.",
   "uses-rel-preconnect":
-    "Les connexions aux services externes pourraient être anticipées pour gagner du temps.",
+    "La connexion aux ressources externes pourrait être accélérée.",
   "efficient-animated-content":
-    "Des animations ou GIF lourds pourraient être remplacés par des vidéos plus légères.",
+    "Vos animations sont lourdes et pourraient être optimisées.",
   "third-party-summary":
     "Des services externes (trackers, widgets) ralentissent votre site.",
   "duplicated-javascript":
     "Du code JavaScript est chargé plusieurs fois inutilement, ce qui alourdit vos pages.",
   "unsized-images":
     "Certaines images n'ont pas de dimensions définies, ce qui provoque des sauts de mise en page.",
-  "bootup-time":
-    "Le temps de démarrage du JavaScript est trop long et retarde l'affichage de la page.",
-  "mainthread-work-breakdown":
-    "Le navigateur est surchargé au chargement, ce qui ralentit l'affichage de votre site.",
   "no-document-write":
     "Des scripts utilisent une méthode obsolète qui bloque l'affichage de la page.",
   "color-contrast":
@@ -75,7 +88,7 @@ export const ISSUE_LABELS: Record<string, string> = {
   "link-name":
     "Certains liens ne sont pas explicites, ce qui gêne Google et les lecteurs d'écran.",
   "button-name":
-    "Certains boutons n'ont pas de libellé clair pour les lecteurs d'écran.",
+    "Certains boutons n'ont pas de libellé clair pour les outils d'accessibilité.",
   "document-title":
     "Le titre de votre page n'est pas optimisé pour les moteurs de recherche.",
   "meta-description":
@@ -107,7 +120,7 @@ export const ISSUE_LABELS: Record<string, string> = {
   "errors-in-console":
     "Des erreurs techniques se produisent en arrière-plan sur votre site.",
   "is-on-https":
-    "Votre site n'est pas entièrement sécurisé en HTTPS.",
+    "Votre site n'est pas entièrement sécurisé en HTTPS, ce qui peut faire fuir les visiteurs.",
   "font-display":
     "Le texte reste invisible le temps que les polices se chargent.",
   deprecations:
@@ -160,10 +173,6 @@ export const ISSUE_LABELS: Record<string, string> = {
     "Certaines vidéos n'ont pas de sous-titres, ce qui limite l'accessibilité.",
   "video-description":
     "Certaines vidéos n'ont pas de description audio pour les personnes malvoyantes.",
-  "lcp-lazy-loaded":
-    "L'image principale de la page est chargée en différé, ce qui retarde l'affichage.",
-  "prioritize-lcp-image":
-    "L'image principale de la page n'est pas chargée en priorité.",
   "uses-passive-event-listeners":
     "Certains scripts ralentissent le défilement de la page sur mobile.",
   "inspector-issues":
@@ -173,9 +182,22 @@ export const ISSUE_LABELS: Record<string, string> = {
   "password-inputs-can-be-pasted-into":
     "Les champs de mot de passe empêchent le copier-coller, ce qui complique la saisie.",
   "image-size-responsive":
-    "Certaines images ne s'adaptent pas correctement à la taille de l'écran.",
-  "preload-lcp-image":
-    "L'image principale de la page pourrait être préchargée pour un affichage plus rapide.",
+    "Certaines images ne s'adaptent pas correctement à la taille des écrans.",
+}
+
+const GENERIC_FALLBACK =
+  "Un point d'amélioration a été détecté et pourrait être corrigé pour renforcer votre site."
+
+const toReadableFallback = (rawTitle: string): string => {
+  const title = rawTitle.trim()
+  if (!title) return GENERIC_FALLBACK
+
+  if (title.length > 80 || /[.!?]$/.test(title)) {
+    return title.endsWith(".") ? title : `${title}.`
+  }
+
+  const lower = title.charAt(0).toLowerCase() + title.slice(1)
+  return `Votre site pourrait être amélioré : ${lower}.`
 }
 
 export const translateIssue = (
@@ -184,6 +206,8 @@ export const translateIssue = (
 ): string | null => {
   const mapped = ISSUE_LABELS[id]
   if (mapped) return mapped
-  if (fallbackTitle && fallbackTitle.trim() !== "") return fallbackTitle.trim()
-  return null
+  if (fallbackTitle && fallbackTitle.trim() !== "") {
+    return toReadableFallback(fallbackTitle)
+  }
+  return GENERIC_FALLBACK
 }

@@ -9,6 +9,7 @@ import type {
 } from "@/components/audit/types"
 import { EMPTY_ISSUES_BY_CATEGORY } from "@/components/audit/types"
 import {
+  DIAGNOSTIC_AUDIT_IDS,
   METRIC_AUDIT_IDS,
   translateIssue,
 } from "@/lib/audit/issue-labels"
@@ -23,8 +24,9 @@ const PSI_CATEGORIES = [
   "seo",
 ] as const
 
-const PASS_THRESHOLD = 0.9
+const PASS_THRESHOLD = 1
 const MAX_ISSUES_PER_CATEGORY = 3
+const DIAGNOSTICS_GROUP = "diagnostics"
 
 const isPerfectCategoryScore = (score: number | null): boolean =>
   score === 100
@@ -54,6 +56,7 @@ export class AuditError extends Error {
 type PsiAuditDetails = {
   type?: string
   overallSavingsMs?: number
+  overallSavingsBytes?: number
 }
 
 type PsiAudit = {
@@ -68,6 +71,7 @@ type PsiAudit = {
 type PsiAuditRef = {
   id: string
   weight: number
+  group?: string
 }
 
 type PsiCategory = {
@@ -101,6 +105,29 @@ const isSkippable = (audit: PsiAudit): boolean =>
   audit.scoreDisplayMode === "notApplicable" ||
   audit.scoreDisplayMode === "manual"
 
+const isOpportunity = (audit: PsiAudit): boolean =>
+  audit.details?.type === "opportunity"
+
+const hasEstimatedSavings = (audit: PsiAudit): boolean => {
+  const ms = audit.details?.overallSavingsMs ?? 0
+  const bytes = audit.details?.overallSavingsBytes ?? 0
+  return ms > 0 || bytes > 0
+}
+
+const isEligibleAudit = (
+  ref: PsiAuditRef,
+  audit: PsiAudit,
+): boolean => {
+  if (METRIC_AUDIT_IDS.has(ref.id)) return false
+  if (DIAGNOSTIC_AUDIT_IDS.has(ref.id)) return false
+  if (ref.group === DIAGNOSTICS_GROUP) return false
+  if (isSkippable(audit)) return false
+  if (typeof audit.score !== "number" || audit.score >= PASS_THRESHOLD) return false
+
+  if (isOpportunity(audit)) return hasEstimatedSavings(audit)
+  return true
+}
+
 const collectCategoryIssues = (
   categoryKey: AuditCategoryKey,
   auditRefs: PsiAuditRef[] | undefined,
@@ -108,27 +135,34 @@ const collectCategoryIssues = (
 ): AuditIssue[] => {
   if (!auditRefs) return []
 
-  type Candidate = { id: string; audit: PsiAudit; priority: number }
+  type Candidate = {
+    id: string
+    audit: PsiAudit
+    isOpportunity: boolean
+    savings: number
+    score: number
+  }
   const candidates: Candidate[] = []
 
   auditRefs.forEach((ref) => {
     const audit = audits[ref.id]
     if (!audit) return
-    if (METRIC_AUDIT_IDS.has(ref.id)) return
-    if (isSkippable(audit)) return
-    if (typeof audit.score !== "number") return
-    if (audit.score >= PASS_THRESHOLD) return
+    if (!isEligibleAudit(ref, audit)) return
 
-    const savings = audit.details?.overallSavingsMs ?? 0
-    const priority =
-      savings > 0
-        ? 1_000_000 + savings
-        : (1 - audit.score) * (ref.weight + 1) * 100
-
-    candidates.push({ id: ref.id, audit, priority })
+    candidates.push({
+      id: ref.id,
+      audit,
+      isOpportunity: isOpportunity(audit),
+      savings: audit.details?.overallSavingsMs ?? 0,
+      score: audit.score as number,
+    })
   })
 
-  candidates.sort((a, b) => b.priority - a.priority)
+  candidates.sort((a, b) => {
+    if (a.isOpportunity && b.isOpportunity) return b.savings - a.savings
+    if (a.isOpportunity !== b.isOpportunity) return a.isOpportunity ? -1 : 1
+    return a.score - b.score
+  })
 
   const issues: AuditIssue[] = []
   for (const candidate of candidates) {
