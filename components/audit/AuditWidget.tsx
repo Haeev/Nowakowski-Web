@@ -19,14 +19,20 @@ const WIDGET_POINTS = [
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
+const DESKTOP_MEDIA_QUERY = "(min-width: 768px)"
+
 const AuditWidget = () => {
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(false)
   const cardRef = useRef<HTMLDivElement | null>(null)
   const tabRef = useRef<HTMLButtonElement | null>(null)
-  const wasExpandedRef = useRef(true)
+  const wasExpandedRef = useRef(false)
 
   const handleExpand = () => setExpanded(true)
   const handleCollapse = () => setExpanded(false)
+
+  useEffect(() => {
+    setExpanded(window.matchMedia(DESKTOP_MEDIA_QUERY).matches)
+  }, [])
 
   useEffect(() => {
     if (!expanded) return
