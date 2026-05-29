@@ -1,10 +1,17 @@
 import type {
+  AuditCategoryKey,
   AuditErrorCode,
   AuditIssue,
+  AuditIssuesByCategory,
   AuditScores,
   AuditStrategy,
   AuditStrategyResult,
 } from "@/components/audit/types"
+import { EMPTY_ISSUES_BY_CATEGORY } from "@/components/audit/types"
+import {
+  METRIC_AUDIT_IDS,
+  translateIssue,
+} from "@/lib/audit/issue-labels"
 
 const PSI_ENDPOINT =
   "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
@@ -17,91 +24,16 @@ const PSI_CATEGORIES = [
 ] as const
 
 const PASS_THRESHOLD = 0.9
-const MAX_ISSUES = 3
+const MAX_ISSUES_PER_CATEGORY = 3
 
-/**
- * Audits qui sont de purs indicateurs de mesure (pas des actions concretes).
- * On les exclut du "top 3" pour ne montrer que des problemes actionnables.
- */
-const METRIC_AUDIT_IDS = new Set<string>([
-  "first-contentful-paint",
-  "largest-contentful-paint",
-  "first-meaningful-paint",
-  "speed-index",
-  "interactive",
-  "total-blocking-time",
-  "cumulative-layout-shift",
-  "max-potential-fid",
-])
-
-/**
- * Traduction des principaux audits Lighthouse en phrases simples, orientees
- * benefice, comprehensibles par un non-technicien. Fallback sur le titre FR
- * renvoye par l'API (locale=fr) pour les audits non listes ici.
- */
-const ISSUE_LABELS: Record<string, string> = {
-  "uses-optimized-images":
-    "Vos images sont trop lourdes et ralentissent l'affichage de vos pages.",
-  "modern-image-formats":
-    "Vos images gagneraient à utiliser un format plus léger (WebP) pour charger plus vite.",
-  "uses-responsive-images":
-    "Des images plus grandes que nécessaire sont envoyées : elles pèsent inutilement sur le chargement.",
-  "offscreen-images":
-    "Les images hors écran se chargent trop tôt et retardent l'affichage du contenu visible.",
-  "render-blocking-resources":
-    "Des fichiers bloquent l'affichage : votre page met plus de temps à apparaître.",
-  "unused-javascript":
-    "Du code JavaScript inutile est chargé et ralentit votre site.",
-  "unused-css-rules":
-    "Du style (CSS) inutilisé est chargé pour rien et alourdit vos pages.",
-  "unminified-javascript":
-    "Vos fichiers JavaScript ne sont pas compressés au minimum, ce qui ralentit le chargement.",
-  "unminified-css":
-    "Vos fichiers de style ne sont pas compressés au minimum, ce qui ralentit le chargement.",
-  "uses-text-compression":
-    "La compression des fichiers n'est pas activée : vos pages sont plus lourdes à télécharger.",
-  "server-response-time":
-    "Votre serveur met trop de temps à répondre avant même d'afficher la page.",
-  "total-byte-weight":
-    "Vos pages sont globalement très lourdes, ce qui pénalise les connexions mobiles.",
-  "uses-long-cache-ttl":
-    "Les fichiers ne sont pas gardés en mémoire par le navigateur : tout se recharge à chaque visite.",
-  "dom-size":
-    "Vos pages contiennent trop d'éléments, ce qui les rend plus lentes à afficher.",
-  redirects:
-    "Des redirections inutiles ajoutent du délai avant d'arriver sur la bonne page.",
-  "uses-rel-preconnect":
-    "Les connexions aux services externes pourraient être anticipées pour gagner du temps.",
-  "efficient-animated-content":
-    "Des animations ou GIF lourds pourraient être remplacés par des vidéos plus légères.",
-  "third-party-summary":
-    "Des services externes (trackers, widgets) ralentissent votre site.",
-  "color-contrast":
-    "Certains textes manquent de contraste et sont difficiles à lire.",
-  "image-alt":
-    "Des images n'ont pas de description : un frein pour l'accessibilité et le référencement.",
-  "link-name":
-    "Certains liens n'ont pas de texte clair, ce qui gêne l'accessibilité.",
-  "button-name":
-    "Certains boutons n'ont pas de libellé clair pour les lecteurs d'écran.",
-  "document-title":
-    "Le titre de la page est absent ou peu clair pour Google.",
-  "meta-description":
-    "La description de la page (affichée dans Google) est manquante.",
-  "link-text":
-    "Certains liens ont un texte peu explicite (« cliquez ici »), peu utile pour le référencement.",
-  "is-crawlable":
-    "La page bloque l'indexation : Google risque de ne pas l'afficher dans ses résultats.",
-  "tap-targets":
-    "Sur mobile, certains boutons ou liens sont trop petits ou trop rapprochés pour être cliqués facilement.",
-  viewport:
-    "La page n'est pas correctement adaptée à l'affichage sur mobile.",
-  "errors-in-console":
-    "Des erreurs techniques se produisent en arrière-plan sur votre site.",
-  "is-on-https":
-    "Votre site n'est pas entièrement sécurisé en HTTPS.",
-  "font-display":
-    "Le texte reste invisible le temps que les polices se chargent.",
+const PSI_TO_AUDIT_KEY: Record<
+  (typeof PSI_CATEGORIES)[number],
+  AuditCategoryKey
+> = {
+  performance: "performance",
+  seo: "seo",
+  accessibility: "accessibility",
+  "best-practices": "bestPractices",
 }
 
 export class AuditError extends Error {
@@ -166,52 +98,72 @@ const isSkippable = (audit: PsiAudit): boolean =>
   audit.scoreDisplayMode === "notApplicable" ||
   audit.scoreDisplayMode === "manual"
 
-const collectIssues = (lighthouse: PsiLighthouseResult): AuditIssue[] => {
-  const audits = lighthouse.audits ?? {}
-  const categories = lighthouse.categories ?? {}
-
-  const weightById = new Map<string, number>()
-  Object.values(categories).forEach((category) => {
-    category?.auditRefs?.forEach((ref) => {
-      const current = weightById.get(ref.id) ?? 0
-      if (ref.weight > current) weightById.set(ref.id, ref.weight)
-    })
-  })
+const collectCategoryIssues = (
+  categoryKey: AuditCategoryKey,
+  auditRefs: PsiAuditRef[] | undefined,
+  audits: Record<string, PsiAudit>,
+): AuditIssue[] => {
+  if (!auditRefs) return []
 
   type Candidate = { id: string; audit: PsiAudit; priority: number }
   const candidates: Candidate[] = []
 
-  Object.entries(audits).forEach(([id, audit]) => {
-    if (METRIC_AUDIT_IDS.has(id)) return
+  auditRefs.forEach((ref) => {
+    const audit = audits[ref.id]
+    if (!audit) return
+    if (METRIC_AUDIT_IDS.has(ref.id)) return
     if (isSkippable(audit)) return
     if (typeof audit.score !== "number") return
     if (audit.score >= PASS_THRESHOLD) return
 
     const savings = audit.details?.overallSavingsMs ?? 0
-    const weight = weightById.get(id) ?? 0
     const priority =
       savings > 0
         ? 1_000_000 + savings
-        : (1 - audit.score) * (weight + 1) * 100
+        : (1 - audit.score) * (ref.weight + 1) * 100
 
-    candidates.push({ id, audit, priority })
+    candidates.push({ id: ref.id, audit, priority })
   })
 
   candidates.sort((a, b) => b.priority - a.priority)
 
   const issues: AuditIssue[] = []
   for (const candidate of candidates) {
-    if (issues.length >= MAX_ISSUES) break
-    const title = ISSUE_LABELS[candidate.id] ?? candidate.audit.title
+    if (issues.length >= MAX_ISSUES_PER_CATEGORY) break
+    const title = translateIssue(candidate.id, candidate.audit.title)
     if (!title) continue
     issues.push({
       id: candidate.id,
+      category: categoryKey,
       title,
       detail: candidate.audit.displayValue ?? null,
     })
   }
 
   return issues
+}
+
+const collectIssuesByCategory = (
+  lighthouse: PsiLighthouseResult,
+): AuditIssuesByCategory => {
+  const categories = lighthouse.categories ?? {}
+  const audits = lighthouse.audits ?? {}
+  const result = EMPTY_ISSUES_BY_CATEGORY()
+
+  ;(
+    Object.entries(PSI_TO_AUDIT_KEY) as [
+      keyof PsiCategories,
+      AuditCategoryKey,
+    ][]
+  ).forEach(([psiKey, auditKey]) => {
+    result[auditKey] = collectCategoryIssues(
+      auditKey,
+      categories[psiKey]?.auditRefs,
+      audits,
+    )
+  })
+
+  return result
 }
 
 const parseStrategyResult = (
@@ -224,7 +176,10 @@ const parseStrategyResult = (
     accessibility: scoreToPercent(categories.accessibility?.score),
     bestPractices: scoreToPercent(categories["best-practices"]?.score),
   }
-  return { scores, issues: collectIssues(lighthouse) }
+  return {
+    scores,
+    issuesByCategory: collectIssuesByCategory(lighthouse),
+  }
 }
 
 const buildRequestUrl = (

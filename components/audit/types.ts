@@ -1,5 +1,11 @@
 export type AuditStrategy = "mobile" | "desktop"
 
+export type AuditCategoryKey =
+  | "performance"
+  | "seo"
+  | "accessibility"
+  | "bestPractices"
+
 export type AuditScores = {
   performance: number | null
   seo: number | null
@@ -9,13 +15,16 @@ export type AuditScores = {
 
 export type AuditIssue = {
   id: string
+  category: AuditCategoryKey
   title: string
   detail: string | null
 }
 
+export type AuditIssuesByCategory = Record<AuditCategoryKey, AuditIssue[]>
+
 export type AuditStrategyResult = {
   scores: AuditScores
-  issues: AuditIssue[]
+  issuesByCategory: AuditIssuesByCategory
 }
 
 export type AuditResult = {
@@ -45,3 +54,10 @@ export type AuditApiError = {
 }
 
 export type AuditApiResponse = AuditApiSuccess | AuditApiError
+
+export const EMPTY_ISSUES_BY_CATEGORY = (): AuditIssuesByCategory => ({
+  performance: [],
+  seo: [],
+  accessibility: [],
+  bestPractices: [],
+})

@@ -10,12 +10,16 @@ import {
   RotateCw,
   Smartphone,
 } from "lucide-react"
-import ScoreGauge from "./ScoreGauge"
+import CategoryGaugeButton from "./CategoryGaugeButton"
+import CategoryPanel from "./CategoryPanel"
+import IssueCard from "./IssueCard"
 import { cn } from "@/lib/cn"
+import { CATEGORY_ORDER, getCategoryMeta } from "@/lib/audit/categories"
+import { selectPriorityIssues } from "@/lib/audit/priority"
 import type {
   AuditApiResponse,
+  AuditCategoryKey,
   AuditResult,
-  AuditScores,
   AuditStrategy,
   AuditStrategyResult,
 } from "./types"
@@ -26,18 +30,6 @@ type AuditReportProps = {
 
 type Status = "loading" | "success" | "error"
 
-type CategoryDescriptor = {
-  key: keyof AuditScores
-  label: string
-}
-
-const CATEGORIES: CategoryDescriptor[] = [
-  { key: "performance", label: "Performance" },
-  { key: "seo", label: "SEO" },
-  { key: "accessibility", label: "Accessibilité" },
-  { key: "bestPractices", label: "Bonnes pratiques" },
-]
-
 const LEGEND = [
   { color: "#16A34A", label: "90-100 : bon" },
   { color: "#D97706", label: "50-89 : à améliorer" },
@@ -46,6 +38,8 @@ const LEGEND = [
 
 const toDisplayUrl = (url: string): string =>
   url.replace(/^https?:\/\//, "").replace(/\/$/, "")
+
+const getPanelId = (category: AuditCategoryKey) => `audit-panel-${category}`
 
 const StrategyToggle = ({
   strategy,
@@ -101,18 +95,6 @@ const StrategyToggle = ({
   )
 }
 
-const ScoresGrid = ({ scores }: { scores: AuditScores }) => (
-  <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-    {CATEGORIES.map((category) => (
-      <ScoreGauge
-        key={category.key}
-        label={category.label}
-        score={scores[category.key]}
-      />
-    ))}
-  </div>
-)
-
 const Legend = () => (
   <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-fg-muted">
     {LEGEND.map((item) => (
@@ -128,53 +110,19 @@ const Legend = () => (
   </ul>
 )
 
-const IssuesList = ({ result }: { result: AuditStrategyResult }) => {
-  if (result.issues.length === 0) {
-    return (
-      <p className="rounded-2xl border border-border bg-surface p-6 text-sm text-fg-muted">
-        Aucun problème majeur détecté sur cette vue. Beau travail — votre site
-        part sur de bonnes bases.
-      </p>
-    )
-  }
-
-  return (
-    <ol className="space-y-4">
-      {result.issues.map((issue, index) => (
-        <li
-          key={issue.id}
-          className="flex gap-4 rounded-2xl border border-border bg-surface p-5"
-        >
-          <span
-            aria-hidden
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand/10 font-display text-sm font-bold text-brand"
-          >
-            {index + 1}
-          </span>
-          <div>
-            <p className="font-medium text-fg">{issue.title}</p>
-            {issue.detail && (
-              <p className="mt-1 text-sm text-fg-subtle">{issue.detail}</p>
-            )}
-          </div>
-        </li>
-      ))}
-    </ol>
-  )
-}
-
 const LoadingState = () => (
   <div role="status" aria-live="polite">
     <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-      {CATEGORIES.map((category) => (
-        <div key={category.key} className="flex flex-col items-center gap-3">
+      {CATEGORY_ORDER.map((category) => (
+        <div key={category} className="flex flex-col items-center gap-3">
           <div className="h-[120px] w-[120px] animate-pulse rounded-full bg-surface-2" />
           <div className="h-4 w-20 animate-pulse rounded bg-surface-2" />
         </div>
       ))}
     </div>
+    <div className="mt-8 h-40 animate-pulse rounded-2xl border border-border bg-surface" />
     <div className="mt-10 space-y-4">
-      {[0, 1, 2].map((row) => (
+      {[0, 1, 2, 3].map((row) => (
         <div
           key={row}
           className="h-20 animate-pulse rounded-2xl border border-border bg-surface"
@@ -220,10 +168,13 @@ const AuditReport = ({ url }: AuditReportProps) => {
   const [data, setData] = useState<AuditResult | null>(null)
   const [error, setError] = useState("")
   const [strategy, setStrategy] = useState<AuditStrategy>("mobile")
+  const [selectedCategory, setSelectedCategory] =
+    useState<AuditCategoryKey | null>(null)
 
   const runAudit = useCallback(async () => {
     setStatus("loading")
     setError("")
+    setSelectedCategory(null)
     try {
       const res = await fetch(`/api/audit?url=${encodeURIComponent(url)}`, {
         cache: "no-store",
@@ -256,11 +207,24 @@ const AuditReport = ({ url }: AuditReportProps) => {
     void runAudit()
   }, [runAudit])
 
+  const handleStrategyChange = (next: AuditStrategy) => {
+    setStrategy(next)
+    setSelectedCategory(null)
+  }
+
+  const handleCategoryToggle = (category: AuditCategoryKey) => {
+    setSelectedCategory((current) =>
+      current === category ? null : category,
+    )
+  }
+
   const current: AuditStrategyResult | null = data
     ? strategy === "mobile"
       ? data.mobile
       : data.desktop
     : null
+
+  const priorityIssues = current ? selectPriorityIssues(current) : []
 
   return (
     <section className="pb-16 md:pb-24" aria-labelledby="audit-results-title">
@@ -286,7 +250,7 @@ const AuditReport = ({ url }: AuditReportProps) => {
                 strategy={strategy}
                 mobileAvailable={Boolean(data?.mobile)}
                 desktopAvailable={Boolean(data?.desktop)}
-                onChange={setStrategy}
+                onChange={handleStrategyChange}
               />
             )}
           </div>
@@ -299,7 +263,36 @@ const AuditReport = ({ url }: AuditReportProps) => {
             {status === "success" && current && (
               <>
                 <h3 className="sr-only">Scores par catégorie</h3>
-                <ScoresGrid scores={current.scores} />
+                <p className="mb-4 text-sm text-fg-muted">
+                  Cliquez sur une catégorie pour voir ce qu'elle signifie et les
+                  points à corriger.
+                </p>
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
+                  {CATEGORY_ORDER.map((category) => (
+                    <CategoryGaugeButton
+                      key={category}
+                      label={getCategoryMeta(category).label}
+                      score={current.scores[category]}
+                      isActive={selectedCategory === category}
+                      isExpanded={selectedCategory === category}
+                      panelId={getPanelId(category)}
+                      onClick={() => handleCategoryToggle(category)}
+                    />
+                  ))}
+                </div>
+
+                <div className="mt-6 space-y-4" aria-live="polite">
+                  {CATEGORY_ORDER.map((category) => (
+                    <CategoryPanel
+                      key={category}
+                      category={category}
+                      issues={current.issuesByCategory[category]}
+                      isExpanded={selectedCategory === category}
+                      panelId={getPanelId(category)}
+                    />
+                  ))}
+                </div>
+
                 <Legend />
 
                 <h3 className="mt-12 font-display text-xl font-bold tracking-tight text-fg">
@@ -307,10 +300,27 @@ const AuditReport = ({ url }: AuditReportProps) => {
                 </h3>
                 <p className="mt-2 text-sm text-fg-muted">
                   Les points qui auront le plus d'impact pour vos visiteurs et
-                  votre référencement.
+                  votre référencement, un par catégorie quand c'est possible.
                 </p>
                 <div className="mt-5">
-                  <IssuesList result={current} />
+                  {priorityIssues.length === 0 ? (
+                    <p className="rounded-2xl border border-border bg-surface p-6 text-sm text-fg-muted">
+                      Aucun problème majeur détecté sur cette vue. Beau travail,
+                      votre site part sur de bonnes bases.
+                    </p>
+                  ) : (
+                    <ol className="space-y-4">
+                      {priorityIssues.map((issue, index) => (
+                        <li key={issue.id}>
+                          <IssueCard
+                            issue={issue}
+                            index={index}
+                            showCategoryBadge
+                          />
+                        </li>
+                      ))}
+                    </ol>
+                  )}
                 </div>
               </>
             )}

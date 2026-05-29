@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 type ScoreGaugeProps = {
   label: string
   score: number | null
+  decorative?: boolean
 }
 
 const SIZE = 120
@@ -19,7 +20,7 @@ const getColor = (score: number | null): string => {
   return "#F51934"
 }
 
-const ScoreGauge = ({ label, score }: ScoreGaugeProps) => {
+const ScoreGauge = ({ label, score, decorative = false }: ScoreGaugeProps) => {
   const target = score ?? 0
   const [progress, setProgress] = useState(0)
 
@@ -30,7 +31,7 @@ const ScoreGauge = ({ label, score }: ScoreGaugeProps) => {
 
   const color = getColor(score)
   const offset = CIRCUMFERENCE - (progress / 100) * CIRCUMFERENCE
-  const display = score === null ? "—" : String(score)
+  const display = score === null ? "?" : String(score)
   const ariaLabel =
     score === null
       ? `${label} : score indisponible`
@@ -40,8 +41,9 @@ const ScoreGauge = ({ label, score }: ScoreGaugeProps) => {
     <div className="flex flex-col items-center gap-3">
       <div
         className="relative h-[120px] w-[120px]"
-        role="img"
-        aria-label={ariaLabel}
+        {...(decorative
+          ? { "aria-hidden": true }
+          : { role: "img", "aria-label": ariaLabel })}
       >
         <svg
           width={SIZE}

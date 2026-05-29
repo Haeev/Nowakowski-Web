@@ -9,8 +9,10 @@ import SectionLabel from "@/components/ui/SectionLabel"
 import AuditUrlForm from "@/components/audit/AuditUrlForm"
 import AuditReport from "@/components/audit/AuditReport"
 import { buildAuditPageJsonLd } from "@/lib/audit/schema"
+import { AUDIT_CATEGORIES } from "@/lib/audit/categories"
 import { validateAuditUrl } from "@/lib/audit/url"
 import { siteConfig } from "@/lib/site-config"
+import type { AuditCategoryKey } from "@/components/audit/types"
 
 const PAGE_URL = `${siteConfig.productionUrl}/audit-gratuit`
 
@@ -40,38 +42,15 @@ type AuditPageProps = {
   searchParams: { url?: string | string[] }
 }
 
-type CheckItem = {
-  icon: typeof Zap
-  title: string
-  description: string
+const CATEGORY_ICONS: Record<
+  AuditCategoryKey,
+  typeof Zap
+> = {
+  performance: Zap,
+  seo: Search,
+  accessibility: Accessibility,
+  bestPractices: ShieldCheck,
 }
-
-const CHECKS: CheckItem[] = [
-  {
-    icon: Zap,
-    title: "Performance",
-    description:
-      "Vitesse de chargement sur mobile et ordinateur. Un site lent fait fuir vos visiteurs avant même qu'ils ne vous lisent.",
-  },
-  {
-    icon: Search,
-    title: "Référencement (SEO)",
-    description:
-      "Les bases techniques qui aident Google à comprendre et à afficher votre site dans ses résultats.",
-  },
-  {
-    icon: Accessibility,
-    title: "Accessibilité",
-    description:
-      "La capacité de votre site à être utilisé par tous, y compris les personnes en situation de handicap.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Bonnes pratiques",
-    description:
-      "Sécurité, fiabilité et standards du web : les signaux de confiance pour vos visiteurs et les moteurs.",
-  },
-]
 
 const AuditGratuitPage = ({ searchParams }: AuditPageProps) => {
   const rawUrl = Array.isArray(searchParams.url)
@@ -102,7 +81,7 @@ const AuditGratuitPage = ({ searchParams }: AuditPageProps) => {
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl">
               Performance, référencement, accessibilité, bonnes pratiques :
-              découvrez en 30 secondes ce que voient Google et vos visiteurs —
+              découvrez en 30 secondes ce que voient Google et vos visiteurs,
               et les premières choses à corriger.
             </p>
           </div>
@@ -135,11 +114,11 @@ const AuditGratuitPage = ({ searchParams }: AuditPageProps) => {
                     Ce que l'audit analyse
                   </h2>
                   <ul className="mt-8 grid gap-5 sm:grid-cols-2">
-                    {CHECKS.map((check) => {
-                      const Icon = check.icon
+                    {AUDIT_CATEGORIES.map((category) => {
+                      const Icon = CATEGORY_ICONS[category.key]
                       return (
                         <li
-                          key={check.title}
+                          key={category.key}
                           className="flex gap-4 rounded-2xl border border-border bg-surface p-6"
                         >
                           <div
@@ -156,10 +135,10 @@ const AuditGratuitPage = ({ searchParams }: AuditPageProps) => {
                           </div>
                           <div>
                             <h3 className="font-display text-lg font-semibold text-fg">
-                              {check.title}
+                              {category.label}
                             </h3>
                             <p className="mt-2 text-sm leading-relaxed text-fg-muted">
-                              {check.description}
+                              {category.explanation}
                             </p>
                           </div>
                         </li>
