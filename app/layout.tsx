@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Poppins, Inter } from "next/font/google"
 import Script from "next/script"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import Providers from "./providers"
 import "./globals.css"
 import { getSiteUrl, getSiteUrlObject, isProduction } from "@/lib/env"
@@ -182,6 +183,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {children}
         <AuditWidget />
       </Providers>
+      <SpeedInsights />
       {isProduction() && (
         <Script
           defer
