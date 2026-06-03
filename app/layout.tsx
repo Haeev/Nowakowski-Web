@@ -5,6 +5,7 @@ import Providers from "./providers"
 import "./globals.css"
 import { getSiteUrl, getSiteUrlObject, isProduction } from "@/lib/env"
 import { siteConfig } from "@/lib/site-config"
+import AuditWidget from "@/components/audit/AuditWidget"
 import PreviewBanner from "@/components/ui/PreviewBanner"
 
 const poppins = Poppins({
@@ -177,7 +178,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         Aller au contenu principal
       </a>
       <PreviewBanner />
-      <Providers>{children}</Providers>
+      <Providers>
+        {children}
+        <AuditWidget />
+      </Providers>
       {isProduction() && (
         <Script
           defer

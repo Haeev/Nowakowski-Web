@@ -4,6 +4,9 @@
   "functions": {
     "app/api/contact/route.ts": {
       "maxDuration": 10
+    },
+    "app/api/audit/route.ts": {
+      "maxDuration": 60
     }
   }
 }
