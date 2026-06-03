@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ArrowRight, RotateCw } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -50,55 +50,76 @@ const AuditResults = ({ url }: AuditResultsProps) => {
     null,
   )
 
-  const runAnalysis = useCallback(async () => {
-    setStatus("loading")
-    setErrorMessage("")
-    setReport(null)
-    setExpandedCategory(null)
+  useEffect(() => {
+    const controller = new AbortController()
 
-    try {
-      const response = await fetch(
-        `/api/audit?url=${encodeURIComponent(url)}&run=${encodeURIComponent(runToken)}`,
-        {
-          cache: "no-store",
-          headers: {
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
+    const loadReport = async () => {
+      setStatus("loading")
+      setErrorMessage("")
+      setReport(null)
+      setExpandedCategory(null)
+
+      try {
+        const response = await fetch(
+          `/api/audit?url=${encodeURIComponent(url)}&run=${encodeURIComponent(runToken)}`,
+          {
+            cache: "no-store",
+            signal: controller.signal,
+            headers: {
+              "Cache-Control": "no-cache",
+              Pragma: "no-cache",
+            },
           },
-        },
-      )
-      const payload = (await response.json().catch(() => null)) as
-        | AuditApiResponse
-        | null
+        )
+        const payload = (await response.json().catch(() => null)) as
+          | AuditApiResponse
+          | null
 
-      if (!payload) {
+        if (controller.signal.aborted) return
+
+        if (!payload) {
+          setErrorMessage(
+            "Réponse inattendue du serveur. Réessayez dans un instant.",
+          )
+          setStatus("error")
+          return
+        }
+
+        if (!payload.ok) {
+          setErrorMessage(payload.error)
+          setStatus("error")
+          return
+        }
+
+        const hasMobile = Boolean(payload.data.mobile)
+        const hasDesktop = Boolean(payload.data.desktop)
+
+        if (!hasMobile && !hasDesktop) {
+          setErrorMessage(
+            "Impossible de lancer l'analyse pour le moment. Réessayez dans un instant.",
+          )
+          setStatus("error")
+          return
+        }
+
+        setReport(payload.data)
+        setStrategy(hasMobile ? "mobile" : "desktop")
+        setStatus("success")
+      } catch (error) {
+        if (controller.signal.aborted) return
+        if (error instanceof DOMException && error.name === "AbortError") return
+
         setErrorMessage(
-          "Réponse inattendue du serveur. Réessayez dans un instant.",
+          "Impossible de lancer l'analyse pour le moment. Réessayez dans un instant.",
         )
         setStatus("error")
-        return
       }
-
-      if (!payload.ok) {
-        setErrorMessage(payload.error)
-        setStatus("error")
-        return
-      }
-
-      setReport(payload.data)
-      setStrategy(payload.data.mobile ? "mobile" : "desktop")
-      setStatus("success")
-    } catch {
-      setErrorMessage(
-        "Impossible de lancer l'analyse pour le moment. Réessayez dans un instant.",
-      )
-      setStatus("error")
     }
-  }, [url, runToken])
 
-  useEffect(() => {
-    runAnalysis()
-  }, [runAnalysis])
+    loadReport()
+
+    return () => controller.abort()
+  }, [url, runToken])
 
   const handleRelaunch = () => {
     router.push(buildAuditGratuitHref(url, createAuditRunToken()))
@@ -187,6 +208,13 @@ const AuditResults = ({ url }: AuditResultsProps) => {
               <AuditResultsError message={errorMessage} onRetry={handleRelaunch} />
             )}
 
+            {status === "success" && !activeResult && (
+              <AuditResultsError
+                message="Les résultats de cette analyse ne sont pas disponibles pour le moment."
+                onRetry={handleRelaunch}
+              />
+            )}
+
             {status === "success" && activeResult && (
               <>
                 <h3 className="sr-only">Scores par catégorie</h3>
@@ -254,7 +282,7 @@ const AuditResults = ({ url }: AuditResultsProps) => {
             )}
           </div>
 
-          {status === "success" && (
+          {status === "success" && activeResult && (
             <div className="mt-12 rounded-3xl border border-border bg-surface p-8 text-center md:p-12">
               <h2 className="font-display text-2xl font-bold tracking-tight text-balance text-fg md:text-3xl">
                 Vous voulez régler tout ça ? Parlons-en.
