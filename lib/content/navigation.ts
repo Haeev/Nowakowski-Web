@@ -23,6 +23,7 @@ export const FOOTER_PRIMARY_LINKS: FooterLink[] = [
   { label: "Services", href: "/#services" },
   { label: "Tarifs", href: "/#tarifs" },
   { label: "Réalisations", href: "/#realisations" },
+  { label: "Audit gratuit", href: "/audit-gratuit" },
   { label: "Blog", href: "/blog" },
   { label: "À propos", href: "/about" },
   { label: "Contact", href: "/#contact" },
