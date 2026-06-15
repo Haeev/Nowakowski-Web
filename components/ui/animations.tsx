@@ -1,96 +1,134 @@
 "use client"
 
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion"
-import type { Variants, Transition, MotionProps } from "framer-motion"
-import { useEffect, useMemo, useRef, type ReactNode, type ElementType } from "react"
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ElementType,
+  type ReactNode,
+} from "react"
+import { cn } from "@/lib/cn"
 
-const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1]
+export type VariantName =
+  | "fadeUp"
+  | "fadeUpFast"
+  | "fadeIn"
+  | "fadeLeft"
+  | "fadeRight"
+  | "scaleFade"
 
-export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: EASE },
-  },
+export type StaggerVariant = "staggerContainer" | "staggerContainerFast"
+
+export const fadeUp: VariantName = "fadeUp"
+export const fadeUpFast: VariantName = "fadeUpFast"
+export const fadeIn: VariantName = "fadeIn"
+export const fadeLeft: VariantName = "fadeLeft"
+export const fadeRight: VariantName = "fadeRight"
+export const scaleFade: VariantName = "scaleFade"
+export const staggerContainer: StaggerVariant = "staggerContainer"
+export const staggerContainerFast: StaggerVariant = "staggerContainerFast"
+
+const STAGGER_CLASS: Record<StaggerVariant, string> = {
+  staggerContainer: "stagger-container",
+  staggerContainerFast: "stagger-container-fast",
 }
 
-export const fadeUpFast: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.35, ease: EASE },
-  },
+const REVEAL_CLASS: Record<VariantName, string> = {
+  fadeUp: "reveal-fade-up",
+  fadeUpFast: "reveal-fade-up-fast",
+  fadeIn: "reveal-fade-in",
+  fadeLeft: "reveal-fade-left",
+  fadeRight: "reveal-fade-right",
+  scaleFade: "reveal-scale-fade",
 }
 
-export const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.8 } },
+const isStaggerVariant = (
+  variants?: VariantName | StaggerVariant,
+): variants is StaggerVariant =>
+  variants === "staggerContainer" || variants === "staggerContainerFast"
+
+type StaggerContextValue = {
+  visible: boolean
+  stagger: StaggerVariant
 }
 
-export const fadeLeft: Variants = {
-  hidden: { opacity: 0, x: -60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
-}
+const StaggerContext = createContext<StaggerContextValue | null>(null)
 
-export const fadeRight: Variants = {
-  hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: EASE } },
-}
+const useInViewOnce = (
+  amount = 0.1,
+  margin = "0px",
+  once = true,
+): [React.RefObject<HTMLElement | null>, boolean] => {
+  const ref = useRef<HTMLElement | null>(null)
+  const [visible, setVisible] = useState(false)
 
-export const scaleFade: Variants = {
-  hidden: { opacity: 0, scale: 0.92, y: 24 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: EASE },
-  },
-}
+  useEffect(() => {
+    const node = ref.current
+    if (!node || visible) return
 
-export const staggerContainer: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-}
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true)
+          if (once) observer.disconnect()
+        } else if (!once) {
+          setVisible(false)
+        }
+      },
+      { threshold: amount, rootMargin: margin },
+    )
 
-export const staggerContainerFast: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [amount, margin, once, visible])
+
+  return [ref, visible]
 }
 
 type AnimatedSectionProps = {
   children: ReactNode
   className?: string
   as?: ElementType
-  variants?: Variants
+  variants?: VariantName | StaggerVariant
   amount?: number
   margin?: string
   once?: boolean
-} & Omit<MotionProps, "variants" | "initial" | "whileInView" | "viewport">
+}
 
 export const AnimatedSection = ({
   children,
   className,
-  as = "div",
+  as: Tag = "div",
   variants = fadeUp,
   amount = 0.1,
   margin = "0px",
   once = true,
-  ...rest
 }: AnimatedSectionProps) => {
-  const Tag = useMemo(() => motion(as as any), [as])
-  return (
+  const [ref, visible] = useInViewOnce(amount, margin, once)
+  const stagger = isStaggerVariant(variants) ? variants : null
+  const revealClass = stagger ? undefined : REVEAL_CLASS[variants as VariantName]
+
+  const content = (
     <Tag
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount, margin: margin as any }}
-      variants={variants}
-      {...rest}
+      ref={ref as React.Ref<HTMLElement>}
+      className={cn(
+        stagger ? STAGGER_CLASS[stagger] : revealClass,
+        visible && "is-visible",
+        className,
+      )}
     >
       {children}
     </Tag>
+  )
+
+  if (!stagger) return content
+
+  return (
+    <StaggerContext.Provider value={{ visible, stagger }}>
+      {content}
+    </StaggerContext.Provider>
   )
 }
 
@@ -98,64 +136,31 @@ type AnimatedItemProps = {
   children: ReactNode
   className?: string
   as?: ElementType
-  variants?: Variants
-} & Omit<MotionProps, "variants" | "initial" | "animate">
+  variants?: VariantName
+}
 
 export const AnimatedItem = ({
   children,
   className,
-  as = "div",
+  as: Tag = "div",
   variants = fadeUp,
-  ...rest
 }: AnimatedItemProps) => {
-  const Tag = useMemo(() => motion(as as any), [as])
+  const staggerContext = useContext(StaggerContext)
+  const [ref, selfVisible] = useInViewOnce(0.1, "0px", true)
+  const revealClass = REVEAL_CLASS[variants]
+  const visible = staggerContext?.visible ?? selfVisible
+
   return (
-    <Tag className={className} variants={variants} {...rest}>
+    <Tag
+      ref={staggerContext ? undefined : (ref as React.Ref<HTMLElement>)}
+      className={cn(
+        staggerContext && "stagger-item",
+        revealClass,
+        visible && "is-visible",
+        className,
+      )}
+    >
       {children}
     </Tag>
-  )
-}
-
-type CounterProps = {
-  value: number
-  duration?: number
-  className?: string
-  prefix?: string
-  suffix?: string
-}
-
-export const Counter = ({
-  value,
-  duration = 1.2,
-  className = "",
-  prefix = "",
-  suffix = "",
-}: CounterProps) => {
-  const ref = useRef<HTMLSpanElement | null>(null)
-  const isInView = useInView(ref, { once: true, margin: "0px", amount: 0.1 })
-  const motionValue = useMotionValue(0)
-  const spring = useSpring(motionValue, {
-    duration: duration * 1000,
-    bounce: 0,
-  })
-  const rounded = useTransform(spring, (latest) => Math.round(latest))
-
-  useEffect(() => {
-    if (isInView) motionValue.set(value)
-  }, [isInView, value, motionValue])
-
-  useEffect(() => {
-    const node = ref.current
-    if (!node) return
-    const unsubscribe = rounded.on("change", (latest) => {
-      node.textContent = `${prefix}${latest}${suffix}`
-    })
-    return () => unsubscribe()
-  }, [rounded, prefix, suffix])
-
-  return (
-    <span ref={ref} className={className}>
-      {`${prefix}0${suffix}`}
-    </span>
   )
 }

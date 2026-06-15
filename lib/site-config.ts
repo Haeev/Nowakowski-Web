@@ -44,6 +44,7 @@ export const siteConfig = {
     "Stiring-Wendel",
   ],
   analytics: {
+    gaMeasurementId: "G-QCZGSF217D",
     plausibleDomain: "nowakowski-web.fr",
     plausibleScript: "https://plausible.io/js/script.js",
   },

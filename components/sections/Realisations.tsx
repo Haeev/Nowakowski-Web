@@ -1,5 +1,11 @@
 import { getAllRealisations } from "@/lib/realisations"
-import { AnimatedSection, AnimatedItem, staggerContainer, fadeUp } from "../ui/animations"
+import {
+  AnimatedSection,
+  AnimatedItem,
+  staggerContainer,
+  fadeUp,
+  scaleFade,
+} from "../ui/animations"
 import SectionLabel from "../ui/SectionLabel"
 import RealisationCard from "../ui/RealisationCard"
 import { Container, Section, SectionHeading } from "../ui"
@@ -29,10 +35,9 @@ const Realisations = () => {
             variants={staggerContainer}
           >
             {realisations.map((realisation) => (
-              <RealisationCard
-                key={realisation.slug}
-                realisation={realisation}
-              />
+              <AnimatedItem key={realisation.slug} variants={scaleFade}>
+                <RealisationCard realisation={realisation} />
+              </AnimatedItem>
             ))}
           </AnimatedSection>
         )}

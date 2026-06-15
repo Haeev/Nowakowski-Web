@@ -328,11 +328,7 @@ const AboutPage = () => (
                           "linear-gradient(135deg, rgba(171,25,245,0.22) 0%, rgba(171,25,245,0.05) 100%)",
                       }}
                     >
-                      <Icon
-                        className="h-5 w-5"
-                        style={{ color: "#AB19F5" }}
-                        aria-hidden
-                      />
+                      <Icon className="h-5 w-5 text-brand" aria-hidden />
                     </div>
                     <div>
                       <h3 className="font-display text-lg font-semibold text-fg">

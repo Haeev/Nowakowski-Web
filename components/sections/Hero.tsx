@@ -105,10 +105,10 @@ const Hero = () => (
 
     <a
       href="#services"
-      aria-label="Faire défiler vers la section services"
       className="animate-scroll-hint absolute bottom-6 left-1/2 hidden -translate-x-1/2 items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-fg-subtle transition-colors duration-200 hover:text-brand md:inline-flex"
     >
-      ↓ scroll
+      <span aria-hidden>↓</span>
+      Services
     </a>
   </section>
 )

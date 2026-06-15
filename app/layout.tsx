@@ -1,27 +1,38 @@
 import type { Metadata, Viewport } from "next"
+import dynamic from "next/dynamic"
 import { Poppins, Inter } from "next/font/google"
 import Script from "next/script"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Providers from "./providers"
 import "./globals.css"
 import { getSiteUrl, getSiteUrlObject, isProduction } from "@/lib/env"
+import { getGoogleConsentInitScript } from "@/lib/consent"
 import { siteConfig } from "@/lib/site-config"
-import AuditWidget from "@/components/audit/AuditWidget"
 import PreviewBanner from "@/components/ui/PreviewBanner"
+
+const AuditWidget = dynamic(() => import("@/components/audit/AuditWidget"), {
+  ssr: false,
+})
+
+const CookieBanner = dynamic(() => import("@/components/consent/CookieBanner"), {
+  ssr: false,
+})
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
   variable: "--font-poppins",
   display: "optional",
 })
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
   display: "optional",
 })
+
+const THEME_STORAGE_KEY = "nowakowski-theme"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -135,6 +146,7 @@ export const metadata: Metadata = {
 }
 
 const GTM_ID = "GTM-PF7H6GSD"
+const GA_MEASUREMENT_ID = siteConfig.analytics.gaMeasurementId
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html
@@ -143,10 +155,19 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     className={`${poppins.variable} ${inter.variable}`}
   >
     <head>
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function(){try{var t=localStorage.getItem("${THEME_STORAGE_KEY}");if(t==="light"){document.documentElement.classList.remove("dark")}else{document.documentElement.classList.add("dark")}}catch(e){document.documentElement.classList.add("dark")}})();`,
+        }}
+      />
       {isProduction() && (
         <>
           <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: getGoogleConsentInitScript(),
+            }}
+          />
           <Script
             id="gtm-script"
             strategy="lazyOnload"
@@ -156,6 +177,18 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','${GTM_ID}');`,
+            }}
+          />
+          <Script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
             }}
           />
         </>
@@ -179,6 +212,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         Aller au contenu principal
       </a>
       <PreviewBanner />
+      {isProduction() && <CookieBanner />}
       <Providers>
         {children}
         <AuditWidget />

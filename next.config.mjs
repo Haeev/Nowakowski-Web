@@ -18,7 +18,17 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["lucide-react"],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.nowakowski-web.fr" }],
+        destination: "https://nowakowski-web.fr/:path*",
+        permanent: true,
+      },
+    ]
   },
   images: {
     formats: ["image/avif", "image/webp"],

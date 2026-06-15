@@ -134,7 +134,6 @@ const Nav = () => {
             onClick={() => setMobileOpen((open) => !open)}
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-fg transition-colors hover:border-brand hover:text-brand"
           >
-            <span className="sr-only">Menu</span>
             <span
               className="absolute block h-[2px] w-5 origin-center bg-current transition-transform duration-300"
               style={{

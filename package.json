@@ -15,7 +15,6 @@
     "@sanity/vision": "^3.99.0",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.38.0",
     "gray-matter": "4.0.3",
     "lucide-react": "0.453.0",
     "next": "14.2.35",
@@ -30,10 +29,10 @@
     "three": "^0.170.0"
   },
   "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Firefox versions",
-    "last 2 Safari versions",
-    "last 2 Edge versions"
+    "Chrome >= 111",
+    "Firefox >= 111",
+    "Safari >= 16.4",
+    "Edge >= 111"
   ],
   "devDependencies": {
     "@types/node": "20.16.10",

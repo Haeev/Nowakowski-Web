@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { Check } from "lucide-react"
 import {
   AnimatedSection,
@@ -46,13 +43,9 @@ const Tarifs = () => (
             Devis personnalisé · Livraison sous 2 semaines en moyenne ·
             Paiement intégral à la livraison · Aucun acompte
           </p>
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="mt-8 inline-block"
-          >
+          <div className="mt-8 inline-block transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]">
             <Button href="#contact">Demander un devis →</Button>
-          </motion.div>
+          </div>
         </div>
       </AnimatedSection>
 
@@ -73,12 +66,11 @@ const Tarifs = () => (
         variants={staggerContainer}
       >
         {PRICING_PLANS.map((plan) => (
-          <motion.article
+          <AnimatedItem
             key={plan.name}
+            as="article"
             variants={fadeUp}
-            whileHover={{ y: -6 }}
-            transition={{ duration: 0.25 }}
-            className="relative flex h-full flex-col rounded-2xl border border-border bg-surface p-8 transition-colors duration-300 hover:border-brand/60"
+            className="relative flex h-full flex-col rounded-2xl border border-border bg-surface p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/60"
           >
             <h3 className="font-display text-2xl font-semibold">{plan.name}</h3>
             <div className="mt-4 flex items-baseline gap-1">
@@ -103,12 +95,12 @@ const Tarifs = () => (
                 </li>
               ))}
             </ul>
-            <motion.div whileTap={{ scale: 0.97 }} className="mt-8">
+            <div className="mt-8 active:scale-[0.97]">
               <Button href="#contact" variant="outline" size="block">
                 {plan.cta}
               </Button>
-            </motion.div>
-          </motion.article>
+            </div>
+          </AnimatedItem>
         ))}
       </AnimatedSection>
 
