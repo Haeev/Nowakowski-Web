@@ -207,22 +207,58 @@ const MentionsLegalesPage = () => (
             </h2>
             <div className="mt-4 space-y-4">
               <p>
-                Le site utilise{" "}
+                Le site utilise plusieurs outils de mesure d&apos;audience,
+                avec des niveaux de confidentialité différents :
+              </p>
+              <h3 className="font-display text-lg font-semibold text-fg">
+                Plausible Analytics
+              </h3>
+              <p>
                 <span className="font-semibold text-fg">Plausible Analytics</span>
-                {" "}pour mesurer son audience. Plausible est un outil
-                respectueux de la vie privée :{" "}
+                {" "}mesure l&apos;audience de manière anonyme et agrégée.{" "}
                 <span className="font-semibold text-fg">
-                  il ne dépose aucun cookie
+                  Il ne dépose aucun cookie
                 </span>
                 {" "}et ne collecte aucune donnée personnelle identifiable
                 (pas d&apos;adresse IP stockée, pas de fingerprinting, pas de
-                suivi inter-sites).
+                suivi inter-sites). Aucun consentement n&apos;est requis pour
+                cet outil.
+              </p>
+              <h3 className="font-display text-lg font-semibold text-fg">
+                Google Analytics 4 et Google Tag Manager
+              </h3>
+              <p>
+                Le site utilise également{" "}
+                <span className="font-semibold text-fg">
+                  Google Analytics 4
+                </span>
+                {" "}et{" "}
+                <span className="font-semibold text-fg">
+                  Google Tag Manager
+                </span>
+                {" "}pour analyser la fréquentation et améliorer le site.
+                Ces outils peuvent déposer des cookies de mesure
+                (notamment <span className="font-semibold text-fg">_ga</span>
+                ) uniquement si vous les acceptez via le bandeau de
+                consentement affiché lors de votre première visite.
               </p>
               <p>
-                Aucun bandeau de consentement n&apos;est donc nécessaire pour
-                la mesure d&apos;audience. Le site peut ponctuellement
-                utiliser des cookies techniques strictement nécessaires à son
-                bon fonctionnement.
+                Vous pouvez à tout moment accepter ou refuser ces cookies.
+                Pour en savoir plus, consultez la{" "}
+                <Link
+                  href="/politique-confidentialite"
+                  className="text-fg underline decoration-fg-subtle underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
+                >
+                  politique de confidentialité
+                </Link>
+                .
+              </p>
+              <p>
+                Le site peut également utiliser des cookies ou stockages
+                techniques strictement nécessaires à son bon fonctionnement
+                (préférence de thème clair/sombre par exemple). Ces
+                éléments, dispensés de consentement, ne permettent pas de
+                vous identifier.
               </p>
             </div>
           </section>
@@ -254,7 +290,7 @@ const MentionsLegalesPage = () => (
 
         <footer className="mt-16 border-t border-border pt-8">
           <p className="text-sm text-fg-subtle">
-            Dernière mise à jour : mai 2026.
+            Dernière mise à jour : juin 2026.
           </p>
         </footer>
       </div>

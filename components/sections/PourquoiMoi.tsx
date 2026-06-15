@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion"
 import Link from "next/link"
 import {
   AnimatedSection,
@@ -83,8 +80,9 @@ const PourquoiMoi = () => (
           as="ul"
         >
           {PILLARS.map((pillar) => (
-            <motion.li
+            <AnimatedItem
               key={pillar.title}
+              as="li"
               variants={fadeRight}
               className="mb-4 flex gap-4 rounded-xl border border-border bg-surface p-5 transition-colors duration-300 hover:border-brand"
             >
@@ -97,7 +95,7 @@ const PourquoiMoi = () => (
                   {pillar.description}
                 </p>
               </div>
-            </motion.li>
+            </AnimatedItem>
           ))}
         </AnimatedSection>
       </div>
@@ -109,13 +107,9 @@ const PourquoiMoi = () => (
         <p className="text-lg font-semibold">
           Ça vous parle ? On commence quand vous voulez.
         </p>
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          className="inline-block"
-        >
+        <div className="inline-block transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]">
           <Button href="#contact">Demander un devis →</Button>
-        </motion.div>
+        </div>
       </AnimatedSection>
     </Container>
   </Section>

@@ -19,7 +19,7 @@ const ErrorPage = ({ error, reset }: ErrorProps) => {
       className="flex min-h-[70vh] items-center justify-center px-6 py-16"
     >
       <div className="max-w-xl text-center">
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#F51934]">
+        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-red">
           Une erreur s&apos;est produite
         </p>
         <h1 className="font-display text-5xl font-extrabold tracking-tight md:text-7xl">

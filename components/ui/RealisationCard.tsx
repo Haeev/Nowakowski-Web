@@ -2,9 +2,7 @@
 
 import Image from "next/image"
 import { useState } from "react"
-import { motion } from "framer-motion"
 import { ExternalLink } from "lucide-react"
-import { scaleFade } from "./animations"
 import type { Realisation } from "@/lib/realisations"
 
 type RealisationCardProps = {
@@ -26,13 +24,7 @@ const RealisationCard = ({ realisation }: RealisationCardProps) => {
   const showScreenshot = Boolean(screenshotUrl) && !imgError
 
   const Inner = (
-    <motion.article
-      variants={scaleFade}
-      whileHover={{ scale: 1.03 }}
-      transition={{ duration: 0.3 }}
-      className="group block overflow-hidden rounded-2xl border border-border bg-surface transition-colors duration-300 hover:border-brand"
-    >
-      {/* Thumbnail */}
+    <article className="group block overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-300 hover:scale-[1.03] hover:border-brand">
       <div className="relative aspect-[3/2] min-h-[280px] overflow-hidden">
         {showScreenshot ? (
           <>
@@ -44,14 +36,12 @@ const RealisationCard = ({ realisation }: RealisationCardProps) => {
               className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
               onError={() => setImgError(true)}
             />
-            {/* Always-on subtle darkening overlay for depth */}
             <div
               aria-hidden
               className="absolute inset-0 bg-black/20"
             />
           </>
         ) : (
-          /* Fallback: solid color with gradient + centered title */
           <div
             className="absolute inset-0"
             style={{ backgroundColor: realisation.couleur }}
@@ -66,7 +56,6 @@ const RealisationCard = ({ realisation }: RealisationCardProps) => {
           </div>
         )}
 
-        {/* Hover overlay → "Voir le site" */}
         {hasUrl && (
           <div className="absolute inset-0 z-20 flex items-center justify-center gap-2 bg-black/65 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <span className="font-medium text-white">Voir le site</span>
@@ -75,7 +64,6 @@ const RealisationCard = ({ realisation }: RealisationCardProps) => {
         )}
       </div>
 
-      {/* Card body */}
       <div className="p-5">
         <h3 className="font-display text-lg font-semibold leading-snug text-fg">
           {realisation.title}
@@ -84,7 +72,7 @@ const RealisationCard = ({ realisation }: RealisationCardProps) => {
           {realisation.secteur} · {realisation.ville}
         </p>
       </div>
-    </motion.article>
+    </article>
   )
 
   if (!hasUrl) return Inner

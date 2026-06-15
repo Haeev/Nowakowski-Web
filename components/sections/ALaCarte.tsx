@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion"
 import {
   AnimatedSection,
   AnimatedItem,
@@ -31,12 +28,11 @@ const ALaCarte = () => (
         margin="0px"
       >
         {EXTRAS.map((extra) => (
-          <motion.article
+          <AnimatedItem
             key={extra.title}
+            as="article"
             variants={fadeUpFast}
-            whileHover={{ x: 4 }}
-            transition={{ duration: 0.2 }}
-            className="group relative flex items-center gap-5 overflow-hidden rounded-2xl border border-border bg-bg p-5 transition-colors duration-300 hover:border-brand"
+            className="group relative flex items-center gap-5 overflow-hidden rounded-2xl border border-border bg-bg p-5 transition-all duration-300 hover:translate-x-1 hover:border-brand"
           >
             <span
               aria-hidden
@@ -58,7 +54,7 @@ const ALaCarte = () => (
                 </p>
               )}
             </div>
-          </motion.article>
+          </AnimatedItem>
         ))}
       </AnimatedSection>
 

@@ -1,7 +1,6 @@
 "use client"
 
 import { type FormEvent, useState } from "react"
-import { motion } from "framer-motion"
 import { Mail, Phone, MapPin, ArrowRight, CheckCircle2 } from "lucide-react"
 import { AnimatedSection, AnimatedItem, fadeUp } from "../ui/animations"
 import ObfuscatedEmail from "../ui/ObfuscatedEmail"
@@ -155,13 +154,11 @@ const Contact = () => {
               />
             </div>
 
-            <motion.button
-              whileHover={{ scale: isLoading || isSuccess ? 1 : 1.02 }}
-              whileTap={{ scale: isLoading || isSuccess ? 1 : 0.97 }}
+            <button
               type="submit"
               disabled={isLoading || isSuccess}
               aria-busy={isLoading}
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-shadow duration-200 hover:shadow-brand-glow disabled:cursor-not-allowed disabled:opacity-80"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-200 hover:scale-[1.02] hover:shadow-brand-glow active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-80 disabled:hover:scale-100"
             >
               {isSuccess ? (
                 <>
@@ -179,7 +176,7 @@ const Contact = () => {
                   />
                 </>
               )}
-            </motion.button>
+            </button>
 
             <div
               role="status"

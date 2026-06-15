@@ -25,10 +25,10 @@ const ThemeToggle = () => {
       aria-label={isDark ? "Activer le thème clair" : "Activer le thème sombre"}
       className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-fg transition-colors duration-200 hover:border-brand hover:text-brand"
     >
-      {mounted ? (
-        isDark ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />
+      {isDark ? (
+        <Sun className="h-4 w-4" aria-hidden />
       ) : (
-        <Sun className="h-4 w-4 opacity-0" aria-hidden />
+        <Moon className="h-4 w-4" aria-hidden />
       )}
     </button>
   )

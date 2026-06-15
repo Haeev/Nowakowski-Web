@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import SectionLabel from "../ui/SectionLabel"
 import { FAQ_ITEMS } from "@/lib/content/faq"
@@ -45,41 +44,39 @@ const Faq = () => {
                           "leading-snug transition-colors duration-200 group-hover:text-brand md:text-lg",
                           isOpen
                             ? "font-semibold text-fg"
-                            : "font-medium text-gray-700 dark:text-gray-300",
+                            : "font-medium text-fg-muted",
                         )}
                       >
                         {item.question}
                       </span>
-                      <motion.span
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                        className="flex-shrink-0"
+                      <span
+                        className={cn(
+                          "flex-shrink-0 transition-transform duration-300",
+                          isOpen && "rotate-180",
+                        )}
                       >
                         <ChevronDown
                           className="h-5 w-5 text-brand"
                           aria-hidden
                         />
-                      </motion.span>
+                      </span>
                     </button>
                   </h3>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        id={panelId}
-                        role="region"
-                        aria-labelledby={buttonId}
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-                        style={{ overflow: "hidden" }}
-                      >
-                        <p className="px-6 pb-6 leading-relaxed text-fg-muted">
-                          {item.answer}
-                        </p>
-                      </motion.div>
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    className={cn(
+                      "grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
+                      isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                     )}
-                  </AnimatePresence>
+                  >
+                    <div className="overflow-hidden">
+                      <p className="px-6 pb-6 leading-relaxed text-fg-muted">
+                        {item.answer}
+                      </p>
+                    </div>
+                  </div>
                 </li>
               )
             })}

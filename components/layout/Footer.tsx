@@ -59,10 +59,13 @@ const Footer = () => (
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-end gap-1.5 text-fg transition-colors hover:text-brand md:ml-auto"
-              aria-label="Profil LinkedIn de Loïc Nowakowski (nouvel onglet)"
             >
               <Linkedin className="h-4 w-4 shrink-0" aria-hidden />
               LinkedIn
+              <span className="sr-only">
+                {" "}
+                — profil de {siteConfig.founder.fullName}, nouvel onglet
+              </span>
             </a>
           </p>
           <p className="mt-1 text-sm text-fg-muted">

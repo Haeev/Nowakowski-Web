@@ -14,7 +14,7 @@ const Logo = ({ className = "" }: LogoProps) => {
   return (
     <Link
       href={href}
-      aria-label="Nowakowski Web, retour en haut"
+      aria-label="Nowakowski., retour en haut du site"
       className={`group inline-flex items-center font-display font-bold tracking-tight text-lg text-fg transition-all duration-300 hover:text-brand ${className}`}
     >
       <span>Nowakowski</span>

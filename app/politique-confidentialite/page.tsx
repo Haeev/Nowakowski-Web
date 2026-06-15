@@ -123,6 +123,36 @@ const PolitiqueConfidentialitePage = () => (
                 </li>
                 <li>Aucun suivi inter-sites n&apos;est effectué.</li>
               </ul>
+              <h3 className="font-display text-lg font-semibold text-fg">
+                Via Google Analytics 4 et Google Tag Manager
+              </h3>
+              <p>
+                Si vous acceptez les cookies de mesure via le bandeau affiché
+                lors de votre première visite, le site utilise{" "}
+                <span className="font-semibold text-fg">
+                  Google Analytics 4
+                </span>
+                {" "}et{" "}
+                <span className="font-semibold text-fg">
+                  Google Tag Manager
+                </span>
+                {" "}pour analyser la fréquentation. Les données pouvant être
+                collectées incluent :
+              </p>
+              <ul className="ml-6 list-disc space-y-2">
+                <li>Pages consultées, durée de visite, source de trafic.</li>
+                <li>Type d&apos;appareil, navigateur, système d&apos;exploitation.</li>
+                <li>Pays et ville approximatifs (géolocalisation IP).</li>
+                <li>
+                  Identifiants via cookies de mesure (notamment{" "}
+                  <span className="font-semibold text-fg">_ga</span>
+                  ).
+                </li>
+              </ul>
+              <p>
+                En cas de refus, ces cookies ne sont pas déposés et aucune
+                donnée nominative n&apos;est collectée par Google Analytics.
+              </p>
             </div>
           </section>
 
@@ -146,8 +176,8 @@ const PolitiqueConfidentialitePage = () => (
                   (facturation, conservation des justificatifs).
                 </li>
                 <li>
-                  Mesurer de manière anonyme la fréquentation du site et en
-                  améliorer le contenu.
+                  Mesurer la fréquentation du site via Plausible Analytics
+                  (anonyme) et, si vous y consentez, via Google Analytics 4.
                 </li>
               </ul>
             </div>
@@ -165,7 +195,8 @@ const PolitiqueConfidentialitePage = () => (
                     Consentement
                   </span>{" "}
                   : envoi volontaire d&apos;un message via le formulaire de
-                  contact.
+                  contact, et acceptation des cookies Google Analytics via
+                  le bandeau affiché sur le site.
                 </li>
                 <li>
                   <span className="font-semibold text-fg">
@@ -184,8 +215,8 @@ const PolitiqueConfidentialitePage = () => (
                   <span className="font-semibold text-fg">
                     Intérêt légitime
                   </span>{" "}
-                  : mesure d&apos;audience anonyme du site pour en améliorer
-                  le contenu et la performance.
+                  : mesure d&apos;audience anonyme via Plausible Analytics
+                  pour en améliorer le contenu et la performance.
                 </li>
               </ul>
             </div>
@@ -224,6 +255,14 @@ const PolitiqueConfidentialitePage = () => (
                   </span>{" "}
                   : agrégées et anonymes, conservées de manière statistique
                   sans permettre l&apos;identification d&apos;une personne.
+                </li>
+                <li>
+                  <span className="font-semibold text-fg">
+                    Cookies Google Analytics
+                  </span>{" "}
+                  : conservés au maximum 13 mois conformément aux
+                  recommandations de la CNIL, ou supprimés immédiatement
+                  si vous refusez les cookies de mesure.
                 </li>
               </ul>
             </div>
@@ -267,10 +306,24 @@ const PolitiqueConfidentialitePage = () => (
                   , mesure d&apos;audience anonyme, données hébergées
                   en Union européenne.
                 </li>
+                <li>
+                  <span className="font-semibold text-fg">
+                    Google Ireland Limited
+                  </span>
+                  {" "}(Gordon House, Barrow Street, Dublin 4, Irlande) et{" "}
+                  <span className="font-semibold text-fg">Google LLC</span>
+                  {" "}(États-Unis), pour Google Analytics 4 et Google Tag
+                  Manager. Les données peuvent être transférées vers les
+                  États-Unis dans le cadre des clauses contractuelles types
+                  approuvées par la Commission européenne.
+                </li>
               </ul>
               <p>
-                Aucune donnée n&apos;est transférée vers des pays hors
-                Union Européenne.
+                Les données hébergées en Union européenne (Plausible, Vercel,
+                Resend) ne font l&apos;objet d&apos;aucun transfert hors UE.
+                Seuls les services Google peuvent impliquer un transfert vers
+                les États-Unis, soumis à votre consentement préalable pour
+                les cookies de mesure.
               </p>
             </div>
           </section>
@@ -331,22 +384,57 @@ const PolitiqueConfidentialitePage = () => (
             </h2>
             <div className="mt-4 space-y-4">
               <p>
-                Le site nowakowski-web.fr ne dépose{" "}
+                Le site nowakowski-web.fr utilise les catégories de cookies
+                et traceurs suivantes :
+              </p>
+              <h3 className="font-display text-lg font-semibold text-fg">
+                Cookies et traceurs exemptés de consentement
+              </h3>
+              <ul className="ml-6 list-disc space-y-2">
+                <li>
+                  <span className="font-semibold text-fg">
+                    Plausible Analytics
+                  </span>
+                  {" "}: mesure d&apos;audience sans cookie ni identifiant
+                  persistant.
+                </li>
+                <li>
+                  <span className="font-semibold text-fg">
+                    Préférences techniques
+                  </span>
+                  {" "}: stockage local pour la préférence de thème
+                  clair/sombre. Ces données ne permettent pas de vous
+                  identifier.
+                </li>
+              </ul>
+              <h3 className="font-display text-lg font-semibold text-fg">
+                Cookies soumis à votre consentement
+              </h3>
+              <p>
                 <span className="font-semibold text-fg">
-                  aucun cookie publicitaire ni de traçage tiers
+                  Google Analytics 4
+                </span>
+                {" "}et{" "}
+                <span className="font-semibold text-fg">
+                  Google Tag Manager
+                </span>
+                {" "}peuvent déposer des cookies de mesure d&apos;audience
+                (notamment <span className="font-semibold text-fg">_ga</span>
+                ) uniquement si vous les acceptez via le bandeau affiché lors
+                de votre première visite. En cas de refus, aucun cookie
+                Google Analytics n&apos;est déposé.
+              </p>
+              <p>
+                Le site ne dépose{" "}
+                <span className="font-semibold text-fg">
+                  aucun cookie publicitaire
                 </span>
                 .
               </p>
               <p>
-                La mesure d&apos;audience étant assurée par Plausible
-                Analytics sans cookie ni identifiant persistant, aucun
-                bandeau de consentement n&apos;est nécessaire.
-              </p>
-              <p>
-                Le site peut, à la marge, utiliser des cookies techniques
-                strictement nécessaires à son fonctionnement (préférence de
-                thème clair/sombre par exemple). Ces cookies, dispensés de
-                consentement, ne permettent pas de vous identifier.
+                Vous pouvez modifier votre choix à tout moment en supprimant
+                les cookies de votre navigateur et en revisitant le site :
+                le bandeau de consentement vous sera à nouveau proposé.
               </p>
             </div>
           </section>
@@ -389,7 +477,7 @@ const PolitiqueConfidentialitePage = () => (
 
         <footer className="mt-16 border-t border-border pt-8">
           <p className="text-sm text-fg-subtle">
-            Dernière mise à jour : mai 2026.
+            Dernière mise à jour : juin 2026.
           </p>
         </footer>
       </div>

@@ -25,10 +25,6 @@ const AuditWidget = () => {
   const handleClose = () => setIsOpen(false)
 
   useEffect(() => {
-    setIsOpen(window.matchMedia(DESKTOP_MEDIA).matches)
-  }, [])
-
-  useEffect(() => {
     if (!isOpen) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -95,7 +91,6 @@ const AuditWidget = () => {
         <div
           ref={panelRef}
           role="complementary"
-          aria-label="Audit gratuit de site web"
           aria-labelledby="audit-widget-title"
           onKeyDown={handlePanelKeyDown}
           className={cn(
@@ -166,7 +161,6 @@ const AuditWidget = () => {
         type="button"
         onClick={handleOpen}
         aria-expanded={false}
-        aria-label="Ouvrir l'audit gratuit de votre site"
         className={cn(
           "group fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 rounded-l-xl border border-r-0 border-l-4 border-l-brand border-brand/40 bg-brand/10 px-3.5 py-5 shadow-brand-glow backdrop-blur transition-all duration-300 hover:border-brand hover:bg-brand hover:shadow-brand-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg motion-reduce:animate-none motion-reduce:transition-none motion-safe:animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite] md:flex",
         )}

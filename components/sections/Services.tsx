@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { MessageCircle } from "lucide-react"
 import { AnimatedSection, AnimatedItem, fadeUp, staggerContainer } from "../ui/animations"
 import SectionLabel from "../ui/SectionLabel"
@@ -26,12 +23,11 @@ const Services = () => (
         variants={staggerContainer}
       >
         {SERVICES.map((service) => (
-          <motion.article
+          <AnimatedItem
             key={service.title}
+            as="article"
             variants={fadeUp}
-            whileHover={{ y: -4 }}
-            transition={{ duration: 0.25 }}
-            className="group h-full rounded-2xl border border-border bg-bg p-8 transition-colors duration-300 hover:border-brand"
+            className="group h-full rounded-2xl border border-border bg-bg p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brand"
           >
             <IconBubble icon={service.icon} className="mb-6" />
             <h3 className="font-display text-2xl font-semibold tracking-tight">
@@ -43,7 +39,7 @@ const Services = () => (
             <p className="mt-8 text-sm font-semibold uppercase tracking-wider text-brand">
               {service.detail}
             </p>
-          </motion.article>
+          </AnimatedItem>
         ))}
       </AnimatedSection>
 
@@ -76,13 +72,9 @@ const Services = () => (
       </AnimatedSection>
 
       <AnimatedSection variants={fadeUp} className="mt-10 text-center">
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          className="inline-block"
-        >
+        <div className="inline-block transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]">
           <Button href="#tarifs">Voir les tarifs →</Button>
-        </motion.div>
+        </div>
       </AnimatedSection>
     </Container>
   </Section>
