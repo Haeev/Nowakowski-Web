@@ -1,174 +1,169 @@
-# Nowakowski Web : site vitrine
+# Nowakowski Web — Agency Website
 
-Site officiel de **Nowakowski Web**, agence solo de création de sites web pour artisans et PME en Moselle et Grand Est, opérée par Loïc Nowakowski (Stiring-Wendel, 57350).
+Official website for **Nowakowski Web**, a solo web agency building sites for local tradespeople and SMBs in Moselle and Grand Est, France. Operated by Loïc Nowakowski (Stiring-Wendel, 57350).
 
-**Production :** [nowakowski-web.fr](https://nowakowski-web.fr)
+**Production:** [nowakowski-web.fr](https://nowakowski-web.fr)
 
-## Réalisations & démos open source
+## Open-source showcase projects
 
-Sites vitrines de démonstration pour artisans, présentés sur le site de l'agence. Projets fictifs (aucune donnée client réelle) — code source public :
+Demo websites for tradespeople, featured on the agency site. Fictional projects (no real client data) — source code is public:
 
-| Projet | Démo en ligne | Code source |
-|--------|---------------|-------------|
+| Project | Live demo | Source |
+|---------|-----------|--------|
 | **Plomberie Müller** (Sarreguemines) | [plomberie-muller-template.vercel.app](https://plomberie-muller-template.vercel.app) | [Haeev/plomberie-muller-template](https://github.com/Haeev/plomberie-muller-template) |
 | **Électricité Schmitt** (Forbach) | [electricite-schmitt.vercel.app](https://electricite-schmitt.vercel.app) | [Haeev/electricite-schmitt](https://github.com/Haeev/electricite-schmitt) |
 
-## Fonctionnalités du site
+## Site features
 
-### Page d'accueil (landing)
+### Homepage (landing)
 
-- Présentation des services (site vitrine, hébergement, contenu & SEO)
-- Arguments différenciants (RGPD, RGAA, hébergement EU, livraison 2 semaines, etc.)
-- Processus en 4 étapes, grilles tarifaires et formules d'abonnement
-- Réalisations clients (MDX + captures)
-- FAQ structurée (schema.org)
-- Formulaire de contact (email via Resend) + WhatsApp
-- **Widget d'audit gratuit** (flottant) : saisie d'une URL → analyse PageSpeed
+- Service overview (showcase sites, hosting, content & SEO)
+- Key differentiators (GDPR, accessibility, EU hosting, 2-week delivery, etc.)
+- 4-step process, pricing grids, and subscription plans
+- Client showcase (MDX + screenshots)
+- Structured FAQ (schema.org)
+- Contact form (email via Resend) + WhatsApp
+- **Free audit widget** (floating): enter a URL → PageSpeed analysis
 
-### Audit gratuit (`/audit-gratuit`)
+### Free audit (`/audit-gratuit`)
 
-Outil public d'analyse de site existant, alimenté par **Google PageSpeed Insights** :
+Public website analysis tool powered by **Google PageSpeed Insights**:
 
-- Scores Performance, SEO, Accessibilité, Bonnes pratiques (mobile + desktop)
-- Priorités expliquées en français (non techniques)
-- Détail par catégorie avec recommandations
-- Bouton **Relancer l'analyse** pour forcer une nouvelle analyse (même URL)
-- Paramètre `run` dans l'URL pour éviter l'affichage d'un ancien rapport lors d'une nouvelle visite
+- Performance, SEO, Accessibility, and Best Practices scores (mobile + desktop)
+- Priorities explained in plain French (non-technical)
+- Category breakdown with recommendations
+- **Re-run analysis** button to force a fresh report (same URL)
+- `run` URL parameter to avoid showing a stale report on revisit
 
 ### Blog (`/blog`)
 
-- Articles gérés dans **Sanity CMS**
-- Studio embarqué sur `/studio`
-- Portable Text, images optimisées, métadonnées SEO par article
+- Articles managed in **Sanity CMS**
+- Embedded Studio at `/studio`
+- Portable Text, optimized images, per-article SEO metadata
 
-### Pages institutionnelles
+### Institutional pages
 
-- `/about` — présentation de Loïc Nowakowski
+- `/about` — Loïc Nowakowski profile
 - `/mentions-legales`, `/cgv`, `/politique-confidentialite`, `/accessibilite`
 
-### SEO & conformité
+### SEO & compliance
 
-- Métadonnées Open Graph / Twitter, JSON-LD (`ProfessionalService`, `FAQPage`, etc.)
+- Open Graph / Twitter metadata, JSON-LD (`ProfessionalService`, `FAQPage`, etc.)
 - `sitemap.xml`, `robots.txt`, `llms.txt` (GEO)
-- Bandeau **PREVIEW** + `noindex` sur les déploiements Vercel preview
-- Analytics : Plausible (production) + Google Tag Manager
+- **PREVIEW** banner + `noindex` on Vercel preview deployments
+- Analytics: Plausible (production) + Google Tag Manager
 
-### UX & accessibilité
+### UX & accessibility
 
-- Thème clair / sombre (`next-themes`, dark par défaut)
-- Animations Framer Motion, skip link, focus visible
-- Email obfusqué côté client, bouton d'appel flottant (mobile)
+- Light / dark theme (`next-themes`, dark by default)
+- Framer Motion animations, skip link, visible focus states
+- Client-side obfuscated email, floating call button (mobile)
 
-## Stack technique
+## Tech stack
 
-| Couche | Technologie |
-|--------|-------------|
+| Layer | Technology |
+|-------|------------|
 | Framework | Next.js 14 (App Router) + TypeScript |
-| Styles | Tailwind CSS + `cn()` (`clsx` + `tailwind-merge`) |
+| Styling | Tailwind CSS + `cn()` (`clsx` + `tailwind-merge`) |
 | CMS | Sanity v3 (`/studio`) |
-| Contenu statique | MDX + gray-matter (réalisations) |
+| Static content | MDX + gray-matter (showcase projects) |
 | Email | Resend (`/api/contact`) |
 | Audit | Google PageSpeed Insights API (`/api/audit`) |
-| Déploiement | Vercel (région `fra1`) |
+| Hosting | Vercel (region `fra1`) |
 
-## Démarrer en local
+## Run locally
 
 ```bash
 npm install
 cp .env.example .env.local
-# Renseigner au minimum : RESEND_*, SANITY_*, PAGESPEED_API_KEY pour l'audit
+# Set at minimum: RESEND_*, SANITY_*, PAGESPEED_API_KEY for the audit tool
 npm run dev
 ```
 
-Ouvrir [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000)
 
-## Build production
+## Production build
 
 ```bash
 npm run build
 npm run start
 ```
 
-## Structure du projet
+## Project structure
 
 ```
 app/
-  layout.tsx                 ← SEO global, GTM, Plausible, AuditWidget
+  layout.tsx                 ← global SEO, GTM, Plausible, AuditWidget
   page.tsx                   ← homepage
-  audit-gratuit/page.tsx     ← page résultats d'audit
+  audit-gratuit/page.tsx     ← audit results page
   api/
-    contact/route.ts         ← formulaire → Resend
+    contact/route.ts         ← contact form → Resend
     audit/route.ts           ← PageSpeed mobile + desktop
-  blog/, about/, pages légales…
+  blog/, about/, legal pages…
   studio/[[...tool]]/        ← Sanity Studio
 components/
-  audit/                  ← widget, formulaire, résultats PageSpeed
-  ui/                     ← primitives & atomes
-    Button, Container, Section, SectionHeading, IconBubble,
-    SectionLabel, Logo, ThemeToggle, ObfuscatedEmail,
-    FloatingCallButton, RealisationCard, animations,
-    PreviewBanner
-  layout/                 ← Nav, Footer
-  sections/               ← sections de la homepage
-  blog/                   ← PortableTextComponents (Sanity)
+  audit/                     ← widget, form, PageSpeed results
+  ui/                        ← primitives & atoms
+  layout/                    ← Nav, Footer
+  sections/                  ← homepage sections
+  blog/                      ← PortableTextComponents (Sanity)
 lib/
-  site-config.ts          ← NAP, contacts, domaine
-  audit/                  ← types, PageSpeed, traductions FR
-  content/                ← données marketing (tarifs, FAQ…)
-  realisations.ts         ← lecture MDX réalisations
-sanity/                   ← schémas & requêtes GROQ
-content/realisations/     ← fiches projets (.mdx)
-middleware.ts             ← X-Robots-Tag noindex sur preview/dev
+  site-config.ts             ← NAP, contacts, domain
+  audit/                     ← types, PageSpeed, French translations
+  content/                   ← marketing data (pricing, FAQ…)
+  realisations.ts            ← MDX showcase reader
+sanity/                      ← schemas & GROQ queries
+content/realisations/        ← project case studies (.mdx)
+middleware.ts                ← X-Robots-Tag noindex on preview/dev
 public/
-  favicon.ico, icon-192.png, icon-512.png ← favicons & PWA icons
-  og-image.jpg            ← Open Graph (1200×630)
-  linkedin-banner-nowakowski-web.svg ← bannière LinkedIn (page about)
-  manifest.json           ← manifest PWA
-  llms.txt                ← pour les crawlers IA (GEO)
-  _brand-assets/          ← logos & assets d'identité (non servis sur le site)
-  realisations/           ← screenshots des réalisations clients
+  favicon.ico, icon-192.png, icon-512.png
+  og-image.jpg
+  manifest.json
+  llms.txt
+  _brand-assets/             ← brand logos (not served directly)
+  realisations/              ← showcase screenshots
 ```
 
-## Environnements Vercel
+## Vercel environments
 
-| Env | Branche | URL | Indexation | Plausible |
-|-----|---------|-----|------------|-----------|
-| **Production** | `main` | `nowakowski-web.fr` | index | oui |
-| **Preview** | `feature/*` | `*.vercel.app` | noindex | non |
-| **Development** | local | `localhost:3000` | noindex | non |
+| Env | Branch | URL | Indexing | Plausible |
+|-----|--------|-----|----------|-----------|
+| **Production** | `main` | `nowakowski-web.fr` | index | yes |
+| **Preview** | `feature/*` | `*.vercel.app` | noindex | no |
+| **Development** | local | `localhost:3000` | noindex | no |
 
-### Workflow Git
+### Git workflow
 
-1. `git checkout -b feature/<sujet>`
-2. Push → preview Vercel automatique
-3. Tester (bandeau rouge PREVIEW visible)
-4. Merge `main` → production sur le domaine
+1. `git checkout -b feature/<topic>`
+2. Push → automatic Vercel preview
+3. Test (red PREVIEW banner visible)
+4. Merge to `main` → production on custom domain
 
-### Variables d'environnement
+### Environment variables
 
-Voir [`.env.example`](./.env.example). Sur Vercel, configurer par environnement :
+See [`.env.example`](./.env.example). On Vercel, configure per environment:
 
 | Variable | Production | Preview | Development |
-|----------|------------|---------|---------------|
-| `NEXT_PUBLIC_SITE_URL` | `https://nowakowski-web.fr` | (vide) | `http://localhost:3000` |
-| `RESEND_API_KEY` | clé prod | clé test | clé test |
+|----------|------------|---------|-------------|
+| `NEXT_PUBLIC_SITE_URL` | `https://nowakowski-web.fr` | (empty) | `http://localhost:3000` |
+| `RESEND_API_KEY` | prod key | test key | test key |
 | `CONTACT_EMAIL_FROM` / `TO` | prod | test | test |
-| `NEXT_PUBLIC_SANITY_*` | projet prod | idem | idem |
-| `PAGESPEED_API_KEY` | clé Google Cloud | idem | idem |
-| `GOOGLE_SITE_VERIFICATION` | code GSC | vide | vide |
+| `NEXT_PUBLIC_SANITY_*` | prod project | same | same |
+| `PAGESPEED_API_KEY` | Google Cloud key | same | same |
+| `GOOGLE_SITE_VERIFICATION` | GSC code | empty | empty |
 
-**Audit :** activer [PageSpeed Insights API](https://developers.google.com/speed/docs/insights/v5/get-started) sur un projet Google Cloud et créer une clé API restreinte à cette API.
+**Audit tool:** enable the [PageSpeed Insights API](https://developers.google.com/speed/docs/insights/v5/get-started) on a Google Cloud project and create an API key restricted to that API.
 
-## Ajouter une réalisation
+## Add a showcase project
 
-1. Créer `content/realisations/<slug>.mdx` avec frontmatter (`title`, `secteur`, `ville`, `url`, `image`, `couleur`, `date`, `description`)
-2. Image dans `public/realisations/`
-3. Preview Vercel → merge `main`
+1. Create `content/realisations/<slug>.mdx` with frontmatter (`title`, `secteur`, `ville`, `url`, `image`, `couleur`, `date`, `description`)
+2. Add image to `public/realisations/`
+3. Vercel preview → merge to `main`
 
-## Identité visuelle
+## Brand identity
 
-- Couleur principale : `#AB19F5` (violet, token Tailwind `brand`)
-- Accent : `#F51934` (rouge, token Tailwind `brand-red`)
-- Police titres : **Poppins** 600/700/800
-- Police body : **Inter** 400/500/600
-- Logos SVG officiels dans `public/_brand-assets/` (ne sont pas servis directement par le site)
+- Primary color: `#AB19F5` (purple, Tailwind token `brand`)
+- Accent: `#F51934` (red, Tailwind token `brand-red`)
+- Headings: **Poppins** 600/700/800
+- Body: **Inter** 400/500/600
+- Official SVG logos in `public/_brand-assets/` (not served directly by the site)
