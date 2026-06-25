@@ -4,6 +4,15 @@ Site officiel de **Nowakowski Web**, agence solo de création de sites web pour 
 
 **Production :** [nowakowski-web.fr](https://nowakowski-web.fr)
 
+## Réalisations & démos open source
+
+Sites vitrines de démonstration pour artisans, présentés sur le site de l'agence. Projets fictifs (aucune donnée client réelle) — code source public :
+
+| Projet | Démo en ligne | Code source |
+|--------|---------------|-------------|
+| **Plomberie Müller** (Sarreguemines) | [plomberie-muller-template.vercel.app](https://plomberie-muller-template.vercel.app) | [Haeev/plomberie-muller-template](https://github.com/Haeev/plomberie-muller-template) |
+| **Électricité Schmitt** (Forbach) | [electricite-schmitt.vercel.app](https://electricite-schmitt.vercel.app) | [Haeev/electricite-schmitt](https://github.com/Haeev/electricite-schmitt) |
+
 ## Fonctionnalités du site
 
 ### Page d'accueil (landing)
