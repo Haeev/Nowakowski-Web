@@ -1,4 +1,4 @@
-import { getAllRealisations } from "@/lib/realisations"
+import { getAllRealisations, getRealisationsByVille } from "@/lib/realisations"
 import {
   AnimatedSection,
   AnimatedItem,
@@ -10,8 +10,16 @@ import SectionLabel from "../ui/SectionLabel"
 import RealisationCard from "../ui/RealisationCard"
 import { Container, Section, SectionHeading } from "../ui"
 
-const Realisations = () => {
-  const realisations = getAllRealisations()
+type RealisationsProps = {
+  ville?: string
+}
+
+const Realisations = ({ ville }: RealisationsProps) => {
+  const realisations = ville
+    ? getRealisationsByVille(ville)
+    : getAllRealisations()
+
+  if (ville && realisations.length === 0) return null
 
   return (
     <Section id="realisations">

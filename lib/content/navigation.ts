@@ -1,3 +1,10 @@
+import {
+  CITY_SLUGS,
+  getLocalPageBySlug,
+  getLocalPagePath,
+  PILLAR_SLUG,
+} from "@/lib/content/local-pages"
+
 export type NavLink = {
   label: string
   href: string
@@ -27,6 +34,20 @@ export const FOOTER_PRIMARY_LINKS: FooterLink[] = [
   { label: "Blog", href: "/blog" },
   { label: "À propos", href: "/about" },
   { label: "Contact", href: "/#contact" },
+]
+
+export const FOOTER_LOCAL_LINKS: FooterLink[] = [
+  {
+    label: "Moselle-Est",
+    href: getLocalPagePath(PILLAR_SLUG),
+  },
+  ...CITY_SLUGS.map((slug) => {
+    const page = getLocalPageBySlug(slug)
+    return {
+      label: page?.city ?? slug,
+      href: getLocalPagePath(slug),
+    }
+  }),
 ]
 
 export const FOOTER_LEGAL_LINKS: FooterLink[] = [

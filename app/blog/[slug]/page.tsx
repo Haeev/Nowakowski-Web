@@ -201,7 +201,23 @@ const ArticlePage = async ({ params }: PageProps) => {
                 />
               )}
 
-              <div className="mt-16 border-t border-border pt-8">
+              <div className="mt-16 space-y-6 border-t border-border pt-8">
+                <div className="rounded-2xl border border-border bg-surface p-6">
+                  <h2 className="font-display text-xl font-bold text-fg">
+                    Création de site internet en Moselle-Est
+                  </h2>
+                  <p className="mt-3 text-sm leading-relaxed text-fg-muted">
+                    Artisans et PME de Forbach, Sarreguemines, Stiring-Wendel
+                    et Saint-Avold : pages locales, devis gratuit sous 24h.
+                  </p>
+                  <Link
+                    href="/creation-site-internet-moselle-est"
+                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand transition-colors hover:text-brand-red"
+                  >
+                    Voir l&apos;offre Moselle-Est
+                    <ChevronRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </div>
                 <Link
                   href="/blog"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-brand transition-colors hover:text-fg"

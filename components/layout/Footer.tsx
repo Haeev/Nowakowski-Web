@@ -4,6 +4,7 @@ import ObfuscatedEmail from "../ui/ObfuscatedEmail"
 import { getTelHref, siteConfig } from "@/lib/site-config"
 import {
   FOOTER_LEGAL_LINKS,
+  FOOTER_LOCAL_LINKS,
   FOOTER_PRIMARY_LINKS,
 } from "@/lib/content/navigation"
 
@@ -95,8 +96,19 @@ const Footer = () => (
           Infrastructure européenne · Conforme RGPD &amp; RGAA
         </p>
         <p className="mt-3 text-center text-xs text-fg-subtle">
-          Création de sites web pour artisans et PME · Forbach · Sarreguemines ·
-          Metz · Moselle · Grand Est
+          Création de sites web pour artisans et PME ·{" "}
+          {FOOTER_LOCAL_LINKS.map((link, index) => (
+            <span key={link.href}>
+              {index > 0 && " · "}
+              <Link
+                href={link.href}
+                className="transition-colors hover:text-fg"
+              >
+                {link.label}
+              </Link>
+            </span>
+          ))}{" "}
+          · Grand Est
         </p>
       </div>
     </div>

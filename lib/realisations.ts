@@ -56,6 +56,11 @@ export const getAllRealisations = (): Realisation[] => {
   return realisations
 }
 
+export const getRealisationsByVille = (ville: string): Realisation[] =>
+  getAllRealisations().filter(
+    (r) => r.ville.toLowerCase() === ville.toLowerCase(),
+  )
+
 export const getRealisationBySlug = (slug: string): Realisation | null => {
   const filename = `${slug}.mdx`
   const fullPath = path.join(REALISATIONS_DIR, filename)

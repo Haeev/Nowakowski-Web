@@ -1,0 +1,24 @@
+# URLs à soumettre dans GSC (Inspecteur d'URL → Demander une indexation)
+# Quota ~10/jour — étaler sur 2 jours
+
+# Jour 1
+https://nowakowski-web.fr/blog
+https://nowakowski-web.fr/audit-gratuit
+https://nowakowski-web.fr/creation-site-internet-forbach
+https://nowakowski-web.fr/creation-site-internet-sarreguemines
+https://nowakowski-web.fr/creation-site-internet-stiring-wendel
+https://nowakowski-web.fr/creation-site-internet-saint-avold
+https://nowakowski-web.fr/creation-site-internet-metz
+https://nowakowski-web.fr/creation-site-internet-moselle-est
+https://nowakowski-web.fr/realisations/plomberie-muller
+https://nowakowski-web.fr/realisations/electricite-schmitt
+
+# Jour 2 — articles blog (adapter les slugs après migration Sanity)
+https://nowakowski-web.fr/blog/site-internet-plombier
+https://nowakowski-web.fr/blog/combien-coute-un-site-internet
+
+# Actions complémentaires
+# 1. GSC → Sitemaps → resoumettre https://nowakowski-web.fr/sitemap.xml
+# 2. Google Business Profile : catégorie Concepteur de sites web, zone Forbach
+# 3. Réclamer fiche Pages Jaunes (NAP identique à site-config.ts)
+# 4. Citations : France Num, CMA/CCI Moselle (5-10 minimum)
