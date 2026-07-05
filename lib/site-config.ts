@@ -42,6 +42,7 @@ export const siteConfig = {
     "Saint-Avold",
     "Metz",
     "Stiring-Wendel",
+    "Moselle-Est",
   ],
   analytics: {
     gaMeasurementId: "G-QCZGSF217D",

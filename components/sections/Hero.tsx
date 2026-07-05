@@ -44,6 +44,10 @@ const Hero = () => (
         </span>
       </h1>
 
+      <p className="animate-hero-fade-up mt-6 max-w-2xl text-base font-semibold text-fg md:text-lg">
+        Création de sites internet pour artisans et PME en Moselle-Est
+      </p>
+
       <div
         aria-hidden
         className="animate-hero-line mt-8 h-[2px] w-full max-w-md bg-gradient-brand"

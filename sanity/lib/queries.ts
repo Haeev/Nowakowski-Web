@@ -46,6 +46,7 @@ const articleFullProjection = `
 `
 
 export const getAllArticles = async (): Promise<ArticleListItem[]> => {
+  if (!client) return []
   const query = groq`*[_type == "article" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc){
     ${articleListProjection}
   }`
@@ -55,6 +56,7 @@ export const getAllArticles = async (): Promise<ArticleListItem[]> => {
 export const getArticleBySlug = async (
   slug: string,
 ): Promise<Article | null> => {
+  if (!client) return null
   const query = groq`*[_type == "article" && slug.current == $slug][0]{
     ${articleFullProjection}
   }`
@@ -62,6 +64,7 @@ export const getArticleBySlug = async (
 }
 
 export const getArticlesSlugs = async (): Promise<string[]> => {
+  if (!client) return []
   const query = groq`*[_type == "article" && defined(slug.current)][].slug.current`
   return client.fetch<string[]>(query)
 }

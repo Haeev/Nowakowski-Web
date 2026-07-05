@@ -5,6 +5,10 @@ import Hero from "@/components/sections/Hero"
 import WhyNowakowski from "@/components/sections/WhyNowakowski"
 import JsonLd from "@/components/sections/JsonLd"
 import FloatingCallButton from "@/components/ui/FloatingCallButton"
+import BlogTeaser from "@/components/sections/BlogTeaser"
+import LocalZones from "@/components/sections/LocalZones"
+
+export const revalidate = 3600
 
 const Services = dynamic(() => import("@/components/sections/Services"))
 const Processus = dynamic(() => import("@/components/sections/Processus"))
@@ -15,7 +19,7 @@ const Realisations = dynamic(() => import("@/components/sections/Realisations"))
 const Faq = dynamic(() => import("@/components/sections/Faq"))
 const Contact = dynamic(() => import("@/components/sections/Contact"))
 
-const HomePage = () => (
+const HomePage = async () => (
   <>
     <JsonLd />
     <Nav />
@@ -28,6 +32,8 @@ const HomePage = () => (
       <ALaCarte />
       <PourquoiMoi />
       <Realisations />
+      <LocalZones />
+      <BlogTeaser />
       <Faq />
       <Contact />
     </main>

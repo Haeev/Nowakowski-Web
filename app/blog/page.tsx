@@ -7,7 +7,7 @@ import Nav from "@/components/layout/Nav"
 import Footer from "@/components/layout/Footer"
 import JsonLdScript from "@/components/seo/JsonLdScript"
 import { buildBlogIndexJsonLd } from "@/lib/schema"
-import { getAllArticles } from "@/sanity/lib/queries"
+import { getAllArticlesSafe } from "@/sanity/lib/fetch-articles-safe"
 import { urlForImage } from "@/sanity/lib/image"
 
 export const revalidate = 60
@@ -52,7 +52,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 const formatCategory = (slug: string) => CATEGORY_LABELS[slug] ?? slug
 
 const BlogPage = async () => {
-  const articles = await getAllArticles()
+  const articles = await getAllArticlesSafe()
   const jsonLd = buildBlogIndexJsonLd(articles)
 
   return (
@@ -178,6 +178,27 @@ const BlogPage = async () => {
                 })}
               </ul>
             )}
+          </div>
+        </section>
+
+        <section className="border-t border-border py-12 md:py-16">
+          <div className="container">
+            <div className="mx-auto max-w-3xl rounded-2xl border border-border bg-surface p-8 text-center md:p-10">
+              <h2 className="font-display text-2xl font-bold text-fg md:text-3xl">
+                Un projet de site en Moselle-Est ?
+              </h2>
+              <p className="mt-4 text-fg-muted">
+                Pages dédiées par ville, tarifs transparents et devis gratuit
+                sous 24h pour artisans et PME de la région.
+              </p>
+              <Link
+                href="/creation-site-internet-moselle-est"
+                className="mt-6 inline-flex items-center gap-2 font-semibold text-brand transition-colors hover:text-brand-red"
+              >
+                Création de site internet en Moselle-Est
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
           </div>
         </section>
       </main>

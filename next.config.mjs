@@ -28,6 +28,21 @@ const nextConfig = {
         destination: "https://nowakowski-web.fr/:path*",
         permanent: true,
       },
+      {
+        source: "/creation-site-internet/:slug",
+        destination: "/creation-site-internet-:slug",
+        permanent: true,
+      },
+      {
+        source: "/blog/site-internet-plombier-moselle",
+        destination: "/blog/site-internet-plombier",
+        permanent: true,
+      },
+      {
+        source: "/blog/site-web-artisan-moselle-tarif",
+        destination: "/blog/combien-coute-un-site-internet",
+        permanent: true,
+      },
     ]
   },
   images: {
@@ -47,10 +62,16 @@ const nextConfig = {
   async rewrites() {
     const privateClientPaths = ["olivia", "bocreno", "braun"]
 
-    return privateClientPaths.map((slug) => ({
-      source: `/${slug}`,
-      destination: `/${slug}/index.html`,
-    }))
+    return [
+      {
+        source: "/creation-site-internet-:slug",
+        destination: "/creation-site-internet/:slug",
+      },
+      ...privateClientPaths.map((slug) => ({
+        source: `/${slug}`,
+        destination: `/${slug}/index.html`,
+      })),
+    ]
   },
   async headers() {
     const privateNoIndex = {
