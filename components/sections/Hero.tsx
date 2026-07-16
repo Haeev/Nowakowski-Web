@@ -30,10 +30,10 @@ const Hero = () => (
     </span>
 
     <Container className="relative z-10">
-      <p className="mb-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
-        <span aria-hidden className="inline-block h-px w-8 bg-brand" />
-        {siteConfig.name} · {siteConfig.address.locality},{" "}
-        {siteConfig.address.region}
+      <p className="mb-6 inline-flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wide text-brand">
+        <span aria-hidden className="inline-block h-px w-8 shrink-0 bg-brand" />
+        Livré sous 2 semaines · À partir de 1&nbsp;000€ · Contact direct avec{" "}
+        {siteConfig.founder.givenName}
       </p>
 
       <h1 className="font-display font-extrabold tracking-tight text-balance text-5xl leading-[1.1] sm:text-6xl md:text-7xl lg:text-8xl lg:leading-[1.05]">
@@ -41,9 +41,8 @@ const Hero = () => (
         <span className="text-gradient text-glow">Moselle</span>
       </h1>
 
-      <p className="animate-hero-fade-up mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl">
-        Livré sous 2 semaines, à partir de 1&nbsp;000€. Contact direct avec{" "}
-        {siteConfig.founder.givenName}.
+      <p className="animate-hero-fade-up mt-6 max-w-2xl text-base font-semibold text-fg md:text-lg">
+        Création de sites internet pour artisans et PME en Moselle-Est
       </p>
 
       <div
@@ -51,9 +50,24 @@ const Hero = () => (
         className="animate-hero-line mt-8 h-[2px] w-full max-w-md bg-gradient-brand"
       />
 
+      <p
+        className="animate-hero-fade-up mt-8 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl"
+        style={{ animationDelay: "0.5s" }}
+      >
+        Votre prochain client vous cherche sur Google. Je crée le site qui lui
+        donne envie de{" "}
+        <span
+          className="font-bold text-brand"
+          style={{ textShadow: "0 0 18px rgba(171,25,245,0.5)" }}
+        >
+          vous
+        </span>{" "}
+        appeler, pas votre concurrent. Artisans et PME en Moselle et Grand Est.
+      </p>
+
       <div
         className="animate-hero-fade-up mt-10 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center"
-        style={{ animationDelay: "0.5s" }}
+        style={{ animationDelay: "0.65s" }}
       >
         <div className="transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]">
           <Button href="#tarifs">Voir les tarifs</Button>
@@ -75,7 +89,7 @@ const Hero = () => (
 
       <ul
         className="animate-hero-fade-up mt-10 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-fg-muted"
-        style={{ animationDelay: "0.65s" }}
+        style={{ animationDelay: "0.8s" }}
       >
         {TRUST_BADGES.map((badge, i) => (
           <li key={badge} className="flex items-center gap-2">
