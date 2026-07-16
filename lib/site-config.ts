@@ -4,9 +4,8 @@ export const siteConfig = {
   domain: "nowakowski-web.fr",
   productionUrl: "https://nowakowski-web.fr",
   description:
-    "Création de sites web professionnels pour artisans et PME en Moselle. Conformes RGPD et RGAA. À partir de 1 000€. Livrés sous 2 semaines.",
-  shortDescription:
-    "Création de sites web pour artisans et PME en Moselle.",
+    "Sites web pour artisans en Moselle. Livré sous 2 semaines, à partir de 1 000€. Contact direct avec Loïc. Garantie 30 jours.",
+  shortDescription: "Sites web pour artisans en Moselle.",
   contact: {
     phoneRaw: "+33652769372",
     phoneDisplay: "06 52 76 93 72",

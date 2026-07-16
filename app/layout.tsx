@@ -49,11 +49,11 @@ const SITE_URL = getSiteUrl()
 export const metadata: Metadata = {
   metadataBase: getSiteUrlObject(),
   title: {
-    default: `${siteConfig.name} : Sites web pour artisans en Moselle et Grand Est`,
+    default: `${siteConfig.name} : Sites web pour artisans en Moselle`,
     template: `%s | ${siteConfig.name}`,
   },
   description:
-    "Création de sites web professionnels pour artisans et PME en Moselle. Conformes RGPD et RGAA. À partir de 1 000€. Livrés sous 2 semaines.",
+    "Sites web pour artisans en Moselle. Livré sous 2 semaines, à partir de 1 000€. Contact direct avec Loïc. Garantie 30 jours.",
   manifest: "/manifest.json",
   icons: {
     icon: [
@@ -110,23 +110,23 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: SITE_URL,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} : sites web pour artisans à Forbach et en Moselle`,
+    title: `${siteConfig.name} : Sites web pour artisans en Moselle`,
     description:
-      "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 000€, livré sous 2 semaines. Hébergement inclus.",
+      "Sites web pour artisans en Moselle. Livré sous 2 semaines, à partir de 1 000€. Contact direct avec Loïc. Garantie 30 jours.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} : Création de sites web Moselle Grand Est`,
+        alt: `${siteConfig.name} : Sites web pour artisans en Moselle`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} : sites web pour artisans en Moselle`,
+    title: `${siteConfig.name} : Sites web pour artisans en Moselle`,
     description:
-      "Sites web professionnels pour artisans et PME à Forbach et en Moselle. À partir de 1 000€, livré sous 2 semaines. Hébergement inclus.",
+      "Sites web pour artisans en Moselle. Livré sous 2 semaines, à partir de 1 000€. Contact direct avec Loïc. Garantie 30 jours.",
     images: ["/og-image.jpg"],
   },
   alternates: {

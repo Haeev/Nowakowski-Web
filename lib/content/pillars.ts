@@ -1,8 +1,8 @@
 import {
-  MapPin,
-  Zap,
+  SearchCheck,
   ShieldCheck,
-  MessageCircle,
+  Clock,
+  Scale,
   type LucideIcon,
 } from "lucide-react"
 
@@ -14,15 +14,10 @@ export type Pillar = {
 
 export const PILLARS: Pillar[] = [
   {
-    icon: MapPin,
-    title: "Direct",
+    icon: SearchCheck,
+    title: "Audit gratuit",
     description:
-      "Vous parlez à la personne qui fait votre site, pas à un commercial. Une seule personne, du devis à la livraison.",
-  },
-  {
-    icon: Zap,
-    title: "Rapide",
-    description: "Site livré sous 2 semaines. Pas 3 mois d'attente.",
+      "Analyse de votre présence en ligne : vitesse, SEO, mobile. Vous savez où vous en êtes avant de décider.",
   },
   {
     icon: ShieldCheck,
@@ -31,10 +26,16 @@ export const PILLARS: Pillar[] = [
       "Pas satisfait dans le mois suivant la livraison ? Je modifie sans frais ou je rembourse intégralement.",
   },
   {
-    icon: MessageCircle,
-    title: "Joignable",
+    icon: Clock,
+    title: "Devis sous 24h",
     description:
-      "Un numéro, un WhatsApp. Pas un formulaire qui disparaît.",
+      "Vous décrivez votre projet, je vous renvoie un devis clair et chiffré dans la journée. Sans engagement.",
+  },
+  {
+    icon: Scale,
+    title: "RGPD & RGAA",
+    description:
+      "Sites conformes au RGPD et accessibles (RGAA). Vos données et vos visiteurs sont protégés.",
   },
 ]
 

@@ -1,5 +1,5 @@
 export const TRUST_BADGES: string[] = [
   "✓ Livraison en 2 semaines",
-  "✓ Hébergement inclus",
+  "✓ Garantie 30 jours",
   "✓ Joignable par WhatsApp",
 ]

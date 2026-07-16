@@ -14,7 +14,7 @@ const buildJsonLd = () => ({
       name: siteConfig.name,
       legalName: siteConfig.legalName,
       description:
-        "Création de sites web professionnels pour artisans et PME en Moselle et Grand Est. Sites modernes, conformes RGPD et RGAA, hébergement et maintenance inclus.",
+        "Sites web pour artisans en Moselle. Livré sous 2 semaines, à partir de 1 000€. Contact direct avec Loïc. Garantie 30 jours. Conformes RGPD et RGAA.",
       url: SITE_URL,
       telephone: PHONE,
       email: EMAIL,
